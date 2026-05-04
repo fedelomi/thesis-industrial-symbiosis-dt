@@ -1,0 +1,5 @@
+iteration,delta_max_is_match,delta_mean_is_match,converged,threshold,phase3_source
+1,0.0573,0.04131,False,0.01,placeholder
+2,0.0287,0.02067,False,0.01,placeholder
+3,0.0144,0.01036,False,0.01,placeholder
+4,0.0072,0.00516,True,0.01,placeholder

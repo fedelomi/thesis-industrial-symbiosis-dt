@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables (NEVER commit credentials)
+.env
+.env.*
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Neo4j local data
+neo4j_data/
+neo4j_logs/
+
+# Large model / embedding cache
+*.bin
+*.pt
+*.ckpt
+sentence_transformers/
+.cache/
+
+# Logs
+*.log
+logs/

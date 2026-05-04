@@ -1,0 +1,10 @@
+dc_name,tier,data_source,n_pairs,n_feasible,RI_static_mean,RI_static_max,RI_temp_mean,dist_mean_km
+Edge_LC,LowT_60C,Parametric (ENEA 2021),3,2,0.5701,0.6347,0.7047,50.0
+Mid_LC,LowT_60C,Parametric (ENEA 2021),3,3,0.7194,0.7289,0.7047,50.0
+Hyperscale_LC,LowT_60C,Parametric (ENEA 2021),3,3,0.7084,0.7188,0.6771,50.0
+Edge_LC,MidT_90C,Parametric — Hotmaps-informed (Manz & Fleiter 2018),3,0,0.2425,0.2614,0.3465,90.0
+Mid_LC,MidT_90C,Parametric — Hotmaps-informed (Manz & Fleiter 2018),3,0,0.2778,0.291,0.3465,90.0
+Hyperscale_LC,MidT_90C,Parametric — Hotmaps-informed (Manz & Fleiter 2018),3,3,0.5407,0.5556,0.3329,90.0
+Edge_LC,HighT_130C,Parametric (CE-HEAT WP3/WP4),3,0,0.165,0.2029,0.1225,105.0
+Mid_LC,HighT_130C,Parametric (CE-HEAT WP3/WP4),3,0,0.3795,0.4485,0.1225,105.0
+Hyperscale_LC,HighT_130C,Parametric (CE-HEAT WP3/WP4),3,1,0.4721,0.514,0.1177,105.0

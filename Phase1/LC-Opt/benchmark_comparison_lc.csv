@@ -1,0 +1,6 @@
+case_name,source,year,T_supply_C,Q_kW,ERF_published,closest_scenario,model_TWH_mean_C,model_ERF,T_delta_C,ERF_delta,plausibility_flag,upgrade_needed_model,notes
+Bahnhof Pionen (Stockholm),IEA HPT Annex 47,2023,68.0,600.0,,Edge_LC,47.6,0.81,20.4,,outside_range,Heat pump required (ΔT=20.4°C),Two series HPs; 67m pipe to DH return; 975 kW heat output
+Aquasar ETH Zurich,ICEF SDC Roadmap 2025,2022,65.0,10.0,0.8,Edge_LC,47.6,0.81,17.4,-0.01,within_range,Heat pump required (ΔT=17.4°C),Campus heating; ~80pct capture; $1.25M/year savings (includes cooling cost offset)
+iDataCool Germany,ICEF SDC Roadmap 2025,2022,65.0,,,Edge_LC,47.6,0.81,17.4,,within_range,Heat pump required (ΔT=17.4°C),HPC + adsorption chiller; hot-water cooling ~65 C
+Meta Odense Denmark,ICEF SDC Roadmap 2025,2020,57.5,,,Edge_LC,47.6,0.81,9.9,,within_range,Heat pump required (ΔT=9.9°C),HP to Fjernvarme Fyn; 7000+ homes served; operating since 2020
+EcoDataCenter Falun,EcoDataCenter press release 2022,2022,55.0,,,Edge_LC,47.6,0.81,7.4,,within_range,Heat pump required (ΔT=7.4°C),Climate-positive DC; WHR to DH + biofuel; Falun SE; 80 MW secured power

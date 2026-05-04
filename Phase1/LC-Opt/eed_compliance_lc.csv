@@ -1,0 +1,4 @@
+scenario,IT_power_kW,total_rated_kW,EU_size_category,Art12_applicable,Art26_applicable,WHR_active,ERF_mean,Art26_exception_required,TEE_estimated_eur_year,note
+Edge_LC,500,590,Very small (<=500 kW),True,False,True,0.81,False,55000,"Reporting required (IT >= 500 kW); Below threshold (total 590 kW <= 1,000 kW)"
+Mid_LC,3200,3765,Large (2-10 MW),True,True,True,0.81,False,360000,"Reporting required (IT >= 500 kW); WHR obligation applies (total 3,765 kW > 1,000 kW)"
+Hyperscale_LC,25000,29412,Very large (>10 MW),True,True,True,0.81,False,2842000,"Reporting required (IT >= 500 kW); WHR obligation applies (total 29,412 kW > 1,000 kW)"

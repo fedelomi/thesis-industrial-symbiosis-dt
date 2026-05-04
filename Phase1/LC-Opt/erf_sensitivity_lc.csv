@@ -1,0 +1,16 @@
+scenario,cooling_technology,capture_fraction,ERF,Q_negotiated_mean_kW,TEE_baseline_eur_year,TEE_delta_eur_year,vs_baseline_pct
+Edge_LC,air_cooled_rear_door,0.7,0.49,266.0,55000,-21728.0,-39.51
+Edge_LC,direct_liquid_cooling,0.8,0.64,304.0,55000,-11543.0,-20.99
+Edge_LC,single_phase_immersion_conservative,0.9,0.81,342.0,55000,0.0,0.0
+Edge_LC,single_phase_immersion_optimal,0.95,0.9025,361.1,55000,6281.0,11.42
+Edge_LC,full_immersion,0.99,0.9801,376.3,55000,11550.0,21.0
+Mid_LC,air_cooled_rear_door,0.7,0.49,1738.5,360000,-142222.0,-39.51
+Mid_LC,direct_liquid_cooling,0.8,0.64,1986.8,360000,-75556.0,-20.99
+Mid_LC,single_phase_immersion_conservative,0.9,0.81,2235.2,360000,0.0,0.0
+Mid_LC,single_phase_immersion_optimal,0.95,0.9025,2359.4,360000,41111.0,11.42
+Mid_LC,full_immersion,0.99,0.9801,2458.7,360000,75600.0,21.0
+Hyperscale_LC,air_cooled_rear_door,0.7,0.49,13722.0,2842000,-1122765.0,-39.51
+Hyperscale_LC,direct_liquid_cooling,0.8,0.64,15682.3,2842000,-596469.0,-20.99
+Hyperscale_LC,single_phase_immersion_conservative,0.9,0.81,17642.6,2842000,0.0,0.0
+Hyperscale_LC,single_phase_immersion_optimal,0.95,0.9025,18622.7,2842000,324549.0,11.42
+Hyperscale_LC,full_immersion,0.99,0.9801,19406.8,2842000,596820.0,21.0

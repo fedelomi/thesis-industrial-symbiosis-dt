@@ -1,0 +1,56 @@
+{
+  "DC-S": {
+    "hs_updated": 3,
+    "stats": {
+      "dc_id": "DC-S",
+      "scale": "Edge",
+      "it_capacity_kw": 500,
+      "t_supply_mean_c": 47.6,
+      "t_supply_std_c": 1.2,
+      "t_supply_min_c": 44.1,
+      "t_supply_max_c": 51.3,
+      "q_available_mean_kw": 590.0,
+      "q_available_std_kw": 28.4,
+      "exergy_dt_mean_kwh": 0.753,
+      "t_availability": 0.982,
+      "annual_mwh": 5168.4,
+      "source": "Phase1-LC-gate-PASS-2026-04-29"
+    }
+  },
+  "DC-M": {
+    "hs_updated": 3,
+    "stats": {
+      "dc_id": "DC-M",
+      "scale": "Mid-size",
+      "it_capacity_kw": 3200,
+      "t_supply_mean_c": 47.6,
+      "t_supply_std_c": 1.1,
+      "t_supply_min_c": 44.8,
+      "t_supply_max_c": 50.9,
+      "q_available_mean_kw": 3776.0,
+      "q_available_std_kw": 181.2,
+      "exergy_dt_mean_kwh": 0.753,
+      "t_availability": 0.986,
+      "annual_mwh": 33075.4,
+      "source": "Phase1-LC-gate-PASS-2026-04-29 (anchored to Frontier LC-Opt)"
+    }
+  },
+  "DC-L": {
+    "hs_updated": 3,
+    "stats": {
+      "dc_id": "DC-L",
+      "scale": "Hyperscale",
+      "it_capacity_kw": 25000,
+      "t_supply_mean_c": 47.6,
+      "t_supply_std_c": 0.9,
+      "t_supply_min_c": 45.2,
+      "t_supply_max_c": 50.1,
+      "q_available_mean_kw": 29500.0,
+      "q_available_std_kw": 1416.0,
+      "exergy_dt_mean_kwh": 0.753,
+      "t_availability": 0.991,
+      "annual_mwh": 258420.0,
+      "source": "Phase1-LC-gate-PASS-2026-04-29 (scaling from Mid_LC)"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+scenario,feature,w1_raw,w1_norm,w1_gate,nde,nde_gate,threshold_w1,threshold_nde,ks_note
+Edge_LC,T_supply,0.0196,0.0004,PASS,0.0005,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Edge_LC,Q_available,1385.3382,0.0036,PASS,0.0005,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Edge_LC,Exergy_DT,76.0248,0.0038,PASS,0.0005,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Mid_LC,T_supply,0.0109,0.0002,PASS,0.0005,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Mid_LC,Q_available,2687.0048,0.0011,PASS,0.0004,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Mid_LC,Exergy_DT,271.5971,0.0021,PASS,0.0006,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Hyperscale_LC,T_supply,0.0078,0.0002,PASS,0.0005,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Hyperscale_LC,Q_available,14901.9052,0.0008,PASS,0.0005,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)
+Hyperscale_LC,Exergy_DT,1446.1563,0.0015,PASS,0.0006,PASS,0.1,0.2,See KS_TEST_METHODOLOGICAL_NOTE in source file (Ch. 4.3)

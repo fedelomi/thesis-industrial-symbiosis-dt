@@ -1,0 +1,10 @@
+dc_name,process_name,t_dc_mean_c,t_dc_max_c,t_req_c,delta_t_vs_mean_c,delta_t_vs_max_c,upgrade_tech_mean,upgrade_tech_max,k,r,epsilon,pass_gate,note
+Edge_LC,LowT_60C,47.6,50.0,60.0,12.4,10.0,HP,HP,0.92,0.06,0.8648,True,HP; ΔT(mean)=12.4°C
+Edge_LC,MidT_90C,47.6,50.0,90.0,42.4,40.0,HP,HP,0.92,0.06,0.8648,True,HP; ΔT(mean)=42.4°C
+Edge_LC,HighT_130C,47.6,50.0,130.0,82.4,80.0,CO2_HTHP,CO2_HTHP,0.85,0.08,0.782,True,CO2_HTHP; ΔT(mean)=82.4°C
+Mid_LC,LowT_60C,47.6,50.0,60.0,12.4,10.0,HP,HP,0.92,0.06,0.8648,True,HP; ΔT(mean)=12.4°C
+Mid_LC,MidT_90C,47.6,50.0,90.0,42.4,40.0,HP,HP,0.92,0.06,0.8648,True,HP; ΔT(mean)=42.4°C
+Mid_LC,HighT_130C,47.6,50.0,130.0,82.4,80.0,CO2_HTHP,CO2_HTHP,0.85,0.08,0.782,True,CO2_HTHP; ΔT(mean)=82.4°C
+Hyperscale_LC,LowT_60C,46.0,48.0,60.0,14.0,12.0,HP,HP,0.92,0.06,0.8648,True,HP; ΔT(mean)=14.0°C
+Hyperscale_LC,MidT_90C,46.0,48.0,90.0,44.0,42.0,HP,HP,0.92,0.06,0.8648,True,HP; ΔT(mean)=44.0°C
+Hyperscale_LC,HighT_130C,46.0,48.0,130.0,84.0,82.0,CO2_HTHP,CO2_HTHP,0.85,0.08,0.782,True,CO2_HTHP; ΔT(mean)=84.0°C

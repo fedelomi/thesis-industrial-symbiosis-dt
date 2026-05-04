@@ -1,0 +1,10 @@
+{
+  "reduction_factors": {
+    "LowT_60C": 0.5,
+    "MidT_90C": 0.5,
+    "HighT_130C": 0.5
+  },
+  "total_queries": 90,
+  "resolved": 90,
+  "avg_elapsed_ms": 25.391295221116806
+}

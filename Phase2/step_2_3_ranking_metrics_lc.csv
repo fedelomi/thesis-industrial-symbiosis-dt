@@ -1,0 +1,9 @@
+method,dc_name,ndcg_at_k,precision_at_3,n_marginal_plus,n_feasible_baseline,ri_gt05_rate_pct
+IS-Match_LC,Edge_LC,1.0,0.3333,9.0,4.0,44.4
+IS-Match_LC,Mid_LC,1.0,0.3333,9.0,6.0,66.7
+IS-Match_LC,Hyperscale_LC,1.0,0.3333,9.0,6.0,66.7
+IS-Match_LC,ALL,1.0,0.3333,9.0,5.3,59.3
+RI_static_baseline,Edge_LC,1.0,0.3333,18.0,4.0,44.4
+RI_static_baseline,Mid_LC,1.0,0.3333,27.0,6.0,66.7
+RI_static_baseline,Hyperscale_LC,1.0,0.3333,27.0,6.0,66.7
+RI_static_baseline,ALL,1.0,0.3333,24.0,5.3,59.3

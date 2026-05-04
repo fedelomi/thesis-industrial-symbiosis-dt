@@ -1,0 +1,45 @@
+Benchmark QA Dataset — Phase 3 Graph RAG IS
+Total questions : 100
+
+By category:
+  comparative               33
+  factual-lookup            34
+  multi-hop-is              33
+
+By difficulty:
+  easy       27
+  hard       19
+  medium     54
+
+By hop count:
+  1-hop       12
+  2-hop       22
+  3-hop       29
+  4-hop       33
+  5-hop       4
+
+Source clauses covered:
+  ASHRAE-90.4
+  Country-DK
+  Country-IT
+  DEL-REG-ART-2
+  DK-3GDH-GENERIC
+  DK-4GDH-GENERIC
+  DK-DH-ACT-CONNECTION-MANDATE
+  DK-DH-PLANNING-ACT
+  DK-NECP-2024
+  DataCenter-DC-L
+  DataCenter-DC-M
+  DataCenter-DC-S
+  EED-2023-1791
+  EED-ART-23
+  EED-ART-24
+  EED-ART-26
+  ISO-23247
+  IT-DM-2021-05-21
+  IT-TEE-CB
+  IndustrialSector-food-drink-milk
+  IndustrialSector-paper-pulp
+  TemperatureBand-T1
+  TemperatureBand-T2
+  TemperatureBand-T3

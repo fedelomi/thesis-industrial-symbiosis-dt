@@ -1,0 +1,10 @@
+rank,dc_name,process_name,ri_temporal,exergy_dt_norm,delta_tc_norm,is_match_score,tier,beta,gamma,delta,n_weighted_steps,exergy_norm_method
+1,Edge_LC,LowT_60C,0.6966,0.7529,0.25,0.5298,marginal,0.4,0.4,0.2,35040,per_scenario
+2,Mid_LC,LowT_60C,0.6966,0.7529,0.25,0.5298,marginal,0.4,0.4,0.2,35040,per_scenario
+3,Hyperscale_LC,LowT_60C,0.691,0.7583,0.25,0.5297,marginal,0.4,0.4,0.2,35040,per_scenario
+4,Mid_LC,MidT_90C,0.5956,0.7529,0.4167,0.4561,marginal,0.4,0.4,0.2,16704,per_scenario
+5,Edge_LC,MidT_90C,0.5956,0.7529,0.4167,0.4561,marginal,0.4,0.4,0.2,16704,per_scenario
+6,Hyperscale_LC,MidT_90C,0.5896,0.7583,0.4167,0.4558,marginal,0.4,0.4,0.2,16704,per_scenario
+7,Edge_LC,HighT_130C,0.4406,0.7529,0.5733,0.3628,marginal,0.4,0.4,0.2,16704,per_scenario
+8,Mid_LC,HighT_130C,0.4406,0.7529,0.5733,0.3628,marginal,0.4,0.4,0.2,16704,per_scenario
+9,Hyperscale_LC,HighT_130C,0.4346,0.7583,0.5733,0.3625,marginal,0.4,0.4,0.2,16704,per_scenario

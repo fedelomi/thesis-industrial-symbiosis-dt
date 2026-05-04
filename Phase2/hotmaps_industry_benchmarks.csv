@@ -1,0 +1,65 @@
+﻿Subsector,Process,SEC_Fuels_GJ/t,SEC_Electricity_GJ/t,Fuels_share_for_heating,Electricity_share_for_heating,Process_heat_below100C,Process_heat_100C-200C,Process_heat_200C-500C,Process_heat_500C-1000C,Process_heat_above1000C,Fuels_share_for_cooling,Electricity_share_for_cooling,Process_cooling_below-30C,Process_cooling_-30-0C,Process_cooling_0-15C,Literature_for_heating_and_cooling_demand,Excess_heat_share_of_fuels_at_100-200C,Excess_heat_share_of_fuels_at_200-500C,Excess_heat_share_of_fuels_at_above500C,Excess_heat_share_of_electricity_at_100-200C,Excess_heat_share_of_electricity_at_200-500C,Excess_heat_share_of_electricity_at_above500_C,Literature_for_excess_heat
+ Iron and steel,Sinter,2.24,0.13,1.00,,,,0.20,0.80,,,,,,,Arens et al. 2012; Arens et al. 2016,,0.33,,,,,McKenna 2008
+ Iron and steel,Blast furnace,11.64,0.60,1.00,,0.01,0.01,0.11,0.20,0.67,,,,,,Arens et al. 2012; Arens et al. 2016,0.03,,,,,,McKenna 2008
+ Iron and steel,Electric arc furnace,0.98,2.28,1.00,0.95,,0.01,,0.10,0.89,,,,,,Arens et al. 2012; Arens et al. 2016,,0.30,,,,0.08,Element energy et al 2016; Rehfeldt 2014
+ Iron and steel,Rolled steel,2.39,0.60,1.00,0.10,,,,0.20,0.80,,,,,,Arens et al. 2012; Arens et al. 2016,,0.12,,,,,Rehfeldt 2014
+ Iron and steel,Coke oven,3.20,0.12,1.00,,,,,0.20,0.80,,,,,,Brauer 1996,,,0.06,,,,McKenna 2008
+ Iron and steel,Smelting reduction,15.00,0.42,1.00,,,,,0.20,0.80,,,,,,Hara et al. 1999; Primetals 2015,,,,,,,
+ Iron and steel,Direct reduction,15.00,0.42,1.00,,,,0.20,0.80,,,,,,,Midrex 2013; Cheeley 1999,,0.25,,,,,Rehfeldt 2014
+ Non-ferrous metals,Aluminum primary,5.20,53.64,1.00,0.05,,,,1.00,,,,,,,Fleiter et al. 2013; Winnacker-Küchler 2006,,,,0.10,,,McKenna 2008
+ Non-ferrous metals,Aluminum secondary,9.00,1.67,1.00,0.30,0.28,,0.30,0.42,,,,,,,Krone 2000,,0.20,,,,,Rehfeldt 2014
+ Non-ferrous metals,Aluminum extruding,4.20,4.80,1.00,0.30,,,1.00,,,,,,,,Krone 2000,,,,,,,
+ Non-ferrous metals,Aluminum foundries,7.20,5.60,1.00,0.30,,,,1.00,,,,,,,Fleiter et al. 2013; Krone 2000,,0.20,,,,,Rehfeldt 2014
+ Non-ferrous metals,Aluminium rolling,3.30,2.20,1.00,0.30,,,1.00,,,,,,,,Krone 2000,,,,,,,
+ Non-ferrous metals,Copper primary,8.00,2.79,1.00,0.20,,,,,1.00,,,,,,Fleiter et al. 2013; Winnacker-Küchler 2006,0.42,,,,,,Aurubis Hamburg Umwelterklärung und FW Ausbau
+ Non-ferrous metals,Copper secondary,4.00,2.33,1.00,0.10,,,,1.00,,,,,,,Winnacker-Küchler 2006,,,,,,,
+ Non-ferrous metals,Copper further treatment,2.00,3.78,1.00,0.15,,,1.00,,,,,,,,Winnacker-Küchler 2006,,,,,,,
+ Non-ferrous metals,Zinc primary,1.00,15.90,1.00,0.01,,,,,1.00,,,,,,Winnacker-Küchler 2006,,,,,,,
+ Non-ferrous metals,Zinc secondary,1.00,0.60,1.00,0.01,,,1.00,,,,,,,,Winnacker-Küchler 2006,,0.18,,,,,Rehfeldt 2014
+ Paper and Printing,Paper,5.50,1.91,1.00,0.01,0.05,0.88,0.05,0.02,,,0.01,,,1.00,Fleiter et al. 2013; Fleiter et al. 2012; van Deventer 1997,0.10,,,,,,McKenna 2008
+ Paper and Printing,Chemical pulp,12.65,2.30,1.00,0.01,,1.00,,,,,,,,,Fleiter et al. 2013; Fleiter et al. 2012;  Bakhtiari et al. 2010,,,,,,,
+ Paper and Printing,Mechanical pulp,-2.01,7.92,1.00,0.01,1.00,,,,,,,,,,Fleiter et al. 2013; Fleiter et al. 2012; Laurijssen et al. 2012,,,,,,,
+ Paper and Printing,Recovered fibers,0.54,0.94,1.00,0.01,,1.00,,,,,,,,,Fleiter et al. 2013; Fleiter et al. 2012; Laurijssen et al. 2012,,,,,,,
+ Non-metallic minerals,Container glass,5.78,1.41,1.00,0.04,0.02,0.19,0.19,0.30,0.30,,0.06,,,1.00,BREF Glass 2013; Büchel et al. 1999,,0.20,,,,,Rehfeldt 2014
+ Non-metallic minerals,Flat glass,10.92,3.32,1.00,,0.02,0.21,0.43,0.12,0.22,,0.06,,,1.00,BREF Glass 2013; Büchel et al. 1999,,,0.20,,,,McKenna 2008
+ Non-metallic minerals,Fiber glass,4.92,1.81,1.00,0.20,0.02,0.19,0.19,0.30,0.30,,0.06,,,1.00,BREF Glass 2013; Büchel et al. 1999,,,0.20,,,,McKenna 2008
+ Non-metallic minerals,Other glass,11.48,5.05,1.00,0.17,0.02,0.22,0.22,0.22,0.32,,0.06,,,1.00,BREF Glass 2013; Büchel et al. 1999,,,0.20,,,,McKenna 2008
+ Non-metallic minerals,Houseware and sanitary ware,24.24,4.82,1.00,0.01,0.30,,,0.05,0.65,,0.06,,,1.00,BREF Ceramic 2007; Büchel et al. 1999; Fleiter et al. 2013,0.10,,,,,,McKenna 2008
+ Non-metallic minerals,Technical and other ceramics,12.11,3.23,1.00,0.01,0.30,0.15,0.15,0.25,0.15,,0.06,,,1.00,BREF Ceramic 2007;Büchel et al. 1999; Fleiter et al. 2013,0.10,,,,,,McKenna 2008
+ Non-metallic minerals,Tiles plates refractories,5.46,0.88,1.00,0.01,0.07,0.11,0.07,0.18,0.57,,0.06,,,1.00,BREF Ceramic 2007; Büchel et al. 1999; Fleiter et al. 2013,0.10,,,,,,McKenna 2008
+ Non-metallic minerals,Clinker calcination-dry,3.50,0.14,1.00,,,,0.10,0.60,0.30,,,,,,Rahman et al. 2013; Patil&Khond 2014; Büchel et al. 1999,,0.20,,,,,McKenna 2008; Element energy et al. 2016
+ Non-metallic minerals,Clinker calcination-semidry,4.00,0.16,1.00,,,,0.10,0.60,0.30,,,,,,Rahman et al. 2013; Patil&Khond 2014; Büchel et al. 1999,,0.20,,,,,McKenna 2008; Element energy et al. 2016
+ Non-metallic minerals,Clinker calcination-wet,5.50,0.16,1.00,,,,0.10,0.60,0.30,,,,,,Rahman et al. 2013; Patil&Khond 2014; Büchel et al. 1999,,0.20,,,,,McKenna 2008; Element energy et al. 2016
+ Non-metallic minerals,Preperation of limestone,,0.13,1.00,,1.00,,,,,,,,,,Fleiter et al. 2013,,,,,,,
+ Non-metallic minerals,Gypsum,1.00,0.20,1.00,,,0.50,0.30,0.20,,,,,,,Bundesverband der Gipsindustrie 2013; Büchel et al. 1999,0.10,,,,,,McKenna 2008
+ Non-metallic minerals,Cement grinding,,0.20,1.00,,1.00,,,,,,,,,,Fleiter et al. 2013,,,,,,,
+ Non-metallic minerals,Lime milling,,0.16,1.00,,1.00,,,,,,,,,,Fleiter et al. 2013,,,,,,,
+ Non-metallic minerals,Bricks,1.40,0.20,1.00,,0.20,,,0.60,0.20,,,,,,Fleiter et al. 2013; Dondi et al. 1997,,0.10,,,,,McKenna 2008; Element energy et al 2016
+ Non-metallic minerals,Lime burning,3.70,0.14,1.00,,,,,0.40,0.60,,,,,,Gutierrez and Vandecasteele 2011; Büchel et al. 1999,,0.15,,,,,McKenna 2008; Element energy et al 2016
+ Basic chemicals,Adipic acid,26.91,1.44,1.00,,,0.50,0.25,0.25,,,0.06,0.20,0.30,0.50,Fleiter et al. 2013; Weissermel and Arpe 1998,,,,,,,
+ Basic chemicals,Ammonia,11.27,0.48,1.00,,,,,0.66,0.33,,0.06,0.20,0.30,0.50,Fleiter et al. 2013; Büchel et al. 1999,,0.10,,,,,McKenna 2008
+ Basic chemicals,Calcium carbide,6.12,8.32,1.00,0.95,,,,,1.00,,0.02,0.20,0.30,0.50,Fleiter et al. 2013; Weissermel and Arpe 1998,,,,,,,
+ Basic chemicals,Carbon black,64.75,1.78,1.00,,,,,,1.00,,0.06,0.20,0.30,0.50,Fleiter et al. 2013; Büchel et al. 1999,0.10,,,,,,McKenna 2008
+ Basic chemicals,Chlorine diaphragma,,10.69,1.00,,,,,,,,0.05,0.20,0.40,0.40,Fleiter et al. 2013; Büchel et al. 1999,,,,,,,
+ Basic chemicals,Chlorine membrane,1.85,10.04,1.00,,,1.00,,,,,0.05,0.20,0.40,0.40,Fleiter et al. 2013; Büchel et al. 1999,,,,,,,
+ Basic chemicals,Chlorine mercury,,12.82,1.00,,,,,,,,0.04,0.20,0.40,0.40,Fleiter et al. 2013; Büchel et al. 1999,,,,,,,
+ Basic chemicals,Ethylene,35.90,,1.00,,,,,1.00,,,,0.15,0.50,0.35,Fleiter et al. 2013; Weissermel and Arpe 1998,,0.10,,,,,McKenna 2008
+ Basic chemicals,Methanol,15.03,0.49,1.00,,,,,0.22,0.78,,0.04,,0.40,0.60,Fleiter et al. 2013; Weissermel and Arpe 1998,,,,,,,
+ Basic chemicals,Nitric acid,-0.07,,1.00,,,,,,,,0.01,0.20,0.30,0.50,Fleiter et al. 2013,,,,,,,
+ Basic chemicals,Oxygen,,0.95,1.00,,,,,,,,0.96,0.80,0.10,0.10,Fleiter et al. 2013,,,,,,,
+ Basic chemicals,Poly carbonate,12.86,2.66,1.00,,,1.00,,,,,0.02,,0.40,0.60,Fleiter et al. 2013,,,,,,,
+ Basic chemicals,Poly ethylene,0.64,2.04,1.00,,,1.00,,,,,0.02,,0.40,0.60,Fleiter et al. 2013,,,,,,,
+ Basic chemicals,Poly propylene,0.79,1.15,1.00,,,1.00,,,,,0.04,0.05,0.40,0.55,Fleiter et al. 2013,,,,,,,
+ Basic chemicals,Poly sulfones,24.49,3.06,1.00,,,1.00,,,,,0.04,,0.40,0.60,Fleiter et al. 2013,,,,,,,
+ Basic chemicals,Soda ash,11.33,0.33,1.00,,0.30,0.40,,,0.30,,,0.05,0.45,0.50,Fleiter et al. 2013; Büchel et al. 1999,,,,,,,
+ Basic chemicals,TDI,26.69,2.76,1.00,0.05,,1.00,,,,,0.02,,0.30,0.70,Weissermel and Arpe 1998,,,,,,,
+ Basic chemicals,Titanium dioxide,34.23,3.34,1.00,,,0.30,0.23,0.35,0.12,,0.01,,0.40,0.60,Fleiter et al. 2013; Büchel et al. 1999,,,,,,,
+ Food and tobacco,Sugar,4.61,0.69,1.00,,0.10,0.60,,0.30,,,0.42,,0.20,0.80,Fleiter et al. 2013; Lauterbach et al. 2012,0.10,,,,,,McKenna 2008
+ Food and tobacco,Dairy,1.56,0.53,1.00,0.05,0.90,0.10,,,,,0.57,,0.30,0.70,Fleiter et al. 2013; Lauterbach et al. 2012,,,,,,,
+ Food and tobacco,Brewing,0.94,0.38,1.00,0.05,0.55,0.45,,,,,0.41,,0.35,0.65,Fleiter et al. 2013; Lauterbach et al. 2012,0.10,,,,,,McKenna 2008
+ Food and tobacco,Meat processing,2.01,1.51,1.00,0.05,0.40,0.60,,,,,0.61,,0.30,0.70,Fleiter et al. 2013; Lauterbach et al. 2012,,,,,,,
+ Food and tobacco,Bread & bakery,2.40,1.45,1.00,0.45,0.20,0.33,0.47,,,,0.44,,0.10,0.90,Fleiter et al. 2013; Lauterbach et al. 2012,0.10,,,,,,McKenna 2008
+ Food and tobacco,Starch,3.74,1.35,1.00,0.10,1.00,,,,,,0.11,,0.20,0.80,Fleiter et al. 2013,,,,,,,
+ Other industries,Extrusion,1.62,3.01,1.00,0.20,0.20,0.50,0.30,,,,0.07,,,1.00,,,,,,,,
+ Other industries,Injection moulding,3.92,7.28,1.00,0.20,0.20,0.50,0.30,,,,0.03,,,1.00,,,,,,,,
+ Other industries,Blow moulding,2.85,5.30,1.00,0.20,0.20,0.50,0.30,,,,0.04,,,1.00,,,,,,,,
