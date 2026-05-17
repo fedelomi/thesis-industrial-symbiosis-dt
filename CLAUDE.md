@@ -99,7 +99,7 @@ coolprop           # thermodynamic properties
 cvxpy              # convex optimisation (solvers: CLARABEL > SCS > ECOS)
 
 # Knowledge Graph
-neo4j              # local DBMS: Graph_RAG_FL @ bolt://127.0.0.1:7687
+neo4j              # local DBMS: neo4j @ bolt://127.0.0.1:7687
 langchain          # GraphCypherQAChain, RAG pipelines
 ragas              # RAG evaluation benchmark
 
@@ -198,4 +198,5 @@ When Fede references a wiki page during coding:
 - Code, docstrings, comments: **English**
 - Conversation with Fede: **Italian**
 - No em-dash (`—`) anywhere; no Oxford comma in English lists
+
 
