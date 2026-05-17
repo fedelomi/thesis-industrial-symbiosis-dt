@@ -227,7 +227,7 @@ def main() -> None:
 
     print(f"\n  THESIS (Cap. 5.3): Loop converged at N_iter={n_iter_actual} [placeholder].")
     print(f"  Final IS-Match Scores ready as input to Phase 4 RL agents.")
-    print(f"  Update N_iter and ΔTC_post after Phase 3 (Passo 3.5-bis) completion.\n")
+    print(f"  Update N_iter and DeltaTC_post after Phase 3 (Passo 3.5-bis) completion.\n")
 
 
 if __name__ == "__main__":
