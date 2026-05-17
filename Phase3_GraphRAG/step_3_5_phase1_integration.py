@@ -361,8 +361,9 @@ def compute_delta_tc_reduction(query_results: list[dict]) -> dict[str, float]:
     - Ogni query risolta in < 200ms = risparmio 1 round negoziale
     - Ogni query risolta in 200-1000ms = risparmio 0.5 round
     - Ogni query non risolta = 0 risparmio
-    - Round negoziale medio = 2 settimane x costo medio 5k EUR = 10k EUR
-    - ΔTC_reduction = (round_saved x 10k) / ΔTC_baseline
+    - AI-mediated round = 1 kEUR (post-DT + Graph RAG; pre-DT in-person
+      reference was 10 kEUR, recalibrated 2026-05-17).
+    - ΔTC_reduction = (round_saved x 1 kEUR) / ΔTC_baseline
 
     I reduction factors risultanti vengono usati per aggiornare
     i placeholder in step_2_4_delta_tc_calibration_lc.py
@@ -400,8 +401,16 @@ def compute_delta_tc_reduction(query_results: list[dict]) -> dict[str, float]:
             elif r["elapsed_ms"] < 1000:
                 rounds_saved += 0.5
 
-        # Risparmio monetario per coppia
-        cost_per_round_keur = 10.0   # 2 settimane x 5k EUR
+        # Risparmio monetario per coppia.
+        # AI-mediated pre-negotiation round (Digital Twin + Graph RAG) is an order
+        # of magnitude cheaper than the original in-person round (2 weeks of
+        # facilitator + meetings, 10 kEUR). Recalibration 2026-05-17 after
+        # observing 100% cap saturation with the post-migration Haiku+APOC stack:
+        # all 90 KG queries resolve in <200 ms, so the original 10 kEUR/round
+        # accountancy assigned an unrealistic transaction-cost saving and pushed
+        # all bands to the 0.5 cap. Literature: Yazdanpanah ICT-mediated MAS,
+        # B5/B8 IS transaction costs.
+        cost_per_round_keur = 1.0   # 1 AI-mediated clarification round, kEUR
         total_saved_keur = rounds_saved * cost_per_round_keur
         baseline = DELTA_TC_BASELINE_KEUR[band_key]
         reduction = min(total_saved_keur / baseline, 0.50)   # cap a 50%
