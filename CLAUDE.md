@@ -16,7 +16,7 @@ The Obsidian wiki is the knowledge source. The GitHub folder is your workspace.
 
 ## Linked Knowledge Base (Obsidian Vault)
 
-Wiki path: `C:\Users\Feder\OneDrive\Desktop\Vault Obsidian\Test Second Brain`
+Wiki path: `C:\Users\Feder\OneDrive\Desktop\TESI\Vault Obsidian\Test Second Brain`
 
 - Use `[[wikilink]]` notation when referencing wiki pages in comments or notes
 - Source clusters (authoritative, per `wiki/thesis/codes-and-mapping.md`):
@@ -187,7 +187,7 @@ At the end of each session:
 ## Obsidian Wiki Operations
 
 When Fede references a wiki page during coding:
-- Path: `C:\Users\Feder\OneDrive\Desktop\Vault Obsidian\Test Second Brain\wiki\`
+- Path: `C:\Users\Feder\OneDrive\Desktop\TESI\Vault Obsidian\Test Second Brain\wiki\`
 - Read the relevant concept/source page for implementation details
 - Cite the wiki page in the module docstring using `[[page-name]]` notation
 
@@ -198,3 +198,4 @@ When Fede references a wiki page during coding:
 - Code, docstrings, comments: **English**
 - Conversation with Fede: **Italian**
 - No em-dash (`—`) anywhere; no Oxford comma in English lists
+
