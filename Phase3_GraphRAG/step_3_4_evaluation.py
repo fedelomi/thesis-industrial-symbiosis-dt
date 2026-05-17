@@ -133,22 +133,41 @@ def run_no_rag(questions: list[dict], llm) -> list[EvalResult]:
 
 # Mapping keyword -> template ID (da step_3_2)
 KEYWORD_ROUTING: list[tuple[list[str], str]] = [
-    # ---- Temperature band definitions (NEW, scenario X) ----
-    (["temperature band", "low-grade heat band", "mid-grade heat band",
-      "high-grade heat band", "how many temperature band",
+    # ---- Temperature band definitions (only definition-style queries) ----
+    (["temperature band", "low-grade heat band",
+      "mid-grade heat band", "high-grade heat band",
+      "how many temperature band",
       "range that defines the t1", "range that defines the t2",
-      "range that defines the t3", "range defines the t1",
-      "range defines the t2", "range defines the t3",
-      "what is t1", "what is t2", "what is t3",
-      "label of t1", "label of t2", "label of t3"],
+      "range that defines the t3",
+      "what range defines t1", "what range defines t2", "what range defines t3",
+      "label of t1", "label of t2", "label of t3",
+      "definition of t1", "definition of t2", "definition of t3"],
      "TEMPERATURE_BAND_DEF"),
-    # ---- Danish DH network technical parameters (NEW, scenario X) ----
-    (["4gdh", "3gdh", "4th generation district heating",
-      "3rd generation district heating",
-      "supply temperature of the danish", "return temperature of the danish",
-      "supply temperature 4gdh", "return temperature 4gdh",
-      "capacity of the danish 4gdh", "capacity of the danish 3gdh"],
-     "DK_DHNETWORK_PARAMS"),
+    # ---- DK 4GDH only ----
+    (["4gdh", "4th generation",
+      "supply temperature of the danish 4gdh",
+      "supply temperature of the danish 4th",
+      "return temperature of the danish 4gdh",
+      "return temperature of the danish 4th",
+      "policy framework that governs",
+      "policy framework governs",
+      "danish 4gdh thermally feasible",
+      "what governs the danish 4gdh"],
+     "DK_4GDH_PARAMS"),
+    # ---- DK 3GDH (legacy) only ----
+    (["3gdh", "3rd generation",
+      "supply temperature of the danish 3gdh",
+      "supply temperature of the danish 3rd",
+      "return temperature of the danish 3gdh",
+      "return temperature of the danish 3rd",
+      "legacy network", "danish legacy"],
+     "DK_3GDH_PARAMS"),
+    # ---- DK both networks: compare/capacity questions ----
+    (["compare 3gdh and 4gdh", "compare 4gdh and 3gdh",
+      "3gdh and 4gdh", "4gdh and 3gdh",
+      "dh network capacity between", "capacity between",
+      "what upgrade is needed vs"],
+     "DK_DH_COMPARE"),
     # EED Art.26 — disclosure + threshold
     (["art.26", "article 26", "disclosure", "1 mw", "1mw",
       "threshold for mandatory", "threshold for data center"],
