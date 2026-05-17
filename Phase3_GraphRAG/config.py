@@ -3,11 +3,10 @@ config.py
 =========
 Phase 3 - Configurazione centralizzata.
 
-Legge da variabili d'ambiente se disponibili (python-dotenv opzionale),
-altrimenti usa i valori di default per sviluppo locale.
+Legge da variabili d'ambiente (python-dotenv opzionale).
 
-Crea un file .env nella cartella Phase 3 copiando .env.example
-per sovrascrivere i default senza modificare questo file.
+Crea un file .env nella cartella Phase3_GraphRAG copiando .env.example
+e riempi i valori prima di importare questo modulo.
 
 Uso:
     from config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE
@@ -27,9 +26,18 @@ except ImportError:
     pass  # python-dotenv non installato — usa variabili d'ambiente di sistema
 
 # --- Neo4j ---
-NEO4J_URI      = os.getenv("NEO4J_URI",      "bolt://127.0.0.1:7687")
-NEO4J_USER     = os.getenv("NEO4J_USER",     "neo4j")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "thesis2026")
+NEO4J_URI  = os.getenv("NEO4J_URI",  "bolt://127.0.0.1:7687")
+NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
+
+_neo4j_password_raw = os.getenv("NEO4J_PASSWORD", "")
+if not _neo4j_password_raw:
+    raise RuntimeError(
+        "NEO4J_PASSWORD env var is not set. "
+        "Copy Phase3_GraphRAG/.env.example to Phase3_GraphRAG/.env "
+        "and fill in the password before importing config."
+    )
+NEO4J_PASSWORD: str = _neo4j_password_raw
+
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 
 # --- LLM ---

@@ -25,6 +25,9 @@ dist/
 .env
 .env.*
 *.env
+# ...but always track example/template files
+!.env.example
+!**/.env.example
 
 # IDE
 .idea/
