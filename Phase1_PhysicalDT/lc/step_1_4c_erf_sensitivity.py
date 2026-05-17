@@ -25,6 +25,8 @@
 
 import os
 import shutil
+import tempfile
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import xlsxwriter
@@ -36,7 +38,7 @@ RC_CSV     = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
 EED_CSV    = os.path.join(RESULTS_DIR, "eed_compliance_lc.csv")
 OUT_CSV    = os.path.join(RESULTS_DIR, "erf_sensitivity_lc.csv")
 P1_XLSX    = os.path.join(RESULTS_DIR, "phase1_lc_results.xlsx")
-TMP_XLSX   = "/tmp/phase1_lc_results_step1_4c.xlsx"
+TMP_XLSX   = Path(tempfile.gettempdir()) / "phase1_lc_results_step1_4c.xlsx"
 
 # ------------------------------------------------------------------------------
 # CAPTURE FRACTION GRID (ICEF SDC Roadmap 2025 technology benchmarks)
@@ -248,4 +250,11 @@ def main() -> None:
     # Rebuild xlsx with 8 sheets
     df_reg = _build_reg_kpis(df_rc)
     df_eed = pd.read_csv(EED_CSV) if os.path.exists(EED_CSV) else pd.DataFrame()
-    rebuild_xlsx(df_reg, df_eed, df_e
+    rebuild_xlsx(df_reg, df_eed, df_erf)
+
+    print("\n  STEP 1.4c COMPLETE")
+    print("=" * 70)
+
+
+if __name__ == "__main__":
+    main()

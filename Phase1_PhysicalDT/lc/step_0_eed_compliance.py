@@ -24,6 +24,8 @@
 
 import os
 import shutil
+import tempfile
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import xlsxwriter
@@ -34,7 +36,7 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 RC_CSV     = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
 EED_CSV    = os.path.join(RESULTS_DIR, "eed_compliance_lc.csv")
 P1_XLSX    = os.path.join(RESULTS_DIR, "phase1_lc_results.xlsx")
-TMP_XLSX   = "/tmp/phase1_lc_results_step0.xlsx"
+TMP_XLSX   = Path(tempfile.gettempdir()) / "phase1_lc_results_step0.xlsx"
 
 # ------------------------------------------------------------------------------
 # KNOWN SCENARIO PARAMETERS
@@ -275,4 +277,11 @@ def main() -> None:
     print(f"\n  CSV written: {EED_CSV}")
 
     # Rebuild xlsx with 7 sheets
-    rebuild_xlsx(reg, e
+    rebuild_xlsx(reg, eed)
+
+    print("\n  STEP 0 COMPLETE")
+    print("=" * 70)
+
+
+if __name__ == "__main__":
+    main()
