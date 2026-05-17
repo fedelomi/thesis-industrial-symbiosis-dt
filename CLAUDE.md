@@ -19,7 +19,15 @@ The Obsidian wiki is the knowledge source. The GitHub folder is your workspace.
 Wiki path: `C:\Users\Feder\OneDrive\Desktop\Vault Obsidian\Test Second Brain`
 
 - Use `[[wikilink]]` notation when referencing wiki pages in comments or notes
-- Source clusters: A (IS theory), B (RL/MAS), C (Digital Twins), D (Thermodynamics), E (Policy/Reg), F (DC WHR Cases)
+- Source clusters (authoritative, per `wiki/thesis/codes-and-mapping.md`):
+  - A: WHR from Data Centers
+  - B: Industrial Symbiosis
+  - C: Digital Twin & AI for DC
+  - D: LLM & DSS for Energy Systems
+  - E: LLM Multi-Agent Negotiation
+  - F: DC WHR Cases & Policy
+- Note: implementation decision codes D1..D6 (documented in the wiki) are a
+  separate namespace from source cluster codes Dn. Disambiguate by context.
 - Cite sources with cluster codes (e.g., C6, D5, B4) or full page names in docstrings
 - When in doubt about a concept, the wiki page is ground truth
 
