@@ -133,6 +133,22 @@ def run_no_rag(questions: list[dict], llm) -> list[EvalResult]:
 
 # Mapping keyword -> template ID (da step_3_2)
 KEYWORD_ROUTING: list[tuple[list[str], str]] = [
+    # ---- Temperature band definitions (NEW, scenario X) ----
+    (["temperature band", "low-grade heat band", "mid-grade heat band",
+      "high-grade heat band", "how many temperature band",
+      "range that defines the t1", "range that defines the t2",
+      "range that defines the t3", "range defines the t1",
+      "range defines the t2", "range defines the t3",
+      "what is t1", "what is t2", "what is t3",
+      "label of t1", "label of t2", "label of t3"],
+     "TEMPERATURE_BAND_DEF"),
+    # ---- Danish DH network technical parameters (NEW, scenario X) ----
+    (["4gdh", "3gdh", "4th generation district heating",
+      "3rd generation district heating",
+      "supply temperature of the danish", "return temperature of the danish",
+      "supply temperature 4gdh", "return temperature 4gdh",
+      "capacity of the danish 4gdh", "capacity of the danish 3gdh"],
+     "DK_DHNETWORK_PARAMS"),
     # EED Art.26 — disclosure + threshold
     (["art.26", "article 26", "disclosure", "1 mw", "1mw",
       "threshold for mandatory", "threshold for data center"],
@@ -154,19 +170,24 @@ KEYWORD_ROUTING: list[tuple[list[str], str]] = [
      "P2_thermal_compatibility_S1"),
     # Compatibilita termica generale
     (["compatible", "compatibility", "thermally", "9 scenario", "all scenario",
-      "which scenario", "heat pump", "temperature band", "t1", "t2", "t3",
-      "range", "grade heat", "how many temperature"],
+      "which scenario", "heat pump", "grade heat"],
      "P2_thermal_compatibility_all"),
     # Denmark / DH
-    (["denmark", "danish", "dh connection", "varmeforsyningsloven", "mandatory connect",
-      "4gdh", "3gdh", "supply temperature of the danish", "return temperature",
-      "dh penetration", "energy agency", "necp", "ghg reduction"],
+    (["denmark", "danish", "dh connection", "varmeforsyningsloven",
+      "mandatory connect", "dh penetration", "energy agency",
+      "necp", "ghg reduction"],
      "P3_regulatory_screening_dk"),
     # Italy / TEE/CB
     (["incentive", "italy", "italian", "tee", "white certificate", "certificati",
       "eur/mwh", "eur/toe", "eur per mwh", "eur per toe", "gse", "gestore",
       "how many italian", "which italian", "eligible", "absorption"],
      "P4_incentives_it_whr"),
+    # ---- Multi-criteria scenario comparison (NEW, scenario X) ----
+    (["combination of data center scale", "combination of dc scale",
+      "maximizes both heat capacity", "scale and upgrade technology",
+      "highest capacity and highest temperature",
+      "best combination of"],
+     "P5_scenario_comparison_L"),
     # Hyperscale comparison
     (["hyperscale", "dc-l", "s7", "s8", "s9", "compare the three is scenario"],
      "P5_scenario_comparison_L"),

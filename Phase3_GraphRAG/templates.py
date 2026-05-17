@@ -207,4 +207,39 @@ CYPHER_TEMPLATES: dict[str, str] = {
                dc.waste_heat_kw AS waste_heat_kw
         ORDER BY dc.it_capacity_kw
     """,
+
+    # ------------------------------------------------------------------
+    # TEMPERATURE_BAND_DEF -- definitions of the 3 IS framework bands.
+    # Replaces failed routing on P2_thermal_compatibility_all for
+    # questions like "what range defines T1?" and "how many temperature
+    # bands?". Schema: (:TemperatureBand {id, label, range_min_c,
+    # range_max_c}).
+    # ------------------------------------------------------------------
+    "TEMPERATURE_BAND_DEF": """
+        MATCH (tb:TemperatureBand)
+        RETURN tb.id AS band_id,
+               tb.label AS label,
+               tb.range_min_c AS range_min_c,
+               tb.range_max_c AS range_max_c
+        ORDER BY tb.range_min_c
+    """,
+
+    # ------------------------------------------------------------------
+    # DK_DHNETWORK_PARAMS -- technical parameters of Danish DH networks
+    # (3GDH and 4GDH). Replaces failed routing on
+    # P3_regulatory_screening_dk for questions on supply/return
+    # temperature, generation, capacity. Schema:
+    # (:DHNetwork {country, generation, supply_temp_c, return_temp_c,
+    # capacity_mw, name, notes}).
+    # ------------------------------------------------------------------
+    "DK_DHNETWORK_PARAMS": """
+        MATCH (dh:DHNetwork {country: 'DK'})
+        RETURN dh.generation AS generation,
+               dh.name AS name,
+               dh.supply_temp_c AS supply_temp_c,
+               dh.return_temp_c AS return_temp_c,
+               dh.capacity_mw AS capacity_mw,
+               dh.notes AS notes
+        ORDER BY dh.generation
+    """,
 }
