@@ -106,7 +106,8 @@ MFG_PROFILES: Dict[str, MfgParams] = {
 }
 
 # --------------------------------------------------------------------------- #
-# Scenario-matrix indexing (S1..S9 follow roadmap Phase 5.1 order)             #
+# Scenario-matrix indexing (S1..S9 follow methodology section 4.6).            #
+# Phase 5 was integrated into Phase 4 -- see CLAUDE.md.                        #
 # --------------------------------------------------------------------------- #
 # Row-major: DC scale outer, tier inner -> S1=Edge_LC×LowT, S2=Edge_LC×MidT, ...
 SCENARIO_INDEX: Dict[str, Tuple[str, str]] = {
