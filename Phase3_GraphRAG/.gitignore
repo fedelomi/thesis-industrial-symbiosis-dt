@@ -1,0 +1,28 @@
+# Virtual environments
+_venv_DELETE_ME/
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Environment variables (contengono credenziali)
+.env
+
+# Output / benchmark data generati a runtime
+data/
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db

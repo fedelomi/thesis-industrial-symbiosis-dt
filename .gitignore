@@ -8,6 +8,7 @@ __pycache__/
 # Virtual environments
 venv/
 .venv/
+_venv*/
 env/
 ENV/
 
@@ -53,3 +54,11 @@ sentence_transformers/
 # Logs
 *.log
 logs/
+
+# Testing cache
+.pytest_cache/
+pytest-cache-files-*
+
+# Trained model artefacts (large binaries — re-train from scripts)
+*.zip
+models/

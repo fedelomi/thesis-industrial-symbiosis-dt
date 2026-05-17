@@ -1,0 +1,23 @@
+# Phase 3 — Graph RAG IS (OS3, Strato 2)
+# Install: pip install -r requirements.txt
+
+# --- Neo4j driver ---
+neo4j>=5.0,<6.0
+
+# --- LangChain stack ---
+langchain>=0.2
+langchain-community>=0.2
+langchain-openai>=0.1
+
+# --- LLM provider ---
+openai>=1.0
+
+# --- Evaluation ---
+ragas>=0.1
+datasets>=2.0
+
+# --- Config ---
+python-dotenv>=1.0
+
+# --- Optional: CSV loading for Phase 1 stats integration ---
+pandas>=2.0
