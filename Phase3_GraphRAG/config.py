@@ -10,7 +10,7 @@ e riempi i valori prima di importare questo modulo.
 
 Uso:
     from config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE
-    from config import LLM_MODEL, LLM_TEMPERATURE, DATA_DIR
+    from config import LLM_MODEL, LLM_TEMPERATURE, ANTHROPIC_API_KEY, DATA_DIR
 """
 
 from __future__ import annotations
@@ -40,9 +40,18 @@ NEO4J_PASSWORD: str = _neo4j_password_raw
 
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 
-# --- LLM ---
-LLM_MODEL       = os.getenv("LLM_MODEL",       "gpt-4o-mini")
+# --- LLM (Anthropic) ---
+LLM_MODEL       = os.getenv("LLM_MODEL",       "claude-haiku-4-5-20251001")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.0"))
+
+_anthropic_key_raw = os.getenv("ANTHROPIC_API_KEY", "")
+if not _anthropic_key_raw:
+    raise RuntimeError(
+        "ANTHROPIC_API_KEY env var is not set. "
+        "Copy Phase3_GraphRAG/.env.example to Phase3_GraphRAG/.env "
+        "and fill in your Anthropic API key before importing config."
+    )
+ANTHROPIC_API_KEY: str = _anthropic_key_raw
 
 # --- Paths ---
 DATA_DIR = Path(os.getenv("DATA_DIR", "data"))

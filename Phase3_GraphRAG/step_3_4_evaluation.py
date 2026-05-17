@@ -18,10 +18,10 @@ Target tesi (da [[roadmap-fasi-1-2-3]] Passo 3.4):
   - accuracy > 85% su factual-lookup
 
 Uso:
-    # Solo configurazione template (no API key OpenAI richiesta per graph-RAG)
+    # Solo configurazione template (no API key richiesta per graph-RAG template mode)
     python step_3_4_evaluation.py --config graph-rag
 
-    # Tutte e 3 le configurazioni (richiede OPENAI_API_KEY)
+    # Tutte e 3 le configurazioni (richiede ANTHROPIC_API_KEY)
     python step_3_4_evaluation.py --config all
 
     # Solo un sottoinsieme di domande (sviluppo/test)
@@ -35,8 +35,8 @@ Output:
     data/evaluation_summary_<timestamp>.csv
 
 Requisiti:
-    pip install ragas langchain langchain-openai langchain-community neo4j
-    OPENAI_API_KEY per config no-rag e llm-cypher
+    pip install ragas langchain langchain-anthropic langchain-community neo4j
+    ANTHROPIC_API_KEY per config no-rag e llm-cypher
 
 Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.4,
                   [[decisioni-implementative]] D3 (metriche RAGAs)
@@ -56,7 +56,10 @@ from typing import Optional
 
 from neo4j import GraphDatabase, exceptions as neo4j_exc
 
-from config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE, DATA_DIR, LLM_MODEL
+from config import (
+    NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE,
+    DATA_DIR, LLM_MODEL, LLM_TEMPERATURE, ANTHROPIC_API_KEY,
+)
 from templates import CYPHER_TEMPLATES
 
 DATASET_PATH = DATA_DIR / "benchmark_qa_dataset.json"
@@ -374,7 +377,7 @@ def compute_exact_match(results: list[EvalResult]) -> None:
 
 
 # ============================================================
-# RAGAs evaluation (opzionale, richiede OPENAI_API_KEY)
+# RAGAs evaluation (opzionale, richiede ANTHROPIC_API_KEY)
 # ============================================================
 
 def compute_ragas(results: list[EvalResult], llm) -> None:
@@ -496,7 +499,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--ragas", action="store_true",
-        help="Compute RAGAs metrics (requires OPENAI_API_KEY and pip install ragas)"
+        help="Compute RAGAs metrics (requires ANTHROPIC_API_KEY and pip install ragas)"
     )
     return parser.parse_args()
 
@@ -515,19 +518,18 @@ def load_questions(n: int = 0, category: str = "all") -> list[dict]:
     return questions
 
 
-def get_llm():
-    """Inizializza LLM OpenAI. Richiede OPENAI_API_KEY."""
+def get_llm() -> "ChatAnthropic":
+    """Build the Anthropic LLM for RAGAS evaluation."""
     try:
-        from langchain_openai import ChatOpenAI
+        from langchain_anthropic import ChatAnthropic
     except ImportError:
-        print("langchain-openai non installato: pip install langchain-openai")
+        print("langchain-anthropic non installato: pip install langchain-anthropic")
         sys.exit(1)
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        print("OPENAI_API_KEY non trovata.")
-        print("  PowerShell: $env:OPENAI_API_KEY = 'sk-...'")
-        sys.exit(1)
-    return ChatOpenAI(model=LLM_MODEL, temperature=0.0, api_key=api_key)
+    return ChatAnthropic(
+        model=LLM_MODEL,
+        temperature=LLM_TEMPERATURE,
+        anthropic_api_key=ANTHROPIC_API_KEY,
+    )
 
 
 def main() -> None:

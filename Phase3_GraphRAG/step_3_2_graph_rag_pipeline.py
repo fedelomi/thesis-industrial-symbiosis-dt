@@ -16,8 +16,8 @@ Uso:
     python step_3_2_graph_rag_pipeline.py --mode both
 
 Requisiti:
-    pip install langchain langchain-community langchain-openai neo4j
-    OPENAI_API_KEY settata come variabile d'ambiente oppure nel file .env
+    pip install langchain langchain-community langchain-anthropic neo4j
+    ANTHROPIC_API_KEY settata come variabile d'ambiente oppure nel file .env
 
 Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.2,
                   [[graph-rag-entity-schema]] sezione "Multi-hop Query Patterns"
@@ -34,14 +34,17 @@ from typing import Any
 
 from neo4j import GraphDatabase, exceptions as neo4j_exc
 
-from config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE, LLM_MODEL, LLM_TEMPERATURE
+from config import (
+    NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE,
+    LLM_MODEL, LLM_TEMPERATURE, ANTHROPIC_API_KEY,
+)
 from templates import CYPHER_TEMPLATES
 
 # LangChain imports — lazy per template mode (non serve LLM)
 _LANGCHAIN_OK = False
 try:
     from langchain_community.graphs import Neo4jGraph
-    from langchain_openai import ChatOpenAI
+    from langchain_anthropic import ChatAnthropic
     # GraphCypherQAChain si trova in langchain_community dal v0.2+
     try:
         from langchain_community.chains.graph_qa.cypher import GraphCypherQAChain
@@ -205,18 +208,13 @@ def build_llm_chain(graph: Neo4jGraph) -> GraphCypherQAChain:
     """Costruisce la chain LangChain con LLM."""
     if not _LANGCHAIN_OK:
         print(f"LangChain non disponibile: {_LANGCHAIN_ERR}")
-        print("Run: pip install langchain langchain-community langchain-openai")
-        sys.exit(1)
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        print("OPENAI_API_KEY non trovata — setta la variabile d'ambiente.")
-        print("  Windows PowerShell: $env:OPENAI_API_KEY = 'sk-...'")
+        print("Run: pip install langchain langchain-community langchain-anthropic")
         sys.exit(1)
 
-    llm = ChatOpenAI(
+    llm = ChatAnthropic(
         model=LLM_MODEL,
         temperature=LLM_TEMPERATURE,
-        api_key=api_key,
+        anthropic_api_key=ANTHROPIC_API_KEY,
     )
 
     chain = GraphCypherQAChain.from_llm(

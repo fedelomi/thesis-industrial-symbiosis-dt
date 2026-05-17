@@ -16,7 +16,10 @@ __pycache__/
 .env
 
 # Output / benchmark data generati a runtime
-data/
+data/*
+# ...but always track the legacy archive (kept for thesis appendix reference)
+!data/legacy_gpt4o_mini/
+!data/legacy_gpt4o_mini/**
 
 # IDE
 .idea/
