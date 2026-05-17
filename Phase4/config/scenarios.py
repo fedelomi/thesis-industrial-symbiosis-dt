@@ -25,6 +25,8 @@ import csv
 from pathlib import Path
 from typing import Dict, Tuple
 
+import numpy as np
+
 from env.models import DCProfile, MfgParams
 
 # --------------------------------------------------------------------------- #
@@ -178,6 +180,84 @@ def load_is_match_scores_from_phase2(
     return scores
 
 
+def load_airside_q_profile(
+    csv_path: Path | str | None = None,
+    scenario_label: str = "Mid",
+    target_mean_kw: float = 3104.0,
+) -> np.ndarray:
+    """Load and rescale the Phase 1 airside annual Q_available profile.
+
+    The raw airside DC profiles in Phase 1 have absolute Q values in a
+    different scale band than the LC profiles (Mid airside mean ~890 MW
+    vs Mid_LC 3.104 MW). For the Phase 4 Q1 sensitivity scenario we
+    preserve the **relative variability** of the airside profile while
+    rescaling so the mean matches the LC-equivalent rated capacity.
+
+    Parameters
+    ----------
+    csv_path:
+        Path to ``datacenter_dt_results_annual.csv``. Defaults to the
+        canonical location under Phase 1 airside results.
+    scenario_label:
+        Filter column ``scenario`` (one of ``"Edge"``, ``"Mid"``,
+        ``"Hyperscale"``).
+    target_mean_kw:
+        Target mean of the rescaled profile in kW (matches the LC rated
+        Q for the same scale).
+
+    Returns
+    -------
+    np.ndarray
+        1-D array of length ~35040 (15-min steps over one year) with
+        Q_available_kw rescaled so ``profile.mean() == target_mean_kw``.
+
+    Notes
+    -----
+    Cited in Cap. 5.5 robustness analysis. The rescaling preserves the
+    relative variability of the airside profile (CV, autocorrelation,
+    fraction of zero-Q hours) and only adjusts the absolute level.
+    """
+    if csv_path is None:
+        csv_path = (
+            Path(__file__).resolve().parents[2]
+            / "Phase1_PhysicalDT"
+            / "airside"
+            / "results"
+            / "datacenter_dt_results_annual.csv"
+        )
+    path = Path(csv_path)
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Phase 1 airside annual CSV not found at {path}. "
+            "Run Phase 1 airside first."
+        )
+
+    raw: list[float] = []
+    with path.open("r", newline="", encoding="utf-8") as fh:
+        reader = csv.DictReader(fh)
+        for row in reader:
+            if row.get("scenario") != scenario_label:
+                continue
+            try:
+                raw.append(float(row["Q_available"]))
+            except (KeyError, ValueError):
+                continue
+    if not raw:
+        raise ValueError(
+            f"No rows found for scenario={scenario_label} in {path}."
+        )
+
+    arr = np.asarray(raw, dtype=np.float64)
+    raw_mean = float(arr.mean())
+    if raw_mean <= 0:
+        raise ValueError(
+            f"Airside profile {scenario_label} has non-positive mean ({raw_mean})."
+        )
+    scale_factor = target_mean_kw / raw_mean
+    rescaled = arr * scale_factor
+    return rescaled
+
+
 def build_scenarios(
     csv_path: Path | str = DEFAULT_PHASE2_CSV,
 ) -> Dict[str, Tuple[DCProfile, MfgParams]]:
@@ -206,21 +286,66 @@ def build_scenarios(
     return scenarios
 
 
+# --------------------------------------------------------------------------- #
+# Airside sensitivity scenario (Q1 of review_report.md, Cap. 5.5).            #
+# --------------------------------------------------------------------------- #
+AIRSIDE_T_AVAILABILITY_MID = 0.66  # from Phase 1 airside annual stats (Mid).
+
+
+def build_airside_scenario() -> Tuple[DCProfile, MfgParams]:
+    """Build the single airside robustness scenario S_AIR_M.
+
+    Same scale and tier as S5 (Mid_LC x MidT) but with a dynamic
+    Q_available profile and t_availability < 1.0, so the
+    ``dt_grounded`` ablation flag becomes empirically meaningful.
+
+    Returns
+    -------
+    (DCProfile, MfgParams)
+        Tuple ready to be plugged into the env factory.
+    """
+    base_dc = DC_PROFILES["Mid_LC"]
+    is_match = load_is_match_scores_from_phase2()
+    profile = load_airside_q_profile(
+        scenario_label="Mid",
+        target_mean_kw=base_dc.q_available_kw,
+    )
+    dc = DCProfile(
+        dc_id="Mid_AIR",
+        q_available_kw=base_dc.q_available_kw,
+        t_supply_c=base_dc.t_supply_c,
+        exergy_dt=base_dc.exergy_dt,
+        t_availability=AIRSIDE_T_AVAILABILITY_MID,
+        is_match_score=is_match[("Mid_LC", "MidT")],
+        q_available_profile=profile,
+    )
+    mfg = MFG_PROFILES["MidT"]
+    return dc, mfg
+
+
 # Eager-load at import (fail fast if Phase 2 output is missing).
 try:
     SCENARIOS: Dict[str, Tuple[DCProfile, MfgParams]] = build_scenarios()
+    try:
+        SCENARIOS["S_AIR_M"] = build_airside_scenario()
+    except FileNotFoundError:
+        # Phase 1 airside CSV missing -- keep the LC scenarios usable.
+        pass
 except FileNotFoundError:
     # Fail gracefully so unit tests that don't need IS-Match can still import.
     SCENARIOS = {}
 
 
 __all__ = [
+    "AIRSIDE_T_AVAILABILITY_MID",
     "CAPEX_EUR_PER_KW",
     "COP_BY_UPGRADE",
     "DC_PROFILES",
     "MFG_PROFILES",
     "SCENARIO_INDEX",
     "SCENARIOS",
+    "build_airside_scenario",
     "build_scenarios",
+    "load_airside_q_profile",
     "load_is_match_scores_from_phase2",
 ]
