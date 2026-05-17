@@ -62,6 +62,6 @@ logs/
 .pytest_cache/
 pytest-cache-files-*
 
-# Trained model artefacts (large binaries — re-train from scripts)
+# Trained model artefacts (large binaries, re-train from scripts)
 *.zip
 models/
