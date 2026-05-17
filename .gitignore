@@ -65,3 +65,6 @@ pytest-cache-files-*
 # Trained model artefacts (large binaries, re-train from scripts)
 *.zip
 models/
+# Claude Code personal settings (never commit)
+.claude/settings.local.json
+.claude/.credentials.json
