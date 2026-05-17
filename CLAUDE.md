@@ -176,8 +176,11 @@ At the start of each session:
 4. Never delete or overwrite existing results files — append or create new versioned copies
 
 At the end of each session:
-1. Run `pytest` on any new code
-2. Confirm which files were created/modified
+1. Run `pytest` on any new code.
+2. Confirm which files were created/modified.
+3. **Run `/log-session`** to update the Obsidian wiki log. If Fede says
+   "fatto per oggi", "chiudo", "ok basta" or similar, propose
+   `/log-session` before ending the turn.
 
 ---
 
