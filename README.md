@@ -20,7 +20,7 @@ The three layers map directly onto the three implementation phases in this repo:
 | **Physical-DT** (Strato 1) | `Phase1_PhysicalDT/` | Thermal + workload simulation of the DC | RC model, CoolProp, SustainGym |
 | **IS-Match Score** (OS2) | `Phase2_ISMatch/` | Multi-criteria scoring DC ↔ manufacturing pair | numpy, pandas |
 | **Institutional-LLM** (Strato 2) | `Phase3_GraphRAG/` | Regulatory KG + Graph RAG retrieval + RAGAS eval | Neo4j, LangChain, RAGAS |
-| Agentic Negotiation (Strato 3 — future Phase 4) | not in this repo yet | Multi-agent IS brokerage with RL policy | Stable-Baselines3, Gymnasium |
+| **Agentic Negotiation** (Strato 3) | `Phase4/` | Multi-agent IS brokerage: bilateral RL (PPO/SAC) + Yazdanpanah shielding + Shapley allocation (16 passing tests) | Stable-Baselines3, Gymnasium |
 
 The implementation covers **9 scenarios** (3 DC scales × 3 manufacturing temperature bands) and is scoped as a proof-of-concept for the magistrale thesis.
 
@@ -202,96 +202,7 @@ Gap → Research Question → Objective → Phase → Metric
 | 1 | Privacy-preserving DT | W₁_norm ≤ 0.05, NDE ≤ 0.20 |
 | 2 | IS feasibility scoring | NDCG@9, precision@3 |
 | 3 | Regulatory RAG retrieval | RAGAS faithfulness ≥ 0.80, hallucination < 15% |
-| 4 (future) | Multi-agent negotiation | Nash convergence, IS-Match lift > 0.60 |
-
-Data sources: synthetic DC workloads (block bootstrap from RC model output), Hotmaps Industrial Database (manufacturing heat sinks, statistical reference only), EED / ISO 50001 / Italian and Danish regulatory documents (knowledge graph corpus).
-
----
-
-## License
-
-Code released for academic reproducibility. Cite as:
-
-> F. Lomi, *Industrial Symbiosis via Digital Twins and Agentic AI for Data Center Waste Heat Recovery*, MSc Thesis, Politecnico di Torino, 2026. the LC scores reach *marginal* (0.36–0.53) and are the meaningful workload for downstream phases.
-
-**Run.**
-```bash
-cd Phase2_ISMatch && python run_phase_2_lc.py
-```
-
----
-
-## Phase 3 — Graph RAG IS
-
-**Goal.** Encode the regulatory and institutional context (EU EED Art. 14 / Art. 26, ISO 50001, ASHRAE 90.4, IT TEE/CB, Danish NECP / DH networks / DEA) as a Neo4j knowledge graph; query it via a Graph RAG pipeline; evaluate with RAGAS metrics; check neuro-symbolic consistency; integrate Phase 1 LC stats as a context layer; verify a privacy gate on real-vs-synthetic profiles.
-
-**Pipeline (12 steps, orchestrated by `run_phase_3.py`).**
-
-| # | Script | Purpose |
-|---|---|---|
-| 0 | `step_3_0_neo4j_schema.py` | Constraints + indexes |
-| 1 | `step_3_1a_ingest_tier_a.py` | EED, ASHRAE, TemperatureBand, DC, Scenarios |
-| 2 | `step_3_1b_ingest_tier_b_it.py` | TEE / CB decrees, GSE |
-| 3 | `step_3_1c_ingest_tier_b_dk.py` | NECP, DH networks, DEA |
-| 4 | `step_3_1d_ingest_scenarios_heatsources.py` | HeatSource × upgrade tech |
-| 5 | `step_3_1e_ingest_iso50001.py` | ISO 50001 integral text (D4) |
-| 6 | `step_3_2_graph_rag_pipeline.py` | Retrieval (Cypher + LLM generation) |
-| 7 | `step_3_3_benchmark_qa_design.py` | Document-grounded QA dataset (D3) |
-| 8 | `step_3_4_evaluation.py` | RAGAS faithfulness / answer relevancy / context precision |
-| 9 | `step_3_4_bis_neuro_symbolic.py` | Logical consistency vs. KG triples |
-| 10 | `step_3_5_phase1_integration.py` | Phase 1 LC stats into KG + ΔTC mapping (3.5-bis) |
-| 11 | `step_3_6_privacy_gate.py` | Privacy preservation gate (Δ IS-Match proxy < 5%) |
-
-**Active decisions.** D3 — document-grounded QA protocol (no inter-rater Cohen's κ; ground truth = clause text). D4 — ISO 50001 integral text obtained via Prof. Simeone.
-
-**Setup.**
-```bash
-cd Phase3_GraphRAG
-python -m venv venv && source venv/bin/activate    # or venv\Scripts\activate on Windows
-pip install -r requirements.txt
-cp .env.example .env                                # then fill NEO4J_PASSWORD + OPENAI_API_KEY
-```
-
-**Run.**
-```bash
-python run_phase_3.py                  # full pipeline (0 → 11)
-python run_phase_3.py --from-step 6    # resume from a specific step
-python run_phase_3.py --ingest-only    # stop after step 5 (3.1e ISO 50001)
-python run_phase_3.py --skip-rag       # skip RAG/QA/eval (steps 6–9)
-python run_phase_3.py --verify-only    # only verify Neo4j node/relationship counts
-```
-
----
-
-## Active implementation decisions (D1–D6)
-
-These are the methodological decisions driving the code. Each is documented in detail in the Obsidian wiki ([[decisioni-implementative]]) and re-stated in the docstring header of every script that implements it.
-
-| ID | Topic | Phase | Status | Thesis chapter |
-|---|---|---|---|---|
-| D1 | DT calibration on published KPIs (C1) instead of proprietary Frontier ORNL data | Phase 1 (airside) | Workaround | Cap. 4.2 |
-| D2 | Geography-agnostic, sector-parametric IS dataset | Phase 2 step 2.2 | Confirmed | Cap. 4.5, 6.2 |
-| D3 | Document-grounded benchmark QA (no inter-rater Cohen's κ) | Phase 3 step 3.3 | Confirmed | Cap. 4.4, 6.2 |
-| D4 | ISO 50001 integral text available (Prof. Simeone) | Phase 3 step 3.1e | Resolved | n/a |
-| D5 | Grey-box LC parametrization from LC-Opt FMU (HPE/ORNL) | Phase 1 (LC) | Confirmed | Cap. 4.2 |
-| D6 | Phase 2 LC-only (evidence-based exclusion of airside) | Phase 2 entire pipeline | Confirmed | Cap. 1.4, 4.1, 5.2 |
-
----
-
-## Methodology reference
-
-The framework maps onto the thesis gap-analysis chain:
-
-```
-Gap → Research Question → Objective → Phase → Metric
-```
-
-| Phase | Objective | Primary metric |
-|---|---|---|
-| 1 | Privacy-preserving DT | W₁_norm ≤ 0.05, NDE ≤ 0.20 |
-| 2 | IS feasibility scoring | NDCG@9, precision@3 |
-| 3 | Regulatory RAG retrieval | RAGAS faithfulness ≥ 0.80, hallucination < 15% |
-| 4 (future) | Multi-agent negotiation | Nash convergence, IS-Match lift > 0.60 |
+| 4 | Multi-agent negotiation (RL + shielding) | PoA ≤ 1.15, IS-Match lift > 0.60 (ablation A0 vs D) |
 
 Data sources: synthetic DC workloads (block bootstrap from RC model output), Hotmaps Industrial Database (manufacturing heat sinks, statistical reference only), EED / ISO 50001 / Italian and Danish regulatory documents (knowledge graph corpus).
 
