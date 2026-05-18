@@ -69,3 +69,10 @@ models/
 # Claude Code personal settings (never commit)
 .claude/settings.local.json
 .claude/.credentials.json
+# Ablation run side artefacts (PPO logger stderr + Start-Process PID file)
+*.err
+*.pid
+
+# Ablation run side artefacts (PPO logger stderr + Start-Process PID file)
+*.err
+*.pid
