@@ -42,16 +42,17 @@ NDE < 0.20 ensures that no region of feature space is statistically
 References: Choi et al. (SIDED, 2023); Ramdas et al. (2015) for W1.
 """
 
-import os, sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
-REAL_CSV  = os.path.join(RESULTS_DIR, "datacenter_dt_results_annual.csv")
-SYNT_CSV  = os.path.join(RESULTS_DIR, "synthetic_profile_annual.csv")
-OUT_CSV   = os.path.join(RESULTS_DIR, "validation_1_4.csv")
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+REAL_CSV  = RESULTS_DIR / "datacenter_dt_results_annual.csv"
+SYNT_CSV  = RESULTS_DIR / "synthetic_profile_annual.csv"
+OUT_CSV   = RESULTS_DIR / "validation_1_4.csv"
 
 FEATURES  = ["T_supply", "Q_available", "Exergy_DT"]  # 3 main gate features
 SCENARIOS = ["Edge", "Mid", "Hyperscale"]
@@ -194,4 +195,8 @@ def main():
     print(f"\nNDE summary by scenario:")
     for sc in SCENARIOS:
         vals = [r["nde"] for r in records if r["scenario"] == sc]
-        print(f"  {sc:<14}: min={min(vals):.4f}  max={max(vals):.4f}  mean={np.mean(
+        print(f"  {sc:<14}: min={min(vals):.4f}  max={max(vals):.4f}  mean={np.mean(vals):.4f}")
+
+
+if __name__ == "__main__":
+    main()

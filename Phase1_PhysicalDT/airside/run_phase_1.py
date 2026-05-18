@@ -18,16 +18,21 @@
 # Decisions active: D1 — DT calibration on published KPIs (airside branch).
 
 
-import os, sys, subprocess, time
+import os
+import subprocess
+import sys
+import time
+from pathlib import Path
+
 import pandas as pd
 
 # Force UTF-8 in subprocesses on Windows (avoids UnicodeEncodeError)
 _ENV_UTF8 = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
 
 # Output paths (post-reorg, audit 2026-05-05) — CSVs/XLSX live in results/.
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 STEPS = [
     {
@@ -61,7 +66,7 @@ EXCEL_SHEETS = [
     ("sensitivity_validation.csv",         "Sensitivity_Analysis"),
 ]
 
-EXCEL_OUTPUT = os.path.join("results", "phase1_results.xlsx")
+EXCEL_OUTPUT = Path("results") / "phase1_results.xlsx"
 
 
 def sep(char="=", n=70):
@@ -70,18 +75,18 @@ def sep(char="=", n=70):
 
 def fmt_size(path):
     try:
-        b = os.path.getsize(path)
+        b = Path(path).stat().st_size
         return f"{b/1e6:.1f} MB" if b >= 1e6 else (f"{b/1e3:.0f} KB" if b >= 1e3 else f"{b} B")
     except Exception:
         return "n/a"
 
 
 def outputs_exist(step):
-    return all(os.path.exists(os.path.join(RESULTS_DIR, f)) for f in step["output"])
+    return all((RESULTS_DIR / f).exists() for f in step["output"])
 
 
 def run_step(step, idx, total, skip_existing):
-    script_path = os.path.join(BASE_DIR, step["script"])
+    script_path = BASE_DIR / step["script"]
     sep()
     print(f"[{idx}/{total}] {step['name']}")
     sep("-")
@@ -90,19 +95,19 @@ def run_step(step, idx, total, skip_existing):
     # Skip mode
     if skip_existing and outputs_exist(step):
         for f in step["output"]:
-            p = os.path.join(RESULTS_DIR, f)
+            p = RESULTS_DIR / f
             print(f"  [SKIP]  {f:<45} {fmt_size(p):>8}  (already present)")
         print(f"\n  Time: 0.0s  (skipped)")
         return True, 0.0
 
-    if not os.path.exists(script_path):
+    if not script_path.exists():
         print(f"  ERROR: script not found -- {script_path}")
         return False, 0.0
 
     t0     = time.time()
     result = subprocess.run(
-        [sys.executable, script_path],
-        capture_output=True, text=True, cwd=BASE_DIR,
+        [sys.executable, str(script_path)],
+        capture_output=True, text=True, cwd=str(BASE_DIR),
         env=_ENV_UTF8, encoding="utf-8",
     )
     elapsed = time.time() - t0
@@ -117,8 +122,8 @@ def run_step(step, idx, total, skip_existing):
     print()
     all_ok = True
     for f in step["output"]:
-        p = os.path.join(RESULTS_DIR, f)
-        if os.path.exists(p):
+        p = RESULTS_DIR / f
+        if p.exists():
             print(f"  [OK]    {f:<45} {fmt_size(p):>8}")
         else:
             print(f"  [MISSING] {f}")
@@ -137,11 +142,11 @@ def consolidate_to_excel():
     sep()
     print("  CONSOLIDATING OUTPUTS -> phase1_results.xlsx")
     sep("-")
-    xlsx_path = os.path.join(BASE_DIR, EXCEL_OUTPUT)
+    xlsx_path = BASE_DIR / EXCEL_OUTPUT
     with pd.ExcelWriter(xlsx_path, engine="openpyxl") as writer:
         for csv_name, sheet_name in EXCEL_SHEETS:
-            csv_path = os.path.join(RESULTS_DIR, csv_name)
-            if not os.path.exists(csv_path):
+            csv_path = RESULTS_DIR / csv_name
+            if not csv_path.exists():
                 print(f"  [SKIP]   {csv_name} not found -- sheet '{sheet_name}' omitted")
                 continue
             df = pd.read_csv(csv_path)
@@ -189,8 +194,8 @@ def main():
     print("  Output files:")
     for step in STEPS:
         for f in step["output"]:
-            p = os.path.join(RESULTS_DIR, f)
-            if os.path.exists(p):
+            p = RESULTS_DIR / f
+            if p.exists():
                 print(f"    {f:<45} {fmt_size(p):>8}")
 
     sep("-")
@@ -198,4 +203,11 @@ def main():
     print()
     if all_pass:
         print("  GATE PHASE 1: PASS")
-        print("  Ready for Phase 2 -- IS-
+        print("  Ready for Phase 2 -- IS-Match (delta_TC calibration).")
+    else:
+        print("  GATE PHASE 1: FAIL")
+        print("  Fix the failed step(s) before running Phase 2.")
+
+
+if __name__ == "__main__":
+    main()

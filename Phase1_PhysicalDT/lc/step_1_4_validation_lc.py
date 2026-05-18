@@ -15,16 +15,17 @@ See step_1_4_validation.py for full explanation.
 W1_norm and NDE are used instead (Wasserstein + adapted NDE from SIDED).
 """
 
-import os, sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
-REAL_CSV  = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
-SYNT_CSV  = os.path.join(RESULTS_DIR, "lc_synthetic_profile_annual.csv")
-OUT_CSV   = os.path.join(RESULTS_DIR, "lc_validation_1_4.csv")
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+REAL_CSV  = RESULTS_DIR / "lc_dc_results_annual.csv"
+SYNT_CSV  = RESULTS_DIR / "lc_synthetic_profile_annual.csv"
+OUT_CSV   = RESULTS_DIR / "lc_validation_1_4.csv"
 
 FEATURES  = ["T_supply", "Q_available", "Exergy_DT"]
 SCENARIOS = ["Edge_LC", "Mid_LC", "Hyperscale_LC"]
@@ -136,4 +137,8 @@ def main() -> None:
     print(f"\n{'-'*50}")
     for sc in SCENARIOS:
         vals = [r["nde"] for r in records if r["scenario"] == sc]
-        print(f"  NDE     {sc:<18}: min={min(vals):.4f}  max={max(vals):.4f}  mean={np.mean(
+        print(f"  NDE     {sc:<18}: min={min(vals):.4f}  max={max(vals):.4f}  mean={np.mean(vals):.4f}")
+
+
+if __name__ == "__main__":
+    main()

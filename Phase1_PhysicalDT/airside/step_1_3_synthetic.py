@@ -12,16 +12,18 @@
 # Decision active: D1 — derived from D1-calibrated DT output.
 
 
-import os, sys
+import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
-INPUT_CSV   = os.path.join(RESULTS_DIR, "datacenter_dt_results_annual.csv")
-OUT_SYNTH   = os.path.join(RESULTS_DIR, "synthetic_profile_annual.csv")
-OUT_CONF    = os.path.join(RESULTS_DIR, "real_vs_synthetic_comparison.csv")
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+INPUT_CSV   = RESULTS_DIR / "datacenter_dt_results_annual.csv"
+OUT_SYNTH   = RESULTS_DIR / "synthetic_profile_annual.csv"
+OUT_CONF    = RESULTS_DIR / "real_vs_synthetic_comparison.csv"
 
 SEED       = 42
 BLOCK_SIZE = 96          # 1 day (96 x 15 min) -- preserves daily autocorrelation
@@ -144,4 +146,9 @@ def main():
     print(df_conf_all.groupby("scenario")["cv_rmse_pct"].mean().round(3).to_string())
     print("\n% features with KS p>0.05 (distribution preserved):")
     ks_ok = df_conf_all.groupby("scenario")["ks_pvalue"].apply(
-        lambda x: (x > 0.05).mean() * 100).
+        lambda x: (x > 0.05).mean() * 100).round(1)
+    print(ks_ok.to_string())
+
+
+if __name__ == "__main__":
+    main()

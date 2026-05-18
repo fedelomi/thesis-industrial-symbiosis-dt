@@ -19,14 +19,19 @@
 # Decisions active: D6 — Phase 2 LC-only orchestrator (D6 evidence-based exclusion).
 
 
-import os, sys, subprocess, time
+import os
+import subprocess
+import sys
+import time
+from pathlib import Path
+
 import pandas as pd
 
 _ENV_UTF8 = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR    = os.path.join(BASE_DIR, "data")
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
+BASE_DIR    = Path(__file__).resolve().parent
+DATA_DIR    = BASE_DIR / "data"
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Paths in 'output' lists are relative to RESULTS_DIR (post-reorg, audit 2026-05-05).
 # step_2_2 produces 'step_2_2_ce_heat_dataset_lc.csv' as canonical name; the legacy
@@ -76,7 +81,7 @@ EXCEL_SHEETS = [
 ]
 
 # Final consolidated workbook lives in results/ alongside the per-step CSVs.
-EXCEL_OUTPUT = os.path.join("results", "phase2_lc_results.xlsx")
+EXCEL_OUTPUT = Path("results") / "phase2_lc_results.xlsx"
 
 
 def sep(char="=", n=70):
@@ -85,7 +90,7 @@ def sep(char="=", n=70):
 
 def fmt_size(path):
     try:
-        b = os.path.getsize(path)
+        b = Path(path).stat().st_size
         return f"{b/1e6:.1f} MB" if b >= 1e6 else (f"{b/1e3:.0f} KB" if b >= 1e3 else f"{b} B")
     except Exception:
         return "n/a"
@@ -93,11 +98,11 @@ def fmt_size(path):
 
 def outputs_exist(step):
     """Outputs are produced by sub-scripts inside RESULTS_DIR."""
-    return all(os.path.exists(os.path.join(RESULTS_DIR, f)) for f in step["output"])
+    return all((RESULTS_DIR / f).exists() for f in step["output"])
 
 
 def run_step(step, idx, total, skip_existing):
-    script_path = os.path.join(BASE_DIR, step["script"])
+    script_path = BASE_DIR / step["script"]
     sep()
     print(f"[{idx}/{total}] {step['name']}")
     sep("-")
@@ -105,19 +110,19 @@ def run_step(step, idx, total, skip_existing):
 
     if skip_existing and outputs_exist(step):
         for f in step["output"]:
-            p = os.path.join(BASE_DIR, f)
+            p = BASE_DIR / f
             print(f"  [SKIP]  {f:<50} {fmt_size(p):>8}  (already present)")
         print(f"\n  Time: 0.0s  (skipped)")
         return True, 0.0
 
-    if not os.path.exists(script_path):
+    if not script_path.exists():
         print(f"  ERROR: script not found -- {script_path}")
         return False, 0.0
 
     t0     = time.time()
     result = subprocess.run(
-        [sys.executable, script_path],
-        capture_output=True, text=True, cwd=BASE_DIR,
+        [sys.executable, str(script_path)],
+        capture_output=True, text=True, cwd=str(BASE_DIR),
         env=_ENV_UTF8, encoding="utf-8",
     )
     elapsed = time.time() - t0
@@ -132,8 +137,8 @@ def run_step(step, idx, total, skip_existing):
     print()
     all_ok = True
     for f in step["output"]:
-        p = os.path.join(BASE_DIR, f)
-        if os.path.exists(p):
+        p = BASE_DIR / f
+        if p.exists():
             print(f"  [OK]    {f:<50} {fmt_size(p):>8}")
         else:
             print(f"  [MISSING] {f}")
@@ -165,22 +170,20 @@ def build_p2_regulatory_kpis() -> pd.DataFrame:
     #   Github/Phase1_PhysicalDT/lc/results/phase1_lc_results.xlsx
     #   Github/Phase2_ISMatch/run_phase_2_lc.py   <- this script
     BASE          = BASE_DIR
-    PHASE1_XLSX   = os.path.join(os.path.dirname(BASE),
-                                 "Phase1_PhysicalDT", "lc", "results",
-                                 "phase1_lc_results.xlsx")
+    PHASE1_XLSX   = BASE.parent / "Phase1_PhysicalDT" / "lc" / "results" / "phase1_lc_results.xlsx"
 
     # ── 1. Load 27-plant dataset ─────────────────────────────────────────────
     # Look in results/ (regenerated outputs) first, then data/ (committed input).
-    results_dir = os.path.join(BASE, "results")
-    data_dir    = os.path.join(BASE, "data")
-    ds_path = os.path.join(results_dir, "step_2_2_ce_heat_dataset_lc.csv")
-    if not os.path.exists(ds_path):
-        ds_path = os.path.join(data_dir, "ce_heat_inspired_dataset_lc.csv")
-    if not os.path.exists(ds_path):
+    results_dir = BASE / "results"
+    data_dir    = BASE / "data"
+    ds_path = results_dir / "step_2_2_ce_heat_dataset_lc.csv"
+    if not ds_path.exists():
+        ds_path = data_dir / "ce_heat_inspired_dataset_lc.csv"
+    if not ds_path.exists():
         # Backward compatibility with pre-reorg checkouts (flat Phase2/)
-        ds_path = os.path.join(BASE, "step_2_2_ce_heat_dataset_lc.csv")
-    if not os.path.exists(ds_path):
-        ds_path = os.path.join(BASE, "ce_heat_inspired_dataset_lc.csv")
+        ds_path = BASE / "step_2_2_ce_heat_dataset_lc.csv"
+    if not ds_path.exists():
+        ds_path = BASE / "ce_heat_inspired_dataset_lc.csv"
     ds = pd.read_csv(ds_path, usecols=[
         "dc_name", "plant_name", "plant_tier", "plant_t_req_c",
         "plant_q_demand_kw", "distance_km",
@@ -188,7 +191,7 @@ def build_p2_regulatory_kpis() -> pd.DataFrame:
 
     # ── 2. Calibration scores — final iteration only ─────────────────────────
     # ΔTC calibration converges at N_iter=4; column 'iteration' marks each pass.
-    cal = pd.read_csv(os.path.join(results_dir, "step_2_4_delta_tc_calibration_lc.csv"))
+    cal = pd.read_csv(results_dir / "step_2_4_delta_tc_calibration_lc.csv")
     final_iter = cal["iteration"].max()
     cal_final  = cal[cal["iteration"] == final_iter][
         ["dc_name", "process_name", "is_match_score", "tier"]
@@ -206,9 +209,7 @@ def build_p2_regulatory_kpis() -> pd.DataFrame:
     except Exception as e:
         print(f"  [WARN]  Could not read Regulatory_KPIs from Phase1 xlsx: {e}")
         print("          Falling back to lc_dc_results_annual.csv ...")
-        rc_csv = os.path.join(os.path.dirname(BASE),
-                              "Phase1_PhysicalDT", "lc", "results",
-                              "lc_dc_results_annual.csv")
+        rc_csv = BASE.parent / "Phase1_PhysicalDT" / "lc" / "results" / "lc_dc_results_annual.csv"
         df_rc  = pd.read_csv(rc_csv, usecols=["scenario","TWH","ERF","Q_negotiated"])
         reg_p1 = (
             df_rc.groupby("scenario")
@@ -302,11 +303,11 @@ def consolidate_to_excel():
     sep()
     print("  CONSOLIDATING OUTPUTS -> results/phase2_lc_results.xlsx")
     sep("-")
-    xlsx_path = os.path.join(BASE_DIR, EXCEL_OUTPUT)
+    xlsx_path = BASE_DIR / EXCEL_OUTPUT
     with pd.ExcelWriter(xlsx_path, engine="openpyxl") as writer:
         for csv_name, sheet_name in EXCEL_SHEETS:
-            csv_path = os.path.join(RESULTS_DIR, csv_name)
-            if not os.path.exists(csv_path):
+            csv_path = RESULTS_DIR / csv_name
+            if not csv_path.exists():
                 print(f"  [SKIP]   {csv_name} not found -- sheet '{sheet_name}' omitted")
                 continue
             df = pd.read_csv(csv_path)
@@ -330,7 +331,7 @@ def consolidate_to_excel():
     except Exception as exc:
         print(f"  [WARN]   Regulatory_KPIs sheet skipped: {exc}")
 
-    sz = os.path.getsize(xlsx_path)
+    sz = xlsx_path.stat().st_size
     print(f"\n  Saved: {xlsx_path}  ({sz/1e3:.0f} KB)")
     sys.stdout.flush()
 
@@ -369,4 +370,24 @@ def main():
     print()
     print("  Output files (in results/):")
     for step in STEPS:
+        for f in step["output"]:
+            p = RESULTS_DIR / f
+            if p.exists():
+                size_kb = p.stat().st_size / 1024.0
+                print(f"    {f:<55} {size_kb:>8.1f} KB")
+
+    print()
+    print(f"  Total time: {time.time()-t0:.1f}s")
+    print()
+    if all_pass:
+        print("  GATE PHASE 2: PASS")
+        print("  Ready for Phase 4 (Phase 3 KG ingest is independent).")
+        consolidate_to_excel()
+    else:
+        print("  GATE PHASE 2: FAIL")
+        print("  Fix the failed step(s) before running Phase 4.")
+
+
+if __name__ == "__main__":
+    main()
   
