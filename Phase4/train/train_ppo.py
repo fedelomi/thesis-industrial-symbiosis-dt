@@ -32,7 +32,7 @@ if str(PHASE4_ROOT) not in sys.path:
     sys.path.insert(0, str(PHASE4_ROOT))
 
 from stable_baselines3 import PPO
-from stable_baselines3.common.callbacks import EvalCallback
+from stable_baselines3.common.callbacks import CheckpointCallback, EvalCallback
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import SubprocVecEnv
 
@@ -88,6 +88,12 @@ def train(
         render=False,
     )
 
+    ckpt_cb = CheckpointCallback(
+        save_freq=max(1, 50_000 // max(1, n_envs)),
+        save_path=str(out_dir / f"checkpoints_{scenario_id}"),
+        name_prefix="ppo",
+    )
+
     model = PPO(
         policy="MlpPolicy",
         env=vec_env,
@@ -104,7 +110,7 @@ def train(
         verbose=1,
     )
 
-    model.learn(total_timesteps=total_timesteps, callback=eval_cb)
+    model.learn(total_timesteps=total_timesteps, callback=[eval_cb, ckpt_cb])
     model_path = out_dir / f"ppo_{scenario_id}.zip"
     model.save(str(model_path))
     vec_env.close()
