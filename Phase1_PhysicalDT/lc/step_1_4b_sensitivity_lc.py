@@ -22,15 +22,17 @@ THESIS_INTERPRETATION = (
     "for this automatically via the SIDED-style approach.\n"
 )
 
-import os, sys
+import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
-REAL_CSV    = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
-OUT_CSV     = os.path.join(RESULTS_DIR, "lc_sensitivity_validation.csv")
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+REAL_CSV    = RESULTS_DIR / "lc_dc_results_annual.csv"
+OUT_CSV     = RESULTS_DIR / "lc_sensitivity_validation.csv"
 
 SIGMA_MULTS = [0.025, 0.05, 0.10, 0.25]
 FEATURES    = ["T_supply", "Q_available", "Exergy_DT"]

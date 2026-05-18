@@ -31,8 +31,8 @@ Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.3,
 from __future__ import annotations
 
 import json
-import os
 from dataclasses import asdict, dataclass
+from pathlib import Path
 
 
 # --- Struttura domanda ---
@@ -777,15 +777,16 @@ DATASET: list[QAItem] = [
 # --- Output functions ---
 
 def save_dataset(dataset: list[QAItem], output_dir: str = "data") -> tuple[str, str]:
-    os.makedirs(output_dir, exist_ok=True)
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
 
     # JSON
-    json_path = os.path.join(output_dir, "benchmark_qa_dataset.json")
+    json_path = output_path / "benchmark_qa_dataset.json"
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump([asdict(q) for q in dataset], f, indent=2, ensure_ascii=False)
 
     # Summary
-    summary_path = os.path.join(output_dir, "benchmark_qa_dataset_summary.txt")
+    summary_path = output_path / "benchmark_qa_dataset_summary.txt"
     cat_counts = {}
     diff_counts = {}
     hop_dist: dict[int, int] = {}
@@ -816,7 +817,7 @@ def save_dataset(dataset: list[QAItem], output_dir: str = "data") -> tuple[str, 
     with open(summary_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
 
-    return json_path, summary_path
+    return str(json_path), str(summary_path)
 
 
 def print_summary(dataset: list[QAItem]) -> None:

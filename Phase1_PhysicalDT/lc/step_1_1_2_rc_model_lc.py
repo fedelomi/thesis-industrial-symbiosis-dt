@@ -31,7 +31,8 @@
 
 
 import logging
-import os
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 from CoolProp.CoolProp import PropsSI
@@ -39,9 +40,9 @@ from CoolProp.CoolProp import PropsSI
 logger = logging.getLogger(__name__)
 
 # Output directory (post-reorg, audit 2026-05-05)
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 # ------------------------------------------------------------------------------
 # STEP 1.1 - RC THERMAL MODEL (exact analytical solution)
@@ -316,7 +317,7 @@ def main() -> None:
         df, _ = run_simulation(name, params)
         df_all = pd.concat([df_all, df], ignore_index=True)
 
-    out_csv = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
+    out_csv = RESULTS_DIR / "lc_dc_results_annual.csv"
     df_all.to_csv(out_csv, index=False)
     logger.info(f"\nOutput saved: {out_csv}  ({len(df_all)} rows)")
 

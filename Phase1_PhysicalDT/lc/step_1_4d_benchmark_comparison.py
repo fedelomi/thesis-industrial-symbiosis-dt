@@ -16,7 +16,6 @@
 # Decision active: D5 — TWH benchmark vs. real LC DC cases (D5 parametrization).
 
 
-import os
 import shutil
 import tempfile
 from pathlib import Path
@@ -24,14 +23,14 @@ import numpy as np
 import pandas as pd
 import xlsxwriter
 
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
-RC_CSV     = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
-EED_CSV    = os.path.join(RESULTS_DIR, "eed_compliance_lc.csv")
-ERF_CSV    = os.path.join(RESULTS_DIR, "erf_sensitivity_lc.csv")
-OUT_CSV    = os.path.join(RESULTS_DIR, "benchmark_comparison_lc.csv")
-P1_XLSX    = os.path.join(RESULTS_DIR, "phase1_lc_results.xlsx")
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+RC_CSV     = RESULTS_DIR / "lc_dc_results_annual.csv"
+EED_CSV    = RESULTS_DIR / "eed_compliance_lc.csv"
+ERF_CSV    = RESULTS_DIR / "erf_sensitivity_lc.csv"
+OUT_CSV    = RESULTS_DIR / "benchmark_comparison_lc.csv"
+P1_XLSX    = RESULTS_DIR / "phase1_lc_results.xlsx"
 TMP_XLSX   = Path(tempfile.gettempdir()) / "phase1_lc_results_step1_4d.xlsx"
 
 # ------------------------------------------------------------------------------
@@ -254,8 +253,8 @@ def rebuild_xlsx(df_reg: pd.DataFrame,
                     ws.write(ri, ci, v)
 
     for csv_name, sheet_name in P1_BASE_SHEETS:
-        csv_path = os.path.join(BASE_DIR, csv_name)
-        if not os.path.exists(csv_path):
+        csv_path = BASE_DIR / csv_name
+        if not csv_path.exists():
             print(f"    [SKIP] {csv_name} not found")
             continue
         df = pd.read_csv(csv_path)
@@ -275,8 +274,8 @@ def rebuild_xlsx(df_reg: pd.DataFrame,
 
     wb.close()
     shutil.copy2(TMP_XLSX, P1_XLSX)
-    os.remove(TMP_XLSX)
-    size_mb = os.path.getsize(P1_XLSX) / 1e6
+    TMP_XLSX.unlink()
+    size_mb = P1_XLSX.stat().st_size / 1e6
     print(f"  Saved: {P1_XLSX}  ({size_mb:.1f} MB, 9 sheets)")
 
 
@@ -322,8 +321,8 @@ def main() -> None:
     # Rebuild xlsx with 9 sheets
     df_rc  = pd.read_csv(RC_CSV, usecols=["scenario","TWH","ERF","Q_available","Q_negotiated"])
     df_reg = _build_reg_kpis(df_rc)
-    df_eed = pd.read_csv(EED_CSV) if os.path.exists(EED_CSV) else pd.DataFrame()
-    df_erf = pd.read_csv(ERF_CSV) if os.path.exists(ERF_CSV) else pd.DataFrame()
+    df_eed = pd.read_csv(EED_CSV) if EED_CSV.exists() else pd.DataFrame()
+    df_erf = pd.read_csv(ERF_CSV) if ERF_CSV.exists() else pd.DataFrame()
     rebuild_xlsx(df_reg, df_eed, df_erf, df_bench)
 
     print("\n  STEP 1.4d COMPLETE")

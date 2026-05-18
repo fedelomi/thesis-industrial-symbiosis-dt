@@ -23,7 +23,6 @@
 # Decision active: D5 — ERF sensitivity built on D5-parametrized LC profile.
 
 
-import os
 import shutil
 import tempfile
 from pathlib import Path
@@ -31,13 +30,13 @@ import numpy as np
 import pandas as pd
 import xlsxwriter
 
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
-RC_CSV     = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
-EED_CSV    = os.path.join(RESULTS_DIR, "eed_compliance_lc.csv")
-OUT_CSV    = os.path.join(RESULTS_DIR, "erf_sensitivity_lc.csv")
-P1_XLSX    = os.path.join(RESULTS_DIR, "phase1_lc_results.xlsx")
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+RC_CSV     = RESULTS_DIR / "lc_dc_results_annual.csv"
+EED_CSV    = RESULTS_DIR / "eed_compliance_lc.csv"
+OUT_CSV    = RESULTS_DIR / "erf_sensitivity_lc.csv"
+P1_XLSX    = RESULTS_DIR / "phase1_lc_results.xlsx"
 TMP_XLSX   = Path(tempfile.gettempdir()) / "phase1_lc_results_step1_4c.xlsx"
 
 # ------------------------------------------------------------------------------
@@ -182,8 +181,8 @@ def rebuild_xlsx(df_reg: pd.DataFrame,
 
     # ── original CSV-backed sheets ──────────────────────────────────────────
     for csv_name, sheet_name in P1_BASE_SHEETS:
-        csv_path = os.path.join(BASE_DIR, csv_name)
-        if not os.path.exists(csv_path):
+        csv_path = BASE_DIR / csv_name
+        if not csv_path.exists():
             print(f"    [SKIP] {csv_name} not found")
             continue
         df = pd.read_csv(csv_path)
@@ -203,8 +202,8 @@ def rebuild_xlsx(df_reg: pd.DataFrame,
 
     wb.close()
     shutil.copy2(TMP_XLSX, P1_XLSX)
-    os.remove(TMP_XLSX)
-    size_mb = os.path.getsize(P1_XLSX) / 1e6
+    TMP_XLSX.unlink()
+    size_mb = P1_XLSX.stat().st_size / 1e6
     print(f"  Saved: {P1_XLSX}  ({size_mb:.1f} MB, 8 sheets)")
 
 
@@ -221,15 +220,15 @@ def main() -> None:
         RC_CSV,
         usecols=["scenario", "TWH", "ERF", "Q_available", "Q_negotiated"],
     )
-    print(f"  Loaded {len(df_rc):,} rows from {os.path.basename(RC_CSV)}")
+    print(f"  Loaded {len(df_rc):,} rows from {RC_CSV.name}")
 
     # Load TEE baseline from EED_Compliance CSV (fallback to hardcoded)
-    if os.path.exists(EED_CSV):
+    if EED_CSV.exists():
         eed_raw = pd.read_csv(EED_CSV)
         tee_map: dict[str, int] = dict(
             zip(eed_raw["scenario"], eed_raw["TEE_estimated_eur_year"].astype(int))
         )
-        print(f"  TEE baseline loaded from {os.path.basename(EED_CSV)}")
+        print(f"  TEE baseline loaded from {EED_CSV.name}")
     else:
         tee_map = TEE_FALLBACK
         print("  [WARN] eed_compliance_lc.csv not found — using hardcoded TEE fallback")
@@ -249,7 +248,7 @@ def main() -> None:
 
     # Rebuild xlsx with 8 sheets
     df_reg = _build_reg_kpis(df_rc)
-    df_eed = pd.read_csv(EED_CSV) if os.path.exists(EED_CSV) else pd.DataFrame()
+    df_eed = pd.read_csv(EED_CSV) if EED_CSV.exists() else pd.DataFrame()
     rebuild_xlsx(df_reg, df_eed, df_erf)
 
     print("\n  STEP 1.4c COMPLETE")

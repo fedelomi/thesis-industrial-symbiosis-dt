@@ -23,7 +23,6 @@
 
 
 import logging
-import os
 import shutil
 import tempfile
 from pathlib import Path
@@ -33,12 +32,12 @@ import xlsxwriter
 
 logger = logging.getLogger(__name__)
 
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
-os.makedirs(RESULTS_DIR, exist_ok=True)
-RC_CSV     = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
-EED_CSV    = os.path.join(RESULTS_DIR, "eed_compliance_lc.csv")
-P1_XLSX    = os.path.join(RESULTS_DIR, "phase1_lc_results.xlsx")
+BASE_DIR    = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+RC_CSV     = RESULTS_DIR / "lc_dc_results_annual.csv"
+EED_CSV    = RESULTS_DIR / "eed_compliance_lc.csv"
+P1_XLSX    = RESULTS_DIR / "phase1_lc_results.xlsx"
 TMP_XLSX   = Path(tempfile.gettempdir()) / "phase1_lc_results_step0.xlsx"
 
 # ------------------------------------------------------------------------------
@@ -225,8 +224,8 @@ def rebuild_xlsx(reg: pd.DataFrame, eed: pd.DataFrame) -> None:
 
     # ── original CSV-backed sheets ───────────────────────────────────────────
     for csv_name, sheet_name in P1_SHEETS:
-        csv_path = os.path.join(BASE_DIR, csv_name)
-        if not os.path.exists(csv_path):
+        csv_path = BASE_DIR / csv_name
+        if not csv_path.exists():
             logger.info(f"    [SKIP] {csv_name} not found")
             continue
         df = pd.read_csv(csv_path)
@@ -246,8 +245,8 @@ def rebuild_xlsx(reg: pd.DataFrame, eed: pd.DataFrame) -> None:
 
     wb.close()
     shutil.copy2(TMP_XLSX, P1_XLSX)
-    os.remove(TMP_XLSX)
-    size_mb = os.path.getsize(P1_XLSX) / 1e6
+    TMP_XLSX.unlink()
+    size_mb = P1_XLSX.stat().st_size / 1e6
     logger.info(f"  Saved: {P1_XLSX}  ({size_mb:.1f} MB, 7 sheets)")
 
 
@@ -260,12 +259,12 @@ def main() -> None:
     logger.info("=" * 70)
 
     # Load RC model output (provides TWH, ERF, Q_available, Q_negotiated)
-    if not os.path.exists(RC_CSV):
+    if not RC_CSV.exists():
         raise FileNotFoundError(f"RC CSV not found: {RC_CSV}")
     df_rc = pd.read_csv(
         RC_CSV, usecols=["scenario", "TWH", "ERF", "Q_available", "Q_negotiated"]
     )
-    logger.info(f"  Loaded {len(df_rc):,} rows from {os.path.basename(RC_CSV)}")
+    logger.info(f"  Loaded {len(df_rc):,} rows from {RC_CSV.name}")
 
     # Build Regulatory KPIs (mirrors Regulatory_KPIs sheet)
     reg = build_regulatory_kpis(df_rc)

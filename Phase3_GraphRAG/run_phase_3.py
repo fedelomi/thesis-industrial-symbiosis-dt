@@ -36,12 +36,12 @@ Wiki references:
 #                   D4 — ISO 50001 integral text.
 
 from __future__ import annotations
-import os
 
 import argparse
 import subprocess
 import sys
 import time
+from pathlib import Path
 
 from neo4j import GraphDatabase, exceptions as neo4j_exc
 
@@ -103,13 +103,13 @@ def run_step(step_n: int, script: str) -> bool:
     print(f"\n{'='*60}")
     print(f"  STEP {step_n}: {script}")
     print(f"{'='*60}")
-    here = os.path.dirname(os.path.abspath(__file__))
-    script_path = os.path.join(here, script)
-    if not os.path.exists(script_path):
+    here = Path(__file__).resolve().parent
+    script_path = here / script
+    if not script_path.exists():
         print(f"  [ERROR] script not found: {script_path}")
         return False
     t0 = time.time()
-    result = subprocess.run([sys.executable, script_path], cwd=here)
+    result = subprocess.run([sys.executable, str(script_path)], cwd=str(here))
     elapsed = time.time() - t0
     ok = result.returncode == 0
     print(f"\n  --> Step {step_n} {'OK' if ok else 'FAILED'} in {elapsed:.1f}s")
