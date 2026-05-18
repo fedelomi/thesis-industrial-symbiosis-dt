@@ -22,6 +22,7 @@
 #                       Wiki: [[decisioni-implementative#D5]].
 
 
+import logging
 import os
 import shutil
 import tempfile
@@ -29,6 +30,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import xlsxwriter
+
+logger = logging.getLogger(__name__)
 
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
 RESULTS_DIR = os.path.join(BASE_DIR, "results")
@@ -206,7 +209,7 @@ def build_eed_compliance(reg: pd.DataFrame) -> pd.DataFrame:
 # ------------------------------------------------------------------------------
 def rebuild_xlsx(reg: pd.DataFrame, eed: pd.DataFrame) -> None:
     """Rebuild phase1_lc_results.xlsx with 7 sheets (adds EED_Compliance)."""
-    print("  Rebuilding phase1_lc_results.xlsx ...")
+    logger.info("  Rebuilding phase1_lc_results.xlsx ...")
     hdr_fmt_opts = {"bold": True, "bg_color": "#D9E1F2", "border": 1}
 
     wb = xlsxwriter.Workbook(TMP_XLSX, {"constant_memory": True})
@@ -224,37 +227,37 @@ def rebuild_xlsx(reg: pd.DataFrame, eed: pd.DataFrame) -> None:
     for csv_name, sheet_name in P1_SHEETS:
         csv_path = os.path.join(BASE_DIR, csv_name)
         if not os.path.exists(csv_path):
-            print(f"    [SKIP] {csv_name} not found")
+            logger.info(f"    [SKIP] {csv_name} not found")
             continue
         df = pd.read_csv(csv_path)
         ws = wb.add_worksheet(sheet_name)
         write_df(ws, df)
-        print(f"    [OK]   {sheet_name} ({len(df)} rows)")
+        logger.info(f"    [OK]   {sheet_name} ({len(df)} rows)")
 
     # ── Regulatory_KPIs (derived from CSV, same as original sheet) ───────────
     ws_reg = wb.add_worksheet("Regulatory_KPIs")
     write_df(ws_reg, reg)
-    print(f"    [OK]   Regulatory_KPIs ({len(reg)} rows)")
+    logger.info(f"    [OK]   Regulatory_KPIs ({len(reg)} rows)")
 
     # ── EED_Compliance (new sheet) ───────────────────────────────────────────
     ws_eed = wb.add_worksheet("EED_Compliance")
     write_df(ws_eed, eed)
-    print(f"    [OK]   EED_Compliance ({len(eed)} rows)")
+    logger.info(f"    [OK]   EED_Compliance ({len(eed)} rows)")
 
     wb.close()
     shutil.copy2(TMP_XLSX, P1_XLSX)
     os.remove(TMP_XLSX)
     size_mb = os.path.getsize(P1_XLSX) / 1e6
-    print(f"  Saved: {P1_XLSX}  ({size_mb:.1f} MB, 7 sheets)")
+    logger.info(f"  Saved: {P1_XLSX}  ({size_mb:.1f} MB, 7 sheets)")
 
 
 # ------------------------------------------------------------------------------
 # MAIN
 # ------------------------------------------------------------------------------
 def main() -> None:
-    print("=" * 70)
-    print("  STEP 0 — EED Compliance Matrix [Liquid Cooling]")
-    print("=" * 70)
+    logger.info("=" * 70)
+    logger.info("  STEP 0 — EED Compliance Matrix [Liquid Cooling]")
+    logger.info("=" * 70)
 
     # Load RC model output (provides TWH, ERF, Q_available, Q_negotiated)
     if not os.path.exists(RC_CSV):
@@ -262,26 +265,30 @@ def main() -> None:
     df_rc = pd.read_csv(
         RC_CSV, usecols=["scenario", "TWH", "ERF", "Q_available", "Q_negotiated"]
     )
-    print(f"  Loaded {len(df_rc):,} rows from {os.path.basename(RC_CSV)}")
+    logger.info(f"  Loaded {len(df_rc):,} rows from {os.path.basename(RC_CSV)}")
 
     # Build Regulatory KPIs (mirrors Regulatory_KPIs sheet)
     reg = build_regulatory_kpis(df_rc)
 
     # Compute EED compliance matrix
     eed = build_eed_compliance(reg)
-    print("\n  EED Compliance Matrix:")
-    print(eed.to_string(index=False))
+    logger.info("\n  EED Compliance Matrix:")
+    logger.info(eed.to_string(index=False))
 
     # Write intermediate CSV
     eed.to_csv(EED_CSV, index=False)
-    print(f"\n  CSV written: {EED_CSV}")
+    logger.info(f"\n  CSV written: {EED_CSV}")
 
     # Rebuild xlsx with 7 sheets
     rebuild_xlsx(reg, eed)
 
-    print("\n  STEP 0 COMPLETE")
-    print("=" * 70)
+    logger.info("\n  STEP 0 COMPLETE")
+    logger.info("=" * 70)
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(name)s %(levelname)s %(message)s",
+    )
     main()

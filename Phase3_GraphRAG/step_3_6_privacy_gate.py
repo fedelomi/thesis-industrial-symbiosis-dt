@@ -35,9 +35,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import random
 import sys
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 # Re-use the canonical Phase 1 LC statistics defined in step_3_5_phase1_integration.
 # This avoids drift between the two scripts on the wiki-validated reference values.
@@ -71,7 +74,7 @@ def run_privacy_gate() -> dict:
             "method": "Q_available_mean delta proxy with sigma=0.05*std bootstrap",
         }
     """
-    print("\n-- Passo 3.6: Privacy Gate ------------------------------------")
+    logger.info("\n-- Passo 3.6: Privacy Gate ------------------------------------")
 
     rng = random.Random(RNG_SEED)
     real_stats: dict[str, float] = {
@@ -104,12 +107,16 @@ def run_privacy_gate() -> dict:
             "gate":       "PASS" if passed else "FAIL",
         }
         sym = "PASS" if passed else "FAIL"
-        print(f"  {dc_id}: real={real_q:.0f} kW  synth={synth_q:.0f} kW  "
-              f"delta={delta:.2%}  [{sym}]")
+        log_fn = logger.info if passed else logger.error
+        log_fn(f"  {dc_id}: real={real_q:.0f} kW  synth={synth_q:.0f} kW  "
+               f"delta={delta:.2%}  [{sym}]")
 
     overall = "PASS" if all_pass else "FAIL"
-    print(f"\n  Privacy Gate overall: {overall}")
-    print(f"  (Target: Delta IS-Match proxy < {DELTA_THRESHOLD:.0%} -> PASS)")
+    if all_pass:
+        logger.info(f"\n  Privacy Gate overall: {overall}")
+    else:
+        logger.error(f"\n  Privacy Gate overall: {overall}")
+    logger.info(f"  (Target: Delta IS-Match proxy < {DELTA_THRESHOLD:.0%} -> PASS)")
 
     return {
         "gate":          overall,
@@ -125,7 +132,7 @@ def save_result(result: dict, out_path: Path | None = None) -> Path:
     target.parent.mkdir(parents=True, exist_ok=True)
     with open(target, "w") as f:
         json.dump(result, f, indent=2)
-    print(f"  Saved: {target}")
+    logger.info(f"  Saved: {target}")
     return target
 
 
@@ -140,10 +147,10 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    print("=" * 60)
-    print("  Phase 3 - step_3_6_privacy_gate.py")
-    print("  Passo 3.6 — Privacy preservation gate")
-    print("=" * 60)
+    logger.info("=" * 60)
+    logger.info("  Phase 3 - step_3_6_privacy_gate.py")
+    logger.info("  Passo 3.6 — Privacy preservation gate")
+    logger.info("=" * 60)
     result = run_privacy_gate()
     save_result(result, out_path=args.out)
     if result["gate"] != "PASS":
@@ -151,4 +158,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(name)s %(levelname)s %(message)s",
+    )
     main()

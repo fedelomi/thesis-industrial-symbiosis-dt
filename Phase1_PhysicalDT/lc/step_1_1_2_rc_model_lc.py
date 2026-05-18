@@ -30,10 +30,13 @@
 #                       Wiki: [[decisioni-implementative#D5]].
 
 
+import logging
 import os
 import numpy as np
 import pandas as pd
 from CoolProp.CoolProp import PropsSI
+
+logger = logging.getLogger(__name__)
 
 # Output directory (post-reorg, audit 2026-05-05)
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
@@ -191,11 +194,11 @@ def compute_exergy_vectorized(
 def run_simulation(scenario_name: str, params: dict) -> tuple:
     t_ss_C = (params['T_cdu_supply'] - 273.15
               + params['R_d'] * params['alpha_i'] * params['rated_power_W'])
-    print(f"\nSimulation: {scenario_name} "
-          f"({params['rated_power_W']/1e6:.1f} MW) | "
-          f"R_d={params['R_d']:.2e} K/W | "
-          f"T_CDU_supply={params['T_cdu_supply']-273.15:.0f} C | "
-          f"T_return_ss={t_ss_C:.1f} C")
+    logger.info(f"\nSimulation: {scenario_name} "
+                f"({params['rated_power_W']/1e6:.1f} MW) | "
+                f"R_d={params['R_d']:.2e} K/W | "
+                f"T_CDU_supply={params['T_cdu_supply']-273.15:.0f} C | "
+                f"T_return_ss={t_ss_C:.1f} C")
 
     dt     = 15 * 60      # 900 s
     N_STEP = 35_040       # 1 year at 15-min resolution
@@ -281,15 +284,18 @@ def run_simulation(scenario_name: str, params: dict) -> tuple:
     plausible = (T_RETURN_MIN_C <= t_return_mean <= T_RETURN_MAX_C
                  and t_avail >= T_AVAIL_MIN)
 
-    print(f"  T_return range    : {df['T_supply'].min():.1f} - {df['T_supply'].max():.1f} C")
-    print(f"  T_return mean     : {t_return_mean:.1f} C  "
-          f"(bounds [{T_RETURN_MIN_C}, {T_RETURN_MAX_C}] C)")
-    print(f"  t_availability    : {t_avail:.2%}  (bound >= {T_AVAIL_MIN:.0%})")
-    print(f"  Q_available range : {df['Q_available'].min()/1e3:.1f} - "
-          f"{df['Q_available'].max()/1e3:.1f} kW")
-    print(f"  Exergy_DT range   : {df['Exergy_DT'].min()/1e3:.1f} - "
-          f"{df['Exergy_DT'].max()/1e3:.1f} kW")
-    print(f"  Plausibility gate : {'PASS' if plausible else 'FAIL'}")
+    logger.info(f"  T_return range    : {df['T_supply'].min():.1f} - {df['T_supply'].max():.1f} C")
+    logger.info(f"  T_return mean     : {t_return_mean:.1f} C  "
+                f"(bounds [{T_RETURN_MIN_C}, {T_RETURN_MAX_C}] C)")
+    logger.info(f"  t_availability    : {t_avail:.2%}  (bound >= {T_AVAIL_MIN:.0%})")
+    logger.info(f"  Q_available range : {df['Q_available'].min()/1e3:.1f} - "
+                f"{df['Q_available'].max()/1e3:.1f} kW")
+    logger.info(f"  Exergy_DT range   : {df['Exergy_DT'].min()/1e3:.1f} - "
+                f"{df['Exergy_DT'].max()/1e3:.1f} kW")
+    if plausible:
+        logger.info("  Plausibility gate : PASS")
+    else:
+        logger.error("  Plausibility gate : FAIL")
 
     if not plausible:
         raise ValueError(
@@ -312,8 +318,12 @@ def main() -> None:
 
     out_csv = os.path.join(RESULTS_DIR, "lc_dc_results_annual.csv")
     df_all.to_csv(out_csv, index=False)
-    print(f"\nOutput saved: {out_csv}  ({len(df_all)} rows)")
+    logger.info(f"\nOutput saved: {out_csv}  ({len(df_all)} rows)")
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(name)s %(levelname)s %(message)s",
+    )
     main()
