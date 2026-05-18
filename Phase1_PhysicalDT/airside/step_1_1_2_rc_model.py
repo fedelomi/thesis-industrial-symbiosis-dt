@@ -6,11 +6,14 @@
 # Decision active: D1 — DT calibration on published KPIs (C1) instead of
 #                       proprietary Frontier ORNL data. Wiki: [[decisioni-implementative#D1]].
 
+import logging
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from CoolProp.CoolProp import PropsSI
+
+logger = logging.getLogger(__name__)
 
 # Output directory (post-reorg, audit 2026-05-05)
 BASE_DIR    = Path(__file__).resolve().parent
@@ -22,7 +25,15 @@ RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 # Exact analytical solution (replaces unstable explicit Euler)
 # theta(t+dt) = theta_ss + (theta(t) - theta_ss) * exp(-dt/tau)
 # ------------------------------------------------------------------------------
-def rc_thermal_model(theta_now, dt, C_d, sum_alpha_u, T_amb, R_d, Q_cool):
+def rc_thermal_model(
+    theta_now: float,
+    dt: float,
+    C_d: float,
+    sum_alpha_u: float,
+    T_amb: float,
+    R_d: float,
+    Q_cool: float = 0.0,
+) -> float:
     """
     Exact analytical solution of the RC thermal model (always stable).
 
@@ -78,7 +89,11 @@ DC_SCENARIOS = {
 CAPTURE_FRACTION_AIRSIDE: float = 0.95
 
 # Realistic IT load profile: daily sinusoidal cycle + Gaussian noise
-def it_load_profile(t, N_STEP, seed=42):
+def it_load_profile(
+    t: np.ndarray,
+    N_STEP: int,
+    seed: int = 42,
+) -> np.ndarray:
     """
     Simulates realistic IT load variability:
     - Daily cycle (96 steps = 24h at 15-min resolution)
@@ -96,12 +111,19 @@ def it_load_profile(t, N_STEP, seed=42):
     )
     return np.clip(load, 0.10, 1.0)
 
-def compute_cv_rmse(sim_values, ref_values):
+def compute_cv_rmse(
+    sim_values: np.ndarray,
+    ref_values: np.ndarray,
+) -> float:
     """CV-RMSE in % -- uses real measured data as ref_values."""
     rmse = np.sqrt(np.mean((sim_values - ref_values) ** 2))
     return (rmse / np.mean(ref_values)) * 100
 
-def compute_exergy(theta_K, Q_available, T0_K=288.15):
+def compute_exergy(
+    theta_K: float,
+    Q_available: float,
+    T0_K: float = 288.15,
+) -> float:
     """
     Exergy_DT = m_dot * [(h - h0) - T0 * (s - s0)]
     T0_K: reference temperature already in Kelvin (default 15 C = 288.15 K)
@@ -118,7 +140,11 @@ def compute_exergy(theta_K, Q_available, T0_K=288.15):
         h0 = PropsSI('H', 'T', T0_K,      'P', 101325, 'Water')
         s  = PropsSI('S', 'T', theta_safe, 'P', 101325, 'Water')
         s0 = PropsSI('S', 'T', T0_K,      'P', 101325, 'Water')
-    except Exception:
+    except Exception as exc:
+        logger.warning(
+            "CoolProp call failed at theta_safe=%.3f K, T0_K=%.3f K (returning zero exergy). Error: %s",
+            theta_safe, T0_K, exc,
+        )
         return 0.0
 
     dh = h - h0
@@ -131,7 +157,10 @@ def compute_exergy(theta_K, Q_available, T0_K=288.15):
 # ------------------------------------------------------------------------------
 # STEP 1.2 - SIMULATION LOOP 15-min steps (35,040 steps/year)
 # ------------------------------------------------------------------------------
-def run_simulation(scenario_name, params):
+def run_simulation(
+    scenario_name: str,
+    params: dict,
+) -> tuple[pd.DataFrame, bool]:
     t_ss = (params['T_amb'] - 273.15
             + params['R_d'] * (params['alpha_i'] * params['rated_power_W'] - params['Q_cool']))
     print(f"\nSimulation: {scenario_name} "

@@ -176,8 +176,13 @@ def compute_exergy_vectorized(
         P_arr = np.full(N, 101325.0)
         h_arr = PropsSI('H', 'T', T_safe, 'P', P_arr, 'Water')
         s_arr = PropsSI('S', 'T', T_safe, 'P', P_arr, 'Water')
-    except Exception:
-        return out   # fall back to zeros on error
+    except Exception as exc:
+        logger.warning(
+            "Vectorised CoolProp call failed for N=%d samples in T_safe range [%.2f, %.2f] K "
+            "(returning zero-exergy array). Error: %s",
+            N, float(T_safe.min()), float(T_safe.max()), exc,
+        )
+        return out
 
     dh = h_arr - h0
     ds = s_arr - s0
