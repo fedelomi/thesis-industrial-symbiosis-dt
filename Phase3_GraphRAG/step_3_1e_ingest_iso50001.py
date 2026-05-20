@@ -33,7 +33,7 @@ Prerequisiti:
   - step_3_0_neo4j_schema.py eseguito
   - step_3_1a_ingest_tier_a.py eseguito (ManufacturingProcess x9 devono esistere)
 
-Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.1 (D4),
+Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.1 (D4),
                   [[graph-rag-entity-schema]] Layer 2
 """
 

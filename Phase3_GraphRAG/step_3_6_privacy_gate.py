@@ -23,8 +23,8 @@ Output:
     data/step_3_6_privacy_gate.json
 
 Wiki references:
-- [[roadmap-fasi-1-2-3]] Passo 3.6
-- [[decisioni-implementative]] D5 (synthetic-via-bootstrap), D6 (LC-only)
+- [[phase-1-2-3-roadmap]] Passo 3.6
+- [[implementation-decisions]] D5 (synthetic-via-bootstrap), D6 (LC-only)
 - [[concepts/is-match-score]]
 """
 

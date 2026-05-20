@@ -19,7 +19,7 @@ Requisiti:
     pip install langchain langchain-community langchain-anthropic neo4j
     ANTHROPIC_API_KEY settata come variabile d'ambiente oppure nel file .env
 
-Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.2,
+Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.2,
                   [[graph-rag-entity-schema]] sezione "Multi-hop Query Patterns"
 """
 

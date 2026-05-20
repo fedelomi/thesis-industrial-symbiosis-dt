@@ -13,7 +13,7 @@ Metriche (RAGAs):
   - answer_relevancy    : risposta pertinente alla domanda
   - context_precision   : contesto recuperato preciso e non rumoroso
 
-Target tesi (da [[roadmap-fasi-1-2-3]] Passo 3.4):
+Target tesi (da [[phase-1-2-3-roadmap]] Passo 3.4):
   - hallucination rate < 15% per graph-RAG (faithfulness > 0.85)
   - accuracy > 85% su factual-lookup
 
@@ -38,8 +38,8 @@ Requisiti:
     pip install ragas langchain langchain-anthropic langchain-community neo4j
     ANTHROPIC_API_KEY per config no-rag e llm-cypher
 
-Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.4,
-                  [[decisioni-implementative]] D3 (metriche RAGAs)
+Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.4,
+                  [[implementation-decisions]] D3 (metriche RAGAs)
 """
 
 from __future__ import annotations

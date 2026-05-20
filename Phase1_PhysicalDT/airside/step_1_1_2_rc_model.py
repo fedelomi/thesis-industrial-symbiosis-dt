@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # Decision active: D1 — DT calibration on published KPIs (C1) instead of
-#                       proprietary Frontier ORNL data. Wiki: [[decisioni-implementative#D1]].
+#                       proprietary Frontier ORNL data. Wiki: [[implementation-decisions#D1]].
 
 import logging
 from pathlib import Path

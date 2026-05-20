@@ -30,8 +30,8 @@ Output:
     data/step_3_5_bis_delta_tc.json
     data/step_3_6_privacy_gate.json
 
-Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.5/3.5-bis/3.6,
-                  [[decisioni-implementative]] D5/D6,
+Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.5/3.5-bis/3.6,
+                  [[implementation-decisions]] D5/D6,
                   [[concepts/is-match-score]]
 """
 
@@ -61,7 +61,7 @@ LC_CSV_CANDIDATES = [
 
 # --- Statistiche Phase 1 LC (wiki-validated, gate PASS 2026-04-29) ---
 #
-# Fonte: Phase 1 LC gate PASS, roadmap-fasi-1-2-3.md
+# Fonte: Phase 1 LC gate PASS, phase-1-2-3-roadmap.md
 # T_CDU_return medio = 47.6 C (TWH_mean da lc_dc_results_annual.csv)
 # Exergy_DT_norm = 0.753 (uniforme sui 3 scenari, dal wiki Phase 2 LC)
 # t_availability = 1.000 (baseload, nessun downtime nel modello RC)

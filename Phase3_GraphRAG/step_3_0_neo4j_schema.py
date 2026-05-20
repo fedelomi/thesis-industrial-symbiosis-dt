@@ -18,7 +18,7 @@ Requisiti:
 Uso:
     python step_3_0_neo4j_schema.py
 
-Riferimento wiki: [[graph-rag-entity-schema]], [[roadmap-fasi-1-2-3]] §Passo 3.0
+Riferimento wiki: [[graph-rag-entity-schema]], [[phase-1-2-3-roadmap]] §Passo 3.0
 """
 
 # Decisions active: D3 — KG built for document-grounded benchmark protocol.

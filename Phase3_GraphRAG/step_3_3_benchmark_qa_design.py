@@ -24,7 +24,7 @@ Output:
     data/benchmark_qa_dataset.json
     data/benchmark_qa_dataset_summary.txt
 
-Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.3,
+Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.3,
                   [[graph-rag-entity-schema]] Multi-hop Query Patterns
 """
 

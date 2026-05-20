@@ -1,7 +1,7 @@
 """9-scenario matrix for Phase 4 IS-negotiation experiments.
 
 Matrix: 3 DC LC scales (Edge / Mid / Hyperscale) x 3 manufacturing temperature
-tiers (LowT 60 C / MidT 90 C / HighT 130 C). Per ``decisioni-implementative.md``
+tiers (LowT 60 C / MidT 90 C / HighT 130 C). Per ``implementation-decisions.md``
 D6, only the liquid-cooling pipeline is in scope; airside is excluded
 evidence-based after Phase 2 IS-Match screening.
 

@@ -3,9 +3,9 @@
 All numerical defaults reference the Phase 2 LC outputs documented in the
 thesis Obsidian wiki:
 
-    * DC parameters: ``decisioni-implementative.md`` D5 (Edge_LC 500 kW,
+    * DC parameters: ``implementation-decisions.md`` D5 (Edge_LC 500 kW,
       Mid_LC 3.2 MW, Hyperscale_LC 25 MW; T_CDU_return ~= 46-50 C)
-    * Plant parameters: ``decisioni-implementative.md`` D2 (sector-parametric,
+    * Plant parameters: ``implementation-decisions.md`` D2 (sector-parametric,
       medium-proximity tier representatives)
     * IS-Match scores: ``Phase2_ISMatch/results/step_2_4_delta_tc_calibration_lc.csv``
       iteration=4 final values (range 0.4700-0.5767)
@@ -27,7 +27,7 @@ class DCProfile:
     """Data centre liquid-cooling thermal profile.
 
     Values are derived from Phase 1 LC outputs and Phase 2 IS-Match calibration
-    (see ``roadmap-fasi-1-2-3.md`` Phase 1 LC section, Phase 2 step 2.4).
+    (see ``phase-1-2-3-roadmap.md`` Phase 1 LC section, Phase 2 step 2.4).
 
     Attributes
     ----------
@@ -151,7 +151,7 @@ class NegotiationOutcome:
         ``config/reward_params.py``.
     is_match_uplift:
         ``is_match_score_post - is_match_score_pre`` realised at episode end.
-        Phase 4 objective per ``roadmap-fasi-1-2-3.md`` is to push the score
+        Phase 4 objective per ``phase-1-2-3-roadmap.md`` is to push the score
         from "marginal" (0.36-0.53) to "high-priority" (> 0.60).
     """
 

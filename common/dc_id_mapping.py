@@ -13,8 +13,8 @@ Use the helpers below whenever code needs to translate between the two naming
 conventions, instead of redefining ad-hoc dictionaries inline.
 
 Wiki references:
-- [[roadmap-fasi-1-2-3]] FASE 1 LC scenarios
-- [[decisioni-implementative]] D5 (grey-box LC parametrization), D6 (LC-only)
+- [[phase-1-2-3-roadmap]] FASE 1 LC scenarios
+- [[implementation-decisions]] D5 (grey-box LC parametrization), D6 (LC-only)
 """
 
 from __future__ import annotations

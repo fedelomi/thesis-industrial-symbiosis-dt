@@ -20,7 +20,7 @@ reduces the temperature lift required for industrial heat recovery, improving fe
 """
 
 # Decision active: D6 — Phase 2 LC-only (airside excluded by IS-Match evidence).
-#                       Wiki: [[decisioni-implementative#D6]].
+#                       Wiki: [[implementation-decisions#D6]].
 
 
 from __future__ import annotations

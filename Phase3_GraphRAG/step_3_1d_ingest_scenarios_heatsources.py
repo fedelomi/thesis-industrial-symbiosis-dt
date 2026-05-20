@@ -29,7 +29,7 @@ Prerequisiti:
 Uso:
     python step_3_1d_ingest_scenarios_heatsources.py
 
-Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.1,
+Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.1,
                   [[graph-rag-entity-schema]], [[concepts/is-match-score]]
 """
 

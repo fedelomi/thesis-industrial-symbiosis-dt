@@ -27,8 +27,8 @@ Usage:
     python run_phase_3.py --skip-rag       # skip steps 3.2-3.4-bis (only ingest + 3.5/3.6)
 
 Wiki references:
-- [[roadmap-fasi-1-2-3]] FASE 3
-- [[decisioni-implementative]] D3, D4
+- [[phase-1-2-3-roadmap]] FASE 3
+- [[implementation-decisions]] D3, D4
 - [[concepts/graph-rag]], [[concepts/is-match-score]]
 """
 

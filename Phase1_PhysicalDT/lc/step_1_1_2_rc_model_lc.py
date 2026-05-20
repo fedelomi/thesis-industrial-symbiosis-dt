@@ -27,7 +27,7 @@
 
 # Decision active: D5 — RC parameters derived by grey-box identification on the
 #                       Frontier LC-Opt FMU (HPE/ORNL, NeurIPS 2025).
-#                       Wiki: [[decisioni-implementative#D5]].
+#                       Wiki: [[implementation-decisions#D5]].
 
 
 import logging

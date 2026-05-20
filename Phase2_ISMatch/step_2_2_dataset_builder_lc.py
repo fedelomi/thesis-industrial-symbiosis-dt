@@ -71,7 +71,7 @@
 
 # Decisions active: D2 — geography-agnostic, sector-parametric dataset (no real sites).
 #                   D6 — LC-only Phase 2 pipeline.
-#                   Wiki: [[decisioni-implementative#D2]], [[#D6]].
+#                   Wiki: [[implementation-decisions#D2]], [[#D6]].
 
 
 from __future__ import annotations

@@ -19,7 +19,7 @@
 # ==============================================================================
 
 # Decision active: D5 — LC scenarios from grey-box parametrization on LC-Opt FMU.
-#                       Wiki: [[decisioni-implementative#D5]].
+#                       Wiki: [[implementation-decisions#D5]].
 
 
 import logging

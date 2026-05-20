@@ -17,7 +17,7 @@ Logica:
     3. Verifica che le relazioni attese per quel template esistano
     4. Calcola logical_consistency_rate = n_coerenti / n_totali
 
-Metrica tesi (da [[roadmap-fasi-1-2-3]] Passo 3.4-bis):
+Metrica tesi (da [[phase-1-2-3-roadmap]] Passo 3.4-bis):
     logical_consistency_rate >= 0.90
 
 Uso:
@@ -30,7 +30,7 @@ Output:
     data/neuro_symbolic_check_<timestamp>.json
     Stampa: logical_consistency_rate e breakdown per categoria
 
-Riferimento wiki: [[roadmap-fasi-1-2-3]] Passo 3.4-bis,
+Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.4-bis,
                   [[graph-rag-entity-schema]] relationship types
 """
 
