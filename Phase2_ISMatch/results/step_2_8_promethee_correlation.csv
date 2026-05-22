@@ -1,0 +1,9 @@
+metric,value
+spearman_rho,0.6667
+kendall_tau,0.4444
+n_pair,9
+top3_agreement,2
+weights_used_promethee,"0.25, 0.25, 0.25, 0.25"
+weights_used_ismatch,"beta=0.40, gamma=0.40, delta=0.20"
+preference_function,"t5 (V-shape with indifference); q=0.01, p=0.30"
+criteria,"ri_temporal, exergy_dt_norm, one_minus_delta_tc, co2_norm"
