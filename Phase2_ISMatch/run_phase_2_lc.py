@@ -27,6 +27,14 @@ from pathlib import Path
 
 import pandas as pd
 
+# Force UTF-8 on the orchestrator's own stdout/stderr so Unicode markers
+# (e.g. epsilon, arrow, Delta) render on Windows cp1252 consoles too.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
+
 _ENV_UTF8 = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
 BASE_DIR    = Path(__file__).resolve().parent
 DATA_DIR    = BASE_DIR / "data"
@@ -66,6 +74,28 @@ STEPS = [
         "output" : ["step_2_4_delta_tc_calibration_lc.csv",
                     "step_2_4_convergence_log_lc.csv"],
     },
+    # ── Robustness layer (additive, post-baseline) ───────────────────────────
+    {
+        "name"   : "Step 2.5 LC — Sobol Sensitivity on IS-Match Weights",
+        "script" : "step_2_5_sobol_weights.py",
+        "output" : ["step_2_5_sobol_weights.csv"],
+    },
+    {
+        "name"   : "Step 2.6 LC — Stress Test (+/- 20% on 4 inputs)",
+        "script" : "step_2_6_stress_test.py",
+        "output" : ["step_2_6_stress_test.csv"],
+    },
+    {
+        "name"   : "Step 2.7 LC — CO2 Avoided per Pair",
+        "script" : "step_2_7_carbon_emissions_avoided.py",
+        "output" : ["step_2_7_carbon_emissions_avoided.csv"],
+    },
+    {
+        "name"   : "Step 2.8 LC — PROMETHEE II Cross-Check vs IS-Match",
+        "script" : "step_2_8_promethee_crosscheck.py",
+        "output" : ["step_2_8_promethee_ranking.csv",
+                    "step_2_8_promethee_correlation.csv"],
+    },
 ]
 
 EXCEL_SHEETS = [
@@ -78,6 +108,11 @@ EXCEL_SHEETS = [
     ("step_2_3_sensitivity_ranking_lc.csv",    "Ranking_Sensitivity_LC"),
     ("step_2_4_delta_tc_calibration_lc.csv",   "DeltaTC_Calibration_LC"),
     ("step_2_4_convergence_log_lc.csv",        "DeltaTC_Convergence_LC"),
+    ("step_2_5_sobol_weights.csv",             "Sobol_Weights_LC"),
+    ("step_2_6_stress_test.csv",               "Stress_Test_LC"),
+    ("step_2_7_carbon_emissions_avoided.csv",  "Carbon_Avoided_LC"),
+    ("step_2_8_promethee_ranking.csv",         "PROMETHEE_Ranking_LC"),
+    ("step_2_8_promethee_correlation.csv",     "PROMETHEE_Correlation_LC"),
 ]
 
 # Final consolidated workbook lives in results/ alongside the per-step CSVs.
@@ -110,7 +145,7 @@ def run_step(step, idx, total, skip_existing):
 
     if skip_existing and outputs_exist(step):
         for f in step["output"]:
-            p = BASE_DIR / f
+            p = RESULTS_DIR / f
             print(f"  [SKIP]  {f:<50} {fmt_size(p):>8}  (already present)")
         print(f"\n  Time: 0.0s  (skipped)")
         return True, 0.0
@@ -137,7 +172,7 @@ def run_step(step, idx, total, skip_existing):
     print()
     all_ok = True
     for f in step["output"]:
-        p = BASE_DIR / f
+        p = RESULTS_DIR / f
         if p.exists():
             print(f"  [OK]    {f:<50} {fmt_size(p):>8}")
         else:
