@@ -1,0 +1,9 @@
+metric,value
+em_strict_pct,59.0
+em_semantic_pct,41.0
+agreement_pct,74.0
+false_negative_rate_pct,4.0
+false_positive_rate_pct,22.0
+keyword_matcher_floor_pp,-18.0
+n_queries,100
+judge_model,claude-sonnet-4-6

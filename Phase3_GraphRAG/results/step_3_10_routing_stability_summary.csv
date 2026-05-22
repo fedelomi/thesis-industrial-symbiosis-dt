@@ -1,0 +1,7 @@
+metric,value
+n_queries_tested,20
+n_paraphrases_total,60
+routing_stability_pct,96.67
+templates_most_robust,"ALL_REGULATORY_ARTICLES (100%, n=6), DK_4GDH_PARAMS (100%, n=6)"
+templates_least_robust,"P3_regulatory_screening_dk (92%, n=12), P2_thermal_compatibility_all (83%, n=6)"
+paraphrase_model,claude-sonnet-4-6
