@@ -1,0 +1,31 @@
+scenario,benchmark,metric,my_value,target_low,target_high,in_range,informational_only,deviation_pct,source
+Edge_LC,C1_Frontier,ERF,0.81,0.55,0.65,False,True,35.0,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Edge_LC,C1_Frontier,PUE_implicit,1.0526,1.03,1.07,True,True,0.25,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Edge_LC,C1_Frontier,T_supply_mean,47.6014,38.0,50.0,True,False,8.18,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Edge_LC,C6_LC_Opt,ERF,0.81,0.58,0.72,False,True,24.62,LC-Opt FMU (HPE/ORNL)
+Edge_LC,C6_LC_Opt,T_CDU_supply,38.0,36.0,40.0,True,False,0.0,LC-Opt FMU (HPE/ORNL)
+Edge_LC,C6_LC_Opt,T_CDU_return,47.6014,47.0,50.0,True,False,-1.85,LC-Opt FMU (HPE/ORNL)
+Edge_LC,C7_PyDCM,PUE_implicit,1.0526,1.05,1.15,True,True,-4.31,"PyDCM (BuildSys 2023, LC pathway)"
+Edge_LC,C7_PyDCM,T_supply_mean,47.6014,40.0,55.0,True,False,0.21,"PyDCM (BuildSys 2023, LC pathway)"
+Edge_LC,C11_DataCenterGym,T_supply_mean,47.6014,40.0,55.0,True,False,0.21,DataCenterGym (Pathak 2026)
+Edge_LC,C11_DataCenterGym,IT_load_mean,0.8001,0.7,0.9,True,False,0.01,DataCenterGym (Pathak 2026)
+Mid_LC,C1_Frontier,ERF,0.81,0.55,0.65,False,True,35.0,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Mid_LC,C1_Frontier,PUE_implicit,1.0309,1.03,1.07,True,True,-1.82,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Mid_LC,C1_Frontier,T_supply_mean,47.6014,38.0,50.0,True,False,8.18,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Mid_LC,C6_LC_Opt,ERF,0.81,0.58,0.72,False,True,24.62,LC-Opt FMU (HPE/ORNL)
+Mid_LC,C6_LC_Opt,T_CDU_supply,38.0,36.0,40.0,True,False,0.0,LC-Opt FMU (HPE/ORNL)
+Mid_LC,C6_LC_Opt,T_CDU_return,47.6014,47.0,50.0,True,False,-1.85,LC-Opt FMU (HPE/ORNL)
+Mid_LC,C7_PyDCM,PUE_implicit,1.0309,1.05,1.15,False,True,-6.28,"PyDCM (BuildSys 2023, LC pathway)"
+Mid_LC,C7_PyDCM,T_supply_mean,47.6014,40.0,55.0,True,False,0.21,"PyDCM (BuildSys 2023, LC pathway)"
+Mid_LC,C11_DataCenterGym,T_supply_mean,47.6014,40.0,55.0,True,False,0.21,DataCenterGym (Pathak 2026)
+Mid_LC,C11_DataCenterGym,IT_load_mean,0.8001,0.7,0.9,True,False,0.01,DataCenterGym (Pathak 2026)
+Hyperscale_LC,C1_Frontier,ERF,0.81,0.55,0.65,False,True,35.0,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Hyperscale_LC,C1_Frontier,PUE_implicit,1.0204,1.03,1.07,False,True,-2.82,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Hyperscale_LC,C1_Frontier,T_supply_mean,46.0012,38.0,50.0,True,False,4.55,Frontier Modelica (HPE/ORNL NeurIPS 2025)
+Hyperscale_LC,C6_LC_Opt,ERF,0.81,0.58,0.72,False,True,24.62,LC-Opt FMU (HPE/ORNL)
+Hyperscale_LC,C6_LC_Opt,T_CDU_supply,38.0,36.0,40.0,True,False,0.0,LC-Opt FMU (HPE/ORNL)
+Hyperscale_LC,C6_LC_Opt,T_CDU_return,46.0012,47.0,50.0,False,False,-5.15,LC-Opt FMU (HPE/ORNL)
+Hyperscale_LC,C7_PyDCM,PUE_implicit,1.0204,1.05,1.15,False,True,-7.24,"PyDCM (BuildSys 2023, LC pathway)"
+Hyperscale_LC,C7_PyDCM,T_supply_mean,46.0012,40.0,55.0,True,False,-3.16,"PyDCM (BuildSys 2023, LC pathway)"
+Hyperscale_LC,C11_DataCenterGym,T_supply_mean,46.0012,40.0,55.0,True,False,-3.16,DataCenterGym (Pathak 2026)
+Hyperscale_LC,C11_DataCenterGym,IT_load_mean,0.8001,0.7,0.9,True,False,0.01,DataCenterGym (Pathak 2026)

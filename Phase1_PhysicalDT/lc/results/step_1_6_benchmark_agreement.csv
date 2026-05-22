@@ -1,0 +1,5 @@
+scenario,n_metrics_total,n_in_range_all,agreement_pct_all_metrics,n_residual_metrics,n_in_range_residual,agreement_pct_residual_metrics_only
+Edge_LC,10,8,80.0,6,6,100.0
+Mid_LC,10,7,70.0,6,6,100.0
+Hyperscale_LC,10,5,50.0,6,5,83.3
+ALL_LC,30,20,66.7,18,17,94.4
