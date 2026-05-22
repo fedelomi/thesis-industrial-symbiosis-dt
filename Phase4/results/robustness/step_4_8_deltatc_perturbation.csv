@@ -1,0 +1,6 @@
+perturbation_label,scenario,PoA_mean,Shapley_fairness,conv_rate,delta_PoA_vs_baseline,n_episodes
+baseline,S5,1.0,0.7793,1.0,0.0,100
+plus_20pct,S5,1.0,0.7793,1.0,0.0,100
+minus_20pct,S5,1.0,0.7793,1.0,0.0,100
+stress_LowT_plus_50pct,S5,1.0,0.7793,1.0,0.0,100
+fallback_uniform_05,S5,1.0,0.7793,1.0,0.0,100

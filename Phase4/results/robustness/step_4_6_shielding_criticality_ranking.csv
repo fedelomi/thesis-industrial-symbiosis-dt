@@ -1,0 +1,5 @@
+rule_disabled,delta_PoA_vs_full,delta_Shapley_vs_full,delta_conv_vs_full,criticality_score,criticality_rank
+R1_phys,0.0502,-0.0072,-0.0892,0.1466,1
+R3_price,0.0,0.0072,0.0,0.0072,2
+R2_thermal,0.0,0.0,0.0,0.0,3
+R4_upgrade,0.0,0.0,0.0,0.0,4

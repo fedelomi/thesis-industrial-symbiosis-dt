@@ -1,0 +1,8 @@
+metric,value
+scenario,S5
+max_delta_PoA_observed,0.0
+max_delta_PoA_under_label,plus_20pct
+mean_abs_delta_PoA_perturbations,0.0
+poa_robust_to_pm20pct,True
+robustness_threshold_pp,0.05
+recommended_action_if_phase3_changes,"evaluate-only, no retraining needed if observed delta < 0.05"
