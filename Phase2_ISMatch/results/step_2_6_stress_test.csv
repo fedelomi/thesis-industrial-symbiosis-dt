@@ -1,0 +1,9 @@
+parameter,direction,perturbed_top3,top3_unchanged,max_rank_shift,notes
+Q_demand_peak,+20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,0,Score formula uses DC-side q_norm; plant Q_demand unused
+Q_demand_peak,-20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,0,Score formula uses DC-side q_norm; plant Q_demand unused
+T_required,+20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,2,
+T_required,-20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,2,
+distance_km,+20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,0,
+distance_km,-20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,0,
+delta_tc_norm,+20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,0,
+delta_tc_norm,-20%,"[Edge_LC+LowT_60C, Hyperscale_LC+LowT_60C, Mid_LC+LowT_60C]",True,0,

@@ -1,0 +1,7 @@
+metric,parameter,S1,S1_conf,ST,ST_conf,note
+Y_aggregate,beta,0.0141,0.0137,0.0274,0.004,
+Y_aggregate,gamma,0.0947,0.0276,0.1054,0.0102,
+Y_aggregate,delta,0.8699,0.0701,0.887,0.0635,
+top3_stability_pct,beta,0.0,0.0,0.0,0.0,Y is constant; indices undefined (variance=0)
+top3_stability_pct,gamma,0.0,0.0,0.0,0.0,Y is constant; indices undefined (variance=0)
+top3_stability_pct,delta,0.0,0.0,0.0,0.0,Y is constant; indices undefined (variance=0)
