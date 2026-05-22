@@ -1,0 +1,10 @@
+scenario_lc,climate_label,T_amb_C,Q_available_mean_kW,Exergy_DT_mean_kW,t_availability,ERF_estimated,T_supply_ss_C,delta_Q_vs_baseline_pct,delta_Exergy_vs_baseline_pct,delta_t_avail_vs_baseline_pct
+Edge_LC,cold,5.0,380.0,26.412,1.0,0.81,47.6,0.0,32.09,0.0
+Edge_LC,mid,15.0,380.0,19.995,1.0,0.81,47.6,0.0,0.0,0.0
+Edge_LC,hot,25.0,380.0,13.713,1.0,0.81,47.6,0.0,-31.42,0.0
+Mid_LC,cold,5.0,2483.2,172.593,1.0,0.81,47.6,0.0,32.09,0.0
+Mid_LC,mid,15.0,2483.2,130.665,1.0,0.81,47.6,0.0,0.0,0.0
+Mid_LC,hot,25.0,2483.2,89.612,1.0,0.81,47.6,0.0,-31.42,0.0
+Hyperscale_LC,cold,5.0,19600.0,1315.564,1.0,0.81,46.0,0.0,33.69,0.0
+Hyperscale_LC,mid,15.0,19600.0,984.042,1.0,0.81,46.0,0.0,0.0,0.0
+Hyperscale_LC,hot,25.0,19600.0,659.446,1.0,0.81,46.0,0.0,-32.99,0.0
