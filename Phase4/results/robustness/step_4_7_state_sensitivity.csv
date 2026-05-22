@@ -1,0 +1,17 @@
+state_dim_idx,state_dim_name,perturbation_direction,mean_action_distance,std_action_distance,n_states_tested
+0,Q_avail_over_Q_inst,+10pct,0.010848,0.006613,50
+0,Q_avail_over_Q_inst,-10pct,0.011543,0.006908,50
+1,T_supply_over_100,+10pct,0.002804,0.001403,50
+1,T_supply_over_100,-10pct,0.003016,0.001568,50
+2,exergy,+10pct,0.005287,0.002932,50
+2,exergy,-10pct,0.00577,0.003204,50
+3,is_match,+10pct,0.004032,0.002182,50
+3,is_match,-10pct,0.004318,0.002325,50
+4,round_norm,+10pct,0.02691,0.013682,50
+4,round_norm,-10pct,0.029707,0.01586,50
+5,Q_proc_over_Q_avail_ref,+10pct,0.009216,0.004801,50
+5,Q_proc_over_Q_avail_ref,-10pct,0.009878,0.005052,50
+6,T_req_over_200,+10pct,0.003299,0.001708,50
+6,T_req_over_200,-10pct,0.003607,0.001797,50
+7,budget_norm,+10pct,0.014878,0.007981,50
+7,budget_norm,-10pct,0.014562,0.007958,50

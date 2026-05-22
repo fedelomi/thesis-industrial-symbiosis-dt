@@ -1,0 +1,9 @@
+state_dim_idx,state_dim_name,total_sensitivity,sensitivity_rank
+4,round_norm,0.056617,1
+7,budget_norm,0.02944,2
+0,Q_avail_over_Q_inst,0.022391,3
+5,Q_proc_over_Q_avail_ref,0.019094,4
+2,exergy,0.011057,5
+3,is_match,0.00835,6
+6,T_req_over_200,0.006906,7
+1,T_supply_over_100,0.00582,8

@@ -1,0 +1,7 @@
+scenario_group,metric,gap_D_minus_A0_mean,gap_ci95_lo,gap_ci95_hi,significant_at_95,n_bootstrap
+9LC,PoA,0.03,-0.0179,0.0776,False,10000
+9LC,Shapley_fairness,-0.2078,-0.2848,-0.1363,True,10000
+9LC,conv_rate,0.0,0.0,0.0,False,10000
+S_AIR_M,PoA,-0.0128,-0.0949,0.0553,False,10000
+S_AIR_M,Shapley_fairness,-0.0824,-0.1044,-0.0595,True,10000
+S_AIR_M,conv_rate,-0.593,-0.7133,-0.4667,True,10000

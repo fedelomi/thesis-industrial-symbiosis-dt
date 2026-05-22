@@ -1,0 +1,13 @@
+config,scenario_group,metric,mean,std,ci95_lo,ci95_hi,n_bootstrap,n_observations
+A0,9LC,PoA,0.7525,0.1156,0.729,0.7772,10000,90
+D,9LC,PoA,0.7828,0.1846,0.7441,0.8199,10000,90
+A0,9LC,Shapley_fairness,0.6582,0.1655,0.6246,0.6922,10000,90
+D,9LC,Shapley_fairness,0.451,0.3382,0.3801,0.52,10000,90
+A0,9LC,conv_rate,1.0,0.0,1.0,1.0,10000,90
+D,9LC,conv_rate,1.0,0.0,1.0,1.0,10000,90
+A0,S_AIR_M,PoA,0.7735,0.1148,0.7128,0.8474,10000,10
+D,S_AIR_M,PoA,0.761,0.0518,0.733,0.7926,10000,10
+A0,S_AIR_M,Shapley_fairness,0.7793,0.0,0.7793,0.7793,10000,10
+D,S_AIR_M,Shapley_fairness,0.6969,0.0381,0.6749,0.7198,10000,10
+A0,S_AIR_M,conv_rate,1.0,0.0,1.0,1.0,10000,10
+D,S_AIR_M,conv_rate,0.4067,0.2119,0.2867,0.5333,10000,10
