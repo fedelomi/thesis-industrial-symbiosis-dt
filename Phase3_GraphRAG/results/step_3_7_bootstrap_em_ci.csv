@@ -1,0 +1,4 @@
+baseline,em_observed,em_bootstrap_mean,em_bootstrap_std,ci95_lo,ci95_hi,n_bootstrap,n_queries,gap_vs_no_rag_mean,gap_vs_no_rag_ci95_lo,gap_vs_no_rag_ci95_hi,gap_vs_llm_cypher_mean,gap_vs_llm_cypher_ci95_lo,gap_vs_llm_cypher_ci95_hi
+graph-rag,0.59,0.5904,0.0492,0.49,0.69,10000,100,0.3108,0.19,0.43,0.3308,0.21,0.45
+no-rag,0.28,0.2797,0.0452,0.19,0.37,10000,100,,,,,,
+llm-cypher,0.26,0.2596,0.0442,0.18,0.35,10000,100,,,,,,

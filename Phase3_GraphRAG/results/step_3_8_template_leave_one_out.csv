@@ -1,0 +1,16 @@
+criticality_rank,template_name,n_queries_using,n_em_correct,template_em_rate,drop_em_if_removed_pp
+1,P6_full_is_path,14,8,0.5714,8.0
+2,P5_scenario_comparison_L,9,7,0.7778,7.0
+3,ALL_REGULATORY_ARTICLES,7,6,0.8571,6.0
+4,P1_eed_art26_threshold,5,5,1.0,5.0
+5,P4_incentives_it_whr,10,5,0.5,5.0
+6,GENERIC_DC,6,4,0.6667,4.0
+7,GENERIC_STANDARD,4,4,1.0,4.0
+8,DK_4GDH_PARAMS,7,4,0.5714,4.0
+9,P3_regulatory_screening_dk,15,4,0.2667,4.0
+10,TEMPERATURE_BAND_DEF,6,4,0.6667,4.0
+11,P2_thermal_compatibility_all,8,3,0.375,3.0
+12,GENERIC_REGULATION,2,2,1.0,2.0
+13,P2_thermal_compatibility_S1,4,2,0.5,2.0
+14,DK_3GDH_PARAMS,1,1,1.0,1.0
+15,GENERIC_COUNTRY,2,0,0.0,0.0
