@@ -1,0 +1,19 @@
+partition,subgroup,scenarios,metric,n_paired,gap_D_minus_A0_mean,ci95_lo,ci95_hi,bootstrap_std,significant_at_95,n_bootstrap
+DC_scale,Edge_LC,S1 S2 S3,price_of_anarchy,30,-0.19881,-0.254178,-0.140018,0.029341,True,10000
+DC_scale,Edge_LC,S1 S2 S3,shapley_fairness,30,-0.67172,-0.734641,-0.607003,0.032803,True,10000
+DC_scale,Edge_LC,S1 S2 S3,convergence_rate,30,0.0,0.0,0.0,0.0,False,10000
+DC_scale,Mid_LC,S4 S5 S6,price_of_anarchy,30,0.187353,0.141703,0.23284,0.023456,True,10000
+DC_scale,Mid_LC,S4 S5 S6,shapley_fairness,30,0.002366,0.0,0.007097,0.002372,True,10000
+DC_scale,Mid_LC,S4 S5 S6,convergence_rate,30,0.0,0.0,0.0,0.0,False,10000
+DC_scale,Hyperscale_LC,S7 S8 S9,price_of_anarchy,30,0.102516,0.033026,0.170805,0.035337,True,10000
+DC_scale,Hyperscale_LC,S7 S8 S9,shapley_fairness,30,0.047931,0.002973,0.099423,0.024641,True,10000
+DC_scale,Hyperscale_LC,S7 S8 S9,convergence_rate,30,0.0,0.0,0.0,0.0,False,10000
+T_band,LowT_60C,S1 S4 S7,price_of_anarchy,30,0.08935,-0.013393,0.184759,0.050612,False,10000
+T_band,LowT_60C,S1 S4 S7,shapley_fairness,30,-0.257328,-0.389257,-0.133375,0.065143,True,10000
+T_band,LowT_60C,S1 S4 S7,convergence_rate,30,0.0,0.0,0.0,0.0,False,10000
+T_band,MidT_90C,S2 S5 S8,price_of_anarchy,30,-0.099514,-0.166513,-0.033046,0.033925,True,10000
+T_band,MidT_90C,S2 S5 S8,shapley_fairness,30,-0.219021,-0.379223,-0.062864,0.0804,True,10000
+T_band,MidT_90C,S2 S5 S8,convergence_rate,30,0.0,0.0,0.0,0.0,False,10000
+T_band,HighT_130C,S3 S6 S9,price_of_anarchy,30,0.101222,0.042948,0.161146,0.030221,True,10000
+T_band,HighT_130C,S3 S6 S9,shapley_fairness,30,-0.145074,-0.217611,-0.072537,0.036806,True,10000
+T_band,HighT_130C,S3 S6 S9,convergence_rate,30,0.0,0.0,0.0,0.0,False,10000

@@ -1,0 +1,7 @@
+scenario_group,metric,current_n,observed_cohens_d,current_power,n_for_power_0p50,n_for_power_0p80,n_for_power_0p90,extra_seeds_to_reach_0p80_per_scenario
+9LC,price_of_anarchy,90,0.1299,0.23,230,468,625,42
+9LC,shapley_fairness,90,-0.5826,0.9998,14,26,33,0
+9LC,convergence_rate,90,0.0,0.05,-1,-1,-1,-1
+S_AIR_M,price_of_anarchy,10,-0.0974,0.0588,407,830,1110,820
+S_AIR_M,shapley_fairness,10,-2.1634,1.0,3,4,5,0
+S_AIR_M,convergence_rate,10,-2.8005,1.0,3,4,4,0

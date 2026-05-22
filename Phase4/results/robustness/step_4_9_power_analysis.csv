@@ -1,0 +1,7 @@
+scenario_group,metric,n_paired_obs,mean_gap_D_minus_A0,std_paired_diffs,cohens_d,cohens_d_interpretation,alpha,observed_power_at_observed_d,observed_power_at_d_medium_0p5,target_power,n_required_for_observed_d,n_required_for_d_medium_0p5,underpowered_for_observed_effect
+9LC,price_of_anarchy,90,0.030353,0.233706,0.1299,negligible (<0.20),0.05,0.23,0.9968,0.8,468,34,True
+9LC,shapley_fairness,90,-0.207141,0.355563,-0.5826,medium (0.50-0.80),0.05,0.9998,0.9968,0.8,26,34,False
+9LC,convergence_rate,90,0.0,0.0,0.0,negligible (<0.20),0.05,0.05,0.9968,0.8,-1,34,True
+S_AIR_M,price_of_anarchy,10,-0.012539,0.128756,-0.0974,negligible (<0.20),0.05,0.0588,0.2932,0.8,830,34,True
+S_AIR_M,shapley_fairness,10,-0.082453,0.038113,-2.1634,large (>=0.80),0.05,1.0,0.2932,0.8,4,34,False
+S_AIR_M,convergence_rate,10,-0.593333,0.21187,-2.8005,large (>=0.80),0.05,1.0,0.2932,0.8,4,34,False
