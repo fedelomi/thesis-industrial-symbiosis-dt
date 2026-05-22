@@ -1,0 +1,15 @@
+# Phase 1 LC dependencies
+# Core
+pandas
+numpy
+scipy>=1.10.0
+openpyxl
+xlsxwriter
+CoolProp
+
+# Robustness layer (step_1_5..1_8)
+SALib>=1.4.0
+statsmodels>=0.14.0
+
+# Testing
+pytest

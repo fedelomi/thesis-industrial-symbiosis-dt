@@ -27,6 +27,14 @@ from pathlib import Path
 
 import pandas as pd
 
+# Force UTF-8 on the orchestrator's own stdout/stderr so Unicode markers
+# (e.g. epsilon, arrow, Delta) render on Windows cp1252 consoles too.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, OSError):
+    pass
+
 # Force UTF-8 in subprocesses on Windows (avoids UnicodeEncodeError)
 _ENV_UTF8 = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
 
@@ -56,6 +64,28 @@ STEPS = [
         "script" : "step_1_4b_sensitivity_lc.py",
         "output" : ["lc_sensitivity_validation.csv"],
     },
+    # -- Robustness layer (additive, post-baseline, no canonical output overwritten) --
+    {
+        "name"   : "Step 1.5 -- LC Sobol Sensitivity on RC Parameters",
+        "script" : "step_1_5_sobol_rc_params.py",
+        "output" : ["step_1_5_sobol_rc_params.csv"],
+    },
+    {
+        "name"   : "Step 1.6 -- LC Multi-Benchmark Calibration Check",
+        "script" : "step_1_6_multi_benchmark_calibration.py",
+        "output" : ["step_1_6_multi_benchmark.csv",
+                    "step_1_6_benchmark_agreement.csv"],
+    },
+    {
+        "name"   : "Step 1.7 -- LC Residual Diagnostics (Shapiro + Anderson + ACF)",
+        "script" : "step_1_7_residual_diagnostics.py",
+        "output" : ["step_1_7_residual_diagnostics.csv"],
+    },
+    {
+        "name"   : "Step 1.8 -- LC Climate Sensitivity (3 T_amb scenarios)",
+        "script" : "step_1_8_climate_sensitivity.py",
+        "output" : ["step_1_8_climate_sensitivity.csv"],
+    },
 ]
 
 # Maps each CSV output to its Excel sheet name
@@ -65,6 +95,11 @@ EXCEL_SHEETS = [
     ("lc_real_vs_synthetic_comparison.csv","Real_vs_Synthetic_LC"),
     ("lc_validation_1_4.csv",             "Validation_LC"),
     ("lc_sensitivity_validation.csv",      "Sensitivity_Analysis_LC"),
+    ("step_1_5_sobol_rc_params.csv",       "Sobol_RC_Params_LC"),
+    ("step_1_6_multi_benchmark.csv",       "Multi_Benchmark_LC"),
+    ("step_1_6_benchmark_agreement.csv",   "Benchmark_Agreement_LC"),
+    ("step_1_7_residual_diagnostics.csv",  "Residual_Diagnostics_LC"),
+    ("step_1_8_climate_sensitivity.csv",   "Climate_Sensitivity_LC"),
 ]
 
 EXCEL_OUTPUT = Path("results") / "phase1_lc_results.xlsx"
