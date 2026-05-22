@@ -25,6 +25,8 @@ Usage:
     python run_phase_3.py --verify-only    # only verify graph counts
     python run_phase_3.py --ingest-only    # stop after step_3_1e (no RAG/QA)
     python run_phase_3.py --skip-rag       # skip steps 3.2-3.4-bis (only ingest + 3.5/3.6)
+    python run_phase_3.py --skip-llm-judge       # skip step_3_9 (~10 min, ~0.30 USD)
+    python run_phase_3.py --skip-paraphrase      # skip step_3_10 (~2 min, ~0.05 USD)
 
 Wiki references:
 - [[phase-1-2-3-roadmap]] FASE 3
@@ -64,10 +66,17 @@ STEPS: list[tuple[int, str]] = [
     (9,  "step_3_4_bis_neuro_symbolic.py"),
     (10, "step_3_5_phase1_integration.py"),
     (11, "step_3_6_privacy_gate.py"),
+    # -- Robustness layer (additive, post-baseline, read-only on data/) --
+    (12, "step_3_7_bootstrap_em_ci.py"),
+    (13, "step_3_8_template_loo.py"),
+    (14, "step_3_9_llm_judge.py"),
+    (15, "step_3_10_paraphrase_routing_stability.py"),
 ]
 
 LAST_INGEST_STEP = 5
 RAG_STEPS        = {6, 7, 8, 9}
+LLM_JUDGE_STEP   = 14
+PARAPHRASE_STEP  = 15
 
 EXPECTED_NODES: dict[str, int] = {
     "Actor":                2,
@@ -175,6 +184,10 @@ def parse_args() -> argparse.Namespace:
                         help=f"Run only ingestion steps 0..{LAST_INGEST_STEP}")
     parser.add_argument("--skip-rag", action="store_true",
                         help="Skip RAG/QA/eval steps (3.2 .. 3.4-bis)")
+    parser.add_argument("--skip-llm-judge", action="store_true",
+                        help="Skip step_3_9 (LLM-as-judge, ~10 min and ~0.30 USD)")
+    parser.add_argument("--skip-paraphrase", action="store_true",
+                        help="Skip step_3_10 (paraphrase routing, ~2 min and ~0.05 USD)")
     return parser.parse_args()
 
 
@@ -194,6 +207,10 @@ def main() -> None:
             if args.ingest_only and n > LAST_INGEST_STEP:
                 continue
             if args.skip_rag and n in RAG_STEPS:
+                continue
+            if args.skip_llm_judge and n == LLM_JUDGE_STEP:
+                continue
+            if args.skip_paraphrase and n == PARAPHRASE_STEP:
                 continue
             steps_to_run.append((n, s))
 

@@ -21,3 +21,7 @@ python-dotenv>=1.0
 
 # --- Optional: CSV loading for Phase 1 stats integration ---
 pandas>=2.0
+
+# --- Robustness layer (step_3_7..3_10) ---
+scipy>=1.10
+pytest
