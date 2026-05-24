@@ -1,0 +1,7 @@
+arm,metric,n_paired,cohens_d
+9LC,price_of_anarchy,90,0.13
+9LC,shapley_fairness,90,-0.583
+9LC,convergence_rate,90,0.0
+S_AIR_M,price_of_anarchy,10,-0.097
+S_AIR_M,shapley_fairness,10,-2.163
+S_AIR_M,convergence_rate,10,-2.8
