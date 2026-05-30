@@ -1,0 +1,4 @@
+scenario_id,scale,mode,n_episodes,n_rounds_total,n_r1_blocked,n_r2_blocked,n_r3_blocked,n_r4_blocked,r1_binding_rate
+S1,Edge,random,110,2000,0,0,0,0,0.0000
+S4,Mid,random,105,2000,0,0,0,0,0.0000
+S7,Hyperscale,random,105,2000,0,0,0,0,0.0000
