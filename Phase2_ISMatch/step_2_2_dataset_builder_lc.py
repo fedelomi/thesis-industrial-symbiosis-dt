@@ -1,5 +1,5 @@
 # ==============================================================================
-# STEP 2.2 LC — Dataset Builder (Sector-Parametric, Geography-Agnostic)
+# STEP 2.2 LC - Dataset Builder (Sector-Parametric, Geography-Agnostic)
 # ==============================================================================
 #
 # Builds the DC–manufacturing plant pairing dataset for IS-Match validation.
@@ -25,21 +25,21 @@
 #
 # DATA SOURCES (statistical basis for parametric profiles)
 # ─────────────────────────────────────────────────────────────────────────────
-# MidT tier — Paper/Pulp sector
-#   Hotmaps Industrial Database — Manz & Fleiter, Fraunhofer ISI (2018)
+# MidT tier - Paper/Pulp sector
+#   Hotmaps Industrial Database - Manz & Fleiter, Fraunhofer ISI (2018)
 #   DOI: 10.5281/zenodo.4687147  |  CC-BY-4.0
 #   → EU Paper & Printing: median Fuel_Demand 200–330 GWh/yr per site
 #   → Temperature profile: 88% of process heat at 100–200°C (Fleiter et al. 2013)
 #   → T_req = 90°C (lower bound of paper drying; achievable with HP upgrade
 #     from LC supply 46–50°C, lift ~40°C, COP ≈ 3–4)
 #
-# LowT tier — Food / Agro-industrial sector
-#   ENEA IS benchmark — "Simbiosi Industriale Territoriale" (2021)
+# LowT tier - Food / Agro-industrial sector
+#   ENEA IS benchmark - "Simbiosi Industriale Territoriale" (2021)
 #   → Typical food-processing heat demand: 600–1 200 kW thermal
 #   → T_req = 60–65°C (pasteurisation, drying, CIP cleaning)
 #
-# HighT tier — Rubber / Chemical / Steam
-#   CE-HEAT project taxonomy — WP3/WP4 deliverables (ce-heat.eu)
+# HighT tier - Rubber / Chemical / Steam
+#   CE-HEAT project taxonomy - WP3/WP4 deliverables (ce-heat.eu)
 #   → Typical demand: 2 800–6 200 kW; T_req = 130–135°C
 #   → HP/CO₂-HTHP mandatory: ΔT ≈ 80–90°C from LC supply 46–50°C
 #
@@ -47,16 +47,16 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Each plant is assigned a representative distance_km that encodes its
 # proximity scenario.  Three bands are used (one per plant within each tier):
-#   Short   ≤  50 km  — co-located industrial park or adjacent municipality
-#   Medium  50–100 km — same regional grid (pipeline or truck-loop feasible)
-#   Long   100–200 km — inter-regional connection (requires pipeline investment)
+#   Short   ≤  50 km  - co-located industrial park or adjacent municipality
+#   Medium  50–100 km - same regional grid (pipeline or truck-loop feasible)
+#   Long   100–200 km - inter-regional connection (requires pipeline investment)
 # Values are chosen to span the range documented in the DC WHR literature
 # (see [B6] Yuan et al. 2023, [B7] Lund et al. 2018).
 #
 # OUTPUT
 # ─────────────────────────────────────────────────────────────────────────────
-#   step_2_2_ce_heat_dataset_lc.csv        — all 27 pairs (9 plants × 3 DC)
-#   step_2_2_feasibility_summary_lc.csv    — RI stats by tier
+#   step_2_2_ce_heat_dataset_lc.csv        - all 27 pairs (9 plants × 3 DC)
+#   step_2_2_feasibility_summary_lc.csv    - RI stats by tier
 #
 # THESIS DECLARATION (Cap. 4.5 and Cap. 6.2)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -69,9 +69,9 @@
 #    without restricting the general validity of the IS-Match Score."
 # ==============================================================================
 
-# Decisions active: D2 — geography-agnostic, sector-parametric dataset (no real sites).
-#                   D6 — LC-only Phase 2 pipeline.
-#                   Wiki: [[implementation-decisions#D2]], [[#D6]].
+# Decisions active: D2 - geography-agnostic, sector-parametric dataset (no real sites).
+#                   D6 - LC-only Phase 2 pipeline.
+#                   Wiki: [[decisioni-implementative#D2]], [[#D6]].
 
 
 from __future__ import annotations
@@ -93,13 +93,17 @@ OUT_SUMM  = RESULTS_DIR / "step_2_2_feasibility_summary_lc.csv"
 ALPHA_Q   = 0.35   # heat quantity match
 ALPHA_T   = 0.40   # temperature compatibility
 ALPHA_A   = 0.15   # availability overlap
-ALPHA_D   = 0.10   # distance penalty
+# DEPRECATED 2026-05-31 (D-decision Phase 2): ALPHA_D no longer used by
+# step_2_1 scorer (ALPHA_d=0.0). Kept here for backward compatibility
+# of legacy callers. Distance now handled by capacity-dependent matchability
+# gate in step_2_0; see Cap 3.4.1 of the thesis.
+ALPHA_D   = 0.0    # distance penalty (deprecated, was 0.10)
 D_MAX_KM  = 200.0  # km at which distance score → 0
                #   (upper end of technically feasible WHR pipeline, [B6])
 
 # ── DC Scenarios (Liquid Cooling) ──────────────────────────────────────────────
 # Three representative DC scales, parametrised from the LC-Opt Frontier
-# reference model (HPE/ORNL, NeurIPS 2025) — see Decision D5.
+# reference model (HPE/ORNL, NeurIPS 2025) - see Decision D5.
 # Labels are scale-based; no geographic anchor is implied.
 DC_SCENARIOS_LC: list[dict] = [
     {
@@ -137,36 +141,36 @@ PARAMETRIC_PLANTS: list[dict] = [
     # Source: ENEA IS benchmark (2021)
     {
         "plant_name"   : "LowT_01_Food_Short",
-        "description"  : "Food drying — short proximity scenario [parametric, ENEA]",
+        "description"  : "Food drying - short proximity scenario [parametric, ENEA]",
         "distance_km"  : 30.0,    # short band: co-located industrial park
         "t_req_c"      : 60.0,
         "q_demand_kw"  : 800.0,
         "shift"        : "2shift",
         "tier"         : "LowT_60C",
         "delta_tc"     : 0.25,
-        "source"       : "Parametric — ENEA IS benchmark (2021)",
+        "source"       : "Parametric - ENEA IS benchmark (2021)",
     },
     {
         "plant_name"   : "LowT_02_Agro_Medium",
-        "description"  : "Agro-industrial processing — medium proximity scenario [parametric, ENEA]",
+        "description"  : "Agro-industrial processing - medium proximity scenario [parametric, ENEA]",
         "distance_km"  : 75.0,    # medium band
         "t_req_c"      : 60.0,
         "q_demand_kw"  : 1200.0,
         "shift"        : "2shift",
         "tier"         : "LowT_60C",
         "delta_tc"     : 0.28,
-        "source"       : "Parametric — ENEA IS benchmark (2021)",
+        "source"       : "Parametric - ENEA IS benchmark (2021)",
     },
     {
         "plant_name"   : "LowT_03_Dairy_Short",
-        "description"  : "Dairy processing — short proximity scenario [parametric, ENEA]",
+        "description"  : "Dairy processing - short proximity scenario [parametric, ENEA]",
         "distance_km"  : 45.0,    # short band: adjacent municipality
         "t_req_c"      : 65.0,
         "q_demand_kw"  : 650.0,
         "shift"        : "continuous",
         "tier"         : "LowT_60C",
         "delta_tc"     : 0.22,
-        "source"       : "Parametric — ENEA IS benchmark (2021)",
+        "source"       : "Parametric - ENEA IS benchmark (2021)",
     },
 
     # ── MidT_90C  (paper / pulp sector) ────────────────────────────────────────
@@ -177,38 +181,38 @@ PARAMETRIC_PLANTS: list[dict] = [
     # documented in [B6] (Yuan et al. 2023) and [B7] (Lund et al. 2018).
     {
         "plant_name"   : "MidT_04_PaperPulp_Medium",
-        "description"  : "Paper/pulp mill — medium proximity [parametric, Hotmaps-informed]",
+        "description"  : "Paper/pulp mill - medium proximity [parametric, Hotmaps-informed]",
         "distance_km"  : 80.0,    # medium band; within common WHR pipeline range
         "t_req_c"      : 90.0,
         "q_demand_kw"  : round(280 * 0.88 * 1e6 / 8760, 1),  # FD≈280 GWh/yr → 28 118 kW
         "shift"        : "continuous",
         "tier"         : "MidT_90C",
         "delta_tc"     : 0.42,
-        "source"       : "Parametric — Hotmaps EU Paper statistics [Manz & Fleiter 2018, "
+        "source"       : "Parametric - Hotmaps EU Paper statistics [Manz & Fleiter 2018, "
                          "DOI:10.5281/zenodo.4687147]; T-profile: Fleiter et al. (2013)",
     },
     {
         "plant_name"   : "MidT_05_PaperPulp_Short",
-        "description"  : "Paper/pulp mill — short proximity [parametric, Hotmaps-informed]",
+        "description"  : "Paper/pulp mill - short proximity [parametric, Hotmaps-informed]",
         "distance_km"  : 50.0,    # short band: same industrial zone
         "t_req_c"      : 90.0,
         "q_demand_kw"  : round(310 * 0.88 * 1e6 / 8760, 1),  # FD≈310 GWh/yr → 31 143 kW
         "shift"        : "continuous",
         "tier"         : "MidT_90C",
         "delta_tc"     : 0.40,
-        "source"       : "Parametric — Hotmaps EU Paper statistics [Manz & Fleiter 2018, "
+        "source"       : "Parametric - Hotmaps EU Paper statistics [Manz & Fleiter 2018, "
                          "DOI:10.5281/zenodo.4687147]; T-profile: Fleiter et al. (2013)",
     },
     {
         "plant_name"   : "MidT_06_PaperPulp_Long",
-        "description"  : "Paper/pulp mill — long proximity [parametric, Hotmaps-informed]",
+        "description"  : "Paper/pulp mill - long proximity [parametric, Hotmaps-informed]",
         "distance_km"  : 140.0,   # long band: inter-regional
         "t_req_c"      : 90.0,
         "q_demand_kw"  : round(210 * 0.88 * 1e6 / 8760, 1),  # FD≈210 GWh/yr → 21 096 kW
         "shift"        : "continuous",
         "tier"         : "MidT_90C",
         "delta_tc"     : 0.45,
-        "source"       : "Parametric — Hotmaps EU Paper statistics [Manz & Fleiter 2018, "
+        "source"       : "Parametric - Hotmaps EU Paper statistics [Manz & Fleiter 2018, "
                          "DOI:10.5281/zenodo.4687147]; T-profile: Fleiter et al. (2013)",
     },
 
@@ -216,36 +220,36 @@ PARAMETRIC_PLANTS: list[dict] = [
     # Source: CE-HEAT project taxonomy, WP3/WP4 deliverables (ce-heat.eu)
     {
         "plant_name"   : "HighT_07_Rubber_Medium",
-        "description"  : "Rubber vulcanisation — medium proximity [parametric, CE-HEAT]",
+        "description"  : "Rubber vulcanisation - medium proximity [parametric, CE-HEAT]",
         "distance_km"  : 100.0,
         "t_req_c"      : 130.0,
         "q_demand_kw"  : 2800.0,
         "shift"        : "2shift",
         "tier"         : "HighT_130C",
         "delta_tc"     : 0.55,
-        "source"       : "Parametric — CE-HEAT taxonomy (WP3/WP4)",
+        "source"       : "Parametric - CE-HEAT taxonomy (WP3/WP4)",
     },
     {
         "plant_name"   : "HighT_08_ChemProcess_Short",
-        "description"  : "Chemical process — short proximity [parametric, CE-HEAT]",
+        "description"  : "Chemical process - short proximity [parametric, CE-HEAT]",
         "distance_km"  : 55.0,
         "t_req_c"      : 130.0,
         "q_demand_kw"  : 4500.0,
         "shift"        : "continuous",
         "tier"         : "HighT_130C",
         "delta_tc"     : 0.58,
-        "source"       : "Parametric — CE-HEAT taxonomy (WP3/WP4)",
+        "source"       : "Parametric - CE-HEAT taxonomy (WP3/WP4)",
     },
     {
         "plant_name"   : "HighT_09_Steam_Long",
-        "description"  : "Industrial steam — long proximity [parametric, CE-HEAT]",
+        "description"  : "Industrial steam - long proximity [parametric, CE-HEAT]",
         "distance_km"  : 160.0,
         "t_req_c"      : 135.0,
         "q_demand_kw"  : 6200.0,
         "shift"        : "continuous",
         "tier"         : "HighT_130C",
         "delta_tc"     : 0.60,
-        "source"       : "Parametric — CE-HEAT taxonomy (WP3/WP4)",
+        "source"       : "Parametric - CE-HEAT taxonomy (WP3/WP4)",
     },
 ]
 
@@ -293,7 +297,7 @@ def build_dataset() -> pd.DataFrame:
     """
     Builds 27 DC–plant pairs (3 DC scenarios × 9 sector-parametric plants).
 
-    Distance is read directly from plant["distance_km"] — a scenario parameter
+    Distance is read directly from plant["distance_km"] - a scenario parameter
     that encodes the proximity band (short / medium / long).  The same distance
     applies to all three DC scales, making the framework geographically agnostic
     at this stage.  A sensitivity analysis over distance_km is straightforward
@@ -335,7 +339,7 @@ def build_dataset() -> pd.DataFrame:
 def build_summary(df: pd.DataFrame) -> pd.DataFrame:
     src_label = {
         "LowT_60C"   : "Parametric (ENEA 2021)",
-        "MidT_90C"   : "Parametric — Hotmaps-informed (Manz & Fleiter 2018)",
+        "MidT_90C"   : "Parametric - Hotmaps-informed (Manz & Fleiter 2018)",
         "HighT_130C" : "Parametric (CE-HEAT WP3/WP4)",
     }
     rows = []
@@ -359,7 +363,7 @@ def build_summary(df: pd.DataFrame) -> pd.DataFrame:
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main() -> None:
     print("=" * 72)
-    print("  STEP 2.2 LC — Dataset Builder (Sector-Parametric, General Framework)")
+    print("  STEP 2.2 LC - Dataset Builder (Sector-Parametric, General Framework)")
     print("=" * 72)
 
     df = build_dataset()
@@ -403,4 +407,9 @@ def main() -> None:
               f"  dist_mean={sub['distance_km'].mean():.0f} km")
 
     print(f"\n  Outputs:")
-    print(f"    {OUT_
+    print(f"    {OUT_PAIRS.name}")
+    print(f"    {OUT_SUMM.name}")
+
+
+if __name__ == "__main__":
+    main()

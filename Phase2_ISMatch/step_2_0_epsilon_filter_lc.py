@@ -20,7 +20,7 @@ reduces the temperature lift required for industrial heat recovery, improving fe
 """
 
 # Decision active: D6 — Phase 2 LC-only (airside excluded by IS-Match evidence).
-#                       Wiki: [[implementation-decisions#D6]].
+#                       Wiki: [[decisioni-implementative#D6]].
 
 
 from __future__ import annotations
@@ -86,6 +86,35 @@ def select_upgrade_tech(t_dc: float, t_req: float) -> str:
         return "HP"
     else:
         return "CO2_HTHP"
+
+
+#
+# D-decision Phase 2, 2026-05-31: capacity-dependent matchability gate.
+# Geographic distance replaces the continuous -alpha_d * d_norm term that
+# used to live inside RI_temporal (step_2_1 scorer). Rationale:
+# - In IS literature (Velenturf and Jensen 2015, J. Industrial Ecology)
+#   proximity is an enabler/gate, not a continuous differentiator.
+# - Thresholds derived from sqrt(Q) scaling (Kavvadias and Quoilin 2018,
+#   JRC) anchored at Santin et al. 2020 (30 km for 30 MW DC, preferred
+#   10-20 km for low-grade heat). Conservative for low-grade 48 C supply.
+DISTANCE_GATE_KM = {
+    "Edge_LC":       5.0,
+    "Mid_LC":       10.0,
+    "Hyperscale_LC": 30.0,
+}
+
+
+def apply_distance_gate(dc_scale: str, distance_km: float) -> bool:
+    """Return True iff (DC scale, distance_km) passes the matchability gate.
+
+    Caveat (declared as future work in Cap 3.4.1): the per-scale single
+    threshold is a PoC simplification of the continuous sqrt(Q)
+    capacity-dependent scaling. A continuous variant is left to future work.
+    """
+    threshold = DISTANCE_GATE_KM.get(dc_scale)
+    if threshold is None:
+        return False
+    return distance_km <= threshold
 
 
 def compute_epsilon(k: float, r: float) -> float:
@@ -164,4 +193,8 @@ def main() -> None:
 
     print(f"\n  Thesis note (Cap. 3.3.3): all {n_total} LC pairs ε ≥ {EPSILON_MIN}.")
     print(f"  DC WHR is high-ε IS by design [B6]; LC raises ε(HP) vs air-side.")
-    print(f"  LC advantage: lower ΔT_required → HP (not 
+    print(f"  LC advantage: lower ΔT_required → HP (not CO2_HTHP) suffices for LowT_60C.")
+
+
+if __name__ == "__main__":
+    main()

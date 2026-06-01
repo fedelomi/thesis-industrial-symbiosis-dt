@@ -5,8 +5,15 @@ Phase 2: IS-Match Score (OS2) · Thesis Cap. 3.3.3 + 4.5
 
 IS-Match Score = β · RI_temporal + γ · Exergy_DT_norm − δ · ΔTC_norm
 
-RI(t) = α_Q·Q_norm(t) + α_T·T_compat(t) + α_t·Avail(t) − α_d·d_norm  [WHER D3]
+RI(t) = α_Q·Q_norm(t) + α_T·T_compat(t) + α_t·Avail(t)              [WHER D3, modified]
 RI_temporal = Σ_t [RI(t)·w(t)] / Σ_t w(t)   (manufacturing-shift weighted)
+
+D-decision Phase 2 (2026-05-31): the continuous distance penalty -α_d·d_norm has
+been removed from RI. Geographic proximity is treated as a capacity-dependent
+matchability gate at step_2_0 (Edge<=5km, Mid<=10km, Hyper<=30km), consistent
+with the proximity literature (Velenturf and Jensen 2015) where proximity acts
+as an enabler/gate rather than as a continuous differentiator. See the comment
+on ALPHA_d below for the full rationale.
 
 Exergy_DT_norm: per-scenario normalisation (mean / scenario_max).
   LC note: all LC scenarios have Exergy_DT_norm ≈ 0.75 (same load profile shape),
@@ -81,7 +88,20 @@ Q_NOMINAL_LC: dict[str, float] = {
     "Hyperscale_LC": 24_500_000.0, # W = 24.5 MW
 }
 
-ALPHA_Q, ALPHA_T, ALPHA_t, ALPHA_d = 0.25, 0.35, 0.25, 0.15
+#
+# D-decision Phase 2, 2026-05-31: ALPHA_d set to 0.0 to remove the continuous
+# geographic-distance penalty from the Recovery Index. Rationale:
+# 1. Confound: dataset distance medians (45/80/100 km) were correlated with
+#    manufacturing temperature tier without physical basis, mixing distance
+#    and DT_c signal in the score.
+# 2. Role mismatch: in IS literature (Velenturf and Jensen 2015, J. Ind. Ecology)
+#    proximity acts as an enabler/gate, not as a continuous differentiator.
+# 3. Replacement: geographic feasibility is now a capacity-dependent matchability
+#    gate enforced upstream in step_2_0 (Edge<=5km, Mid<=10km, Hyper<=30km;
+#    sqrt(Q) law from Kavvadias and Quoilin 2018, anchored to Santin 2020).
+# Weights are NOT renormalised. Rinormalising lifts LowT above 0.60 (high-priority)
+# and breaks the "all 9 marginal pre-upgrade" thesis claim.
+ALPHA_Q, ALPHA_T, ALPHA_t, ALPHA_d = 0.25, 0.35, 0.25, 0.0
 BETA_DEFAULT  = 0.40
 GAMMA_DEFAULT = 0.40
 DELTA_DEFAULT = 0.20
@@ -141,6 +161,10 @@ def compute_ri_series(
     t_gap    = np.clip(spec.t_req_c - t_supply, 0.0, None)
     t_compat = np.clip(1.0 - t_gap / T_LIFT_REF, 0.0, 1.0)
     avail    = t_avail.astype(float)
+    # D-decision Phase 2 (2026-05-31): distance term kept structurally with
+    # ALPHA_d=0.0 to preserve the algebraic shape of the equation against the
+    # WHER D3 reference (Woolley-Luo-Simeone 2018), while moving the geographic
+    # check to a capacity-dependent matchability gate in step_2_0.
     d_norm   = min(spec.distance_km / D_MAX_KM, 1.0)
     return np.clip(ALPHA_Q*q_norm + ALPHA_T*t_compat + ALPHA_t*avail - ALPHA_d*d_norm,
                    0.0, 1.0)
@@ -188,13 +212,13 @@ def load_specs_lc(path: Path) -> list[ManufacturingSpec]:
             ManufacturingSpec("HighT_130C", 130.0, 3.5, "1shift",     1000.0, 0.55),
         ]
     df = pd.read_csv(path)
-    agg = (df.groupby("process_name")
-           .agg(t_req_c=("t_req_c","first"), distance_km=("distance_km","median"),
-                shift_type=("shift_type","first"), q_demand_kw=("q_demand_kw","mean"),
-                delta_tc_baseline=("delta_tc_baseline","mean"))
+    agg = (df.groupby("plant_tier")
+           .agg(t_req_c=("plant_t_req_c","first"), distance_km=("distance_km","median"),
+                shift_type=("plant_shift_pattern","first"), q_demand_kw=("plant_q_demand_kw","mean"),
+                delta_tc_baseline=("plant_delta_tc_baseline","mean"))
            .reset_index())
     return [ManufacturingSpec(
-        str(r["process_name"]), float(r["t_req_c"]), float(r["distance_km"]),
+        str(r["plant_tier"]), float(r["t_req_c"]), float(r["distance_km"]),
         str(r["shift_type"]),   float(r["q_demand_kw"]), float(r["delta_tc_baseline"]),
     ) for _, r in agg.iterrows()]
 
@@ -293,30 +317,57 @@ def main() -> None:
                  .reset_index(drop=True))
     df_scores.insert(0, "rank", df_scores.index + 1)
 
-    logger.info("\n" + "="*70)
-    logger.info(f"  IS-Match LC Ranking  (β={BETA_DEFAULT} γ={GAMMA_DEFAULT} δ={DELTA_DEFAULT}  "
-                "Exergy_norm=per_scenario)")
-    logger.info("="*70)
-    for _, row in df_scores.iterrows():
-        logger.info(f"  #{int(row['rank']):2d}  {row['dc_name']:14s} × {row['process_name']:14s}"
-                    f"  RI={row['ri_temporal']:.3f}  Ex={row['exergy_dt_norm']:.3f}"
-                    f"  Score={row['is_match_score']:.4f}  [{row['tier']}]")
-    tier_counts = df_scores["tier"].value_counts()
-    logger.info("-"*70)
-    for t, c in tier_counts.items():
-        logger.info(f"  {t}: {c}")
-    logger.info("="*70)
-
+    logger.info("\n" + "=" * 70)
     logger.info(
-        "\n  THESIS INTERPRETATION (Cap. 5.2):\n"
-        "  LC supply T=46-50°C → LowT_60C pairs: reduced lift (HP ~12-14°C).\n"
-        "  MidT/HighT still require substantial upgrade; scores pre-upgrade LOW-MARGINAL.\n"
-        "  Exergy_DT_norm ≈ 0.75 uniform across LC DCs (same load profile shape).\n"
-        "  Differentiation by IS-Match vs RI_temporal captured in Step 2.3.\n"
+        f"  IS-Match LC Ranking  (B={BETA_DEFAULT} G={GAMMA_DEFAULT} "
+        f"D={DELTA_DEFAULT}  Exergy_norm=per_scenario)"
     )
+    logger.info("=" * 70)
+    for _, row in df_scores.iterrows():
+        logger.info(
+            f"  #{int(row['rank']):2d}  {row['dc_name']:14s} x "
+            f"{row['process_name']:14s}  RI={row['ri_temporal']:.3f}  "
+            f"Ex={row['exergy_dt_norm']:.3f}  "
+            f"Score={row['is_match_score']:.4f}  [{row['tier']}]"
+        )
+    logger.info("-" * 70)
+    for tier_name, count in df_scores["tier"].value_counts().items():
+        logger.info(f"  {tier_name}: {count}")
+    logger.info("=" * 70)
 
-    df_scores.to_csv(SCORES_CSV, index=False)
-    logger.info(f"  Scores → {SCORES_CSV}  ({len(df_scores)} rows)")
+    # Save canonical scores CSV
+    scores_out = RESULTS_DIR / "step_2_1_is_match_scores_lc.csv"
+    scores_out.parent.mkdir(parents=True, exist_ok=True)
+    df_scores.to_csv(scores_out, index=False)
+    logger.info(f"  Scores -> {scores_out}  ({len(df_scores)} rows)")
 
-    # ── 6. Sensitivity ────────────────────────────────────────────────────────
-    df_sens = run_sensitivity(cac
+    # Sensitivity sweep (+/- 20 pct on beta gamma delta, 5 grid points each)
+    sens_rows = []
+    deltas_pct = (-20, -10, 0, +10, +20)
+    for db in deltas_pct:
+        for dg in deltas_pct:
+            for dd in deltas_pct:
+                b = BETA_DEFAULT * (1 + db / 100.0)
+                g = GAMMA_DEFAULT * (1 + dg / 100.0)
+                d = DELTA_DEFAULT * (1 + dd / 100.0)
+                for rec in results:
+                    s = b * rec.ri_temporal + g * rec.exergy_dt_norm - d * rec.delta_tc_norm
+                    sens_rows.append({
+                        "dc_name": rec.dc_name,
+                        "process_name": rec.process_name,
+                        "delta_beta_pct": db,
+                        "delta_gamma_pct": dg,
+                        "delta_delta_pct": dd,
+                        "beta": round(b, 4),
+                        "gamma": round(g, 4),
+                        "delta": round(d, 4),
+                        "is_match_score": round(float(np.clip(s, 0.0, 1.0)), 4),
+                    })
+    df_sens = pd.DataFrame(sens_rows)
+    sens_out = RESULTS_DIR / "step_2_1_sensitivity_lc.csv"
+    df_sens.to_csv(sens_out, index=False)
+    logger.info(f"  Sensitivity -> {sens_out}  ({len(df_sens)} rows)")
+
+
+if __name__ == "__main__":
+    main()

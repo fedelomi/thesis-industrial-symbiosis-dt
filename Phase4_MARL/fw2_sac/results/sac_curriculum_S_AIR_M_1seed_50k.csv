@@ -1,0 +1,2 @@
+config,scenario,seed,final_poa,welfare_dc,welfare_mfg,shapley_fairness,n_rounds,convergence_rate
+SAC_curr,S_AIR_M,0,0.9639042311758265,1871476.7204485915,1612360.0289200435,0.759464009016053,13,0.9666666666666667

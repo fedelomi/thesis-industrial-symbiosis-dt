@@ -3,7 +3,14 @@ Step 2.6 LC - IS-Match Ranking Stress Test
 ===========================================
 Phase 2 robustness layer (additive, post-baseline)
 
-Worst-case perturbation analysis on 4 input parameters at +/-20%:
+Worst-case perturbation analysis on input parameters at +/-20%:
+
+  D-decision Phase 2 (2026-05-31): distance_km removed from
+  perturbation set because step_2_1 scorer no longer uses ALPHA_d.
+  Perturbing distance now produces zero effect on the score, so
+  the test rows are kept for traceability but their delta is null.
+
+  Active parameters at +/-20%:
     Q_demand_peak  (plant-side demand)
     T_required     (plant target temperature)
     distance_km    (DC <-> plant transport distance)
@@ -277,6 +284,8 @@ def _evaluate_scenario(
         new_specs = _perturb_specs(specs_baseline, "t_req_c", factor)
         scored = _score_all_pairs(dc_cache, new_specs)
     elif param == "distance_km":
+        # D-decision 2026-05-31: distance no longer affects scorer (ALPHA_d=0),
+        # so this branch produces a null delta. Kept for traceability.
         new_specs = _perturb_specs(specs_baseline, "distance_km", factor)
         scored = _score_all_pairs(dc_cache, new_specs)
     elif param == "delta_tc_norm":
