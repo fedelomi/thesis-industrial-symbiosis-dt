@@ -1,0 +1,20 @@
+{
+  "bootstrap_gap_ci": {
+    "gap_mean": 0.17647058823529413,
+    "ci95_low": 0.10784313725490197,
+    "ci95_high": 0.2549019607843137,
+    "significant": true,
+    "n_boot": 10000
+  },
+  "component_loo": {
+    "nsrr_full_accuracy": 0.8529,
+    "nsrr_no_gate_accuracy": 0.7255,
+    "gate_contribution_pp": 12.75
+  },
+  "paraphrase_stability": {
+    "nsrr_accuracy_original": 0.8529,
+    "nsrr_accuracy_paraphrased": 0.8529,
+    "delta_pp": 0.0,
+    "stable_within_5pp": true
+  }
+}

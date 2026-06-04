@@ -1,0 +1,75 @@
+{
+  "reduction_factors": {
+    "LowT_60C": 0.2432,
+    "MidT_90C": 0.258,
+    "HighT_130C": 0.2384
+  },
+  "delta_tc_norm": {
+    "LowT": 0.5284,
+    "MidT": 0.715,
+    "HighT": 0.9745
+  },
+  "method": "neuro-symbolic burden score (step_3_4_delta_tc)",
+  "weights": {
+    "upgrade": 0.3,
+    "temp": 0.3,
+    "admin": 0.15,
+    "base": 0.25
+  },
+  "provenance": {
+    "LowT": {
+      "upgrade": "HP",
+      "f_upgrade": 0.5,
+      "f_temp": 0.25,
+      "f_admin": 0.3557647058823529,
+      "energy_tj": 30.2,
+      "info_share": 0.7161,
+      "delta_tc_norm": 0.5284,
+      "reduction_factor": 0.2432
+    },
+    "MidT": {
+      "upgrade": "HP",
+      "f_upgrade": 0.5,
+      "f_temp": 0.55,
+      "f_admin": 1.0,
+      "energy_tj": 708.8,
+      "info_share": 0.7902,
+      "delta_tc_norm": 0.715,
+      "reduction_factor": 0.258
+    },
+    "HighT": {
+      "upgrade": "CO2_HTHP",
+      "f_upgrade": 1.0,
+      "f_temp": 1.0,
+      "f_admin": 0.8301176470588235,
+      "energy_tj": 70.6,
+      "info_share": 0.6922,
+      "delta_tc_norm": 0.9745,
+      "reduction_factor": 0.2384
+    }
+  },
+  "corpus_grounding": {
+    "eed_doc": "F10",
+    "kpi_reg_doc": "F25",
+    "fdm_bref_doc": "F24",
+    "italy_tee_docs": [
+      "F02",
+      "F12",
+      "F13",
+      "F14",
+      "F15"
+    ],
+    "denmark_docs": [
+      "F07",
+      "F16",
+      "F17",
+      "F26"
+    ],
+    "corpus_documents": 29
+  },
+  "phase2_baseline_anchors": {
+    "LowT": 0.25,
+    "MidT": 0.42,
+    "HighT": 0.55
+  }
+}

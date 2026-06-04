@@ -1,0 +1,103 @@
+id,category,scoring,gold,nsrr_key,nsrr_method,nsrr_correct,base_key,base_method,base_correct
+thr_001,threshold_lookup,numeric,50 C,50 C,structured_retrieval,True,50 C,vector_baseline,True
+thr_002,threshold_lookup,numeric,58 C,58 C,structured_retrieval,True,58 C,vector_baseline,True
+thr_003,threshold_lookup,numeric,5 MW,5 MW,structured_retrieval,True,5 MW,vector_baseline,True
+thr_004,threshold_lookup,numeric,500 kW,500 kW,structured_retrieval,True,2,vector_baseline,False
+thr_005,threshold_lookup,numeric,1 MW,1 MW,structured_retrieval,True,1 MW,vector_baseline,True
+thr_006,threshold_lookup,numeric,5 MW,5 MW,structured_retrieval,True,694 kW,vector_baseline,False
+thr_007,threshold_lookup,numeric,50 %,50 %,structured_retrieval,True,50 %,vector_baseline,True
+thr_008,threshold_lookup,numeric,75 %,75 %,structured_retrieval,True,75 %,vector_baseline,True
+thr_009,threshold_lookup,numeric,100 %,100 %,structured_retrieval,True,100 %,vector_baseline,True
+thr_010,threshold_lookup,numeric,200 g/kWh,200 g/kWh,structured_retrieval,True,200 g/kWh,vector_baseline,True
+thr_011,threshold_lookup,numeric,150 g/kWh,150 g/kWh,structured_retrieval,True,150 g/kWh,vector_baseline,True
+thr_012,threshold_lookup,numeric,100 g/kWh,100 g/kWh,structured_retrieval,True,100 g/kWh,vector_baseline,True
+thr_013,threshold_lookup,numeric,50 g/kWh,50 g/kWh,structured_retrieval,True,50 g/kWh,vector_baseline,True
+thr_014,threshold_lookup,numeric,0 g/kWh,0 g/kWh,structured_retrieval,True,0 g/kWh,vector_baseline,True
+thr_015,threshold_lookup,numeric,10 MW,10 MW,structured_retrieval,True,10 MW,vector_baseline,True
+thr_016,threshold_lookup,numeric,8 MW,8 MW,structured_retrieval,True,8 MW,vector_baseline,True
+thr_017,threshold_lookup,numeric,7 MW,7 MW,structured_retrieval,True,7 MW,vector_baseline,True
+thr_018,threshold_lookup,numeric,1 MW,1 MW,structured_retrieval,True,1 MW,vector_baseline,True
+thr_019,threshold_lookup,numeric,85 TJ,85 TJ,structured_retrieval,True,85 TJ,vector_baseline,True
+thr_020,threshold_lookup,numeric,10 TJ,10 TJ,structured_retrieval,True,10 TJ,vector_baseline,True
+thr_021,threshold_lookup,numeric,25 C,25 C,structured_retrieval,True,25 C,vector_baseline,True
+thr_022,threshold_lookup,numeric,15 %,15 %,structured_retrieval,True,15 %,vector_baseline,True
+thr_023,threshold_lookup,numeric,95 %,95 %,structured_retrieval,True,95 %,vector_baseline,True
+thr_024,threshold_lookup,numeric,95 %,95 %,structured_retrieval,True,35 C,vector_baseline,False
+thr_025,threshold_lookup,numeric,66.3 yr,7 yr,structured_retrieval,False,7 yr,vector_baseline,False
+thr_026,threshold_lookup,numeric,1.51 %,1.51 %,structured_retrieval,True,1.51 %,vector_baseline,True
+thr_027,threshold_lookup,numeric,614.1 kWh,614.1 kW,structured_retrieval,False,614.1 kW,vector_baseline,False
+thr_028,threshold_lookup,numeric,363.699 MWh,363.699 MW,structured_retrieval,False,363.699 MW,vector_baseline,False
+thr_029,threshold_lookup,numeric,980 C,980 C,structured_retrieval,True,980 C,vector_baseline,True
+thr_030,threshold_lookup,numeric,1700 C,1700 C,structured_retrieval,True,1700 C,vector_baseline,True
+thr_031,threshold_lookup,numeric,450 C,450 C,structured_retrieval,True,450 C,vector_baseline,True
+thr_032,threshold_lookup,numeric,200 C,200 C,structured_retrieval,True,200 C,vector_baseline,True
+thr_033,threshold_lookup,numeric,150 C,150 C,structured_retrieval,True,150 C,vector_baseline,True
+thr_034,threshold_lookup,numeric,10 km,10 km,structured_retrieval,True,10 km,vector_baseline,True
+thr_035,threshold_lookup,numeric,694 kW,694 kW,structured_retrieval,True,694 kW,vector_baseline,True
+thr_036,threshold_lookup,numeric,975 kW,975 kW,structured_retrieval,True,25 MW,vector_baseline,False
+thr_037,threshold_lookup,numeric,68 C,68 C,structured_retrieval,True,68 C,vector_baseline,True
+thr_038,threshold_lookup,numeric,300 kW,300 kW,structured_retrieval,True,300 kW,vector_baseline,True
+thr_039,threshold_lookup,numeric,8 %,8 %,structured_retrieval,True,8 %,vector_baseline,True
+thr_040,threshold_lookup,numeric,10 C,10 C,structured_retrieval,True,10 C,vector_baseline,True
+thr_041,threshold_lookup,numeric,60 C,60 C,structured_retrieval,True,60 C,vector_baseline,True
+thr_042,threshold_lookup,numeric,35 C,35 C,structured_retrieval,True,35 C,vector_baseline,True
+thr_043,threshold_lookup,numeric,40 C,35 C,structured_retrieval,False,35 C,vector_baseline,False
+thr_044,threshold_lookup,numeric,60 C,60 C,structured_retrieval,True,60 C,vector_baseline,True
+thr_045,threshold_lookup,numeric,55 C,55 C,structured_retrieval,True,55 C,vector_baseline,True
+thr_046,threshold_lookup,numeric,85 C,85 C,structured_retrieval,True,85 C,vector_baseline,True
+thr_047,threshold_lookup,numeric,75 C,75 C,structured_retrieval,True,75 C,vector_baseline,True
+thr_048,threshold_lookup,numeric,25 C,25 C,structured_retrieval,True,25 C,vector_baseline,True
+thr_049,threshold_lookup,numeric,45 C,45 C,structured_retrieval,True,45 C,vector_baseline,True
+thr_050,threshold_lookup,numeric,50 C,50 C,structured_retrieval,True,50 C,vector_baseline,True
+thr_051,threshold_lookup,numeric,60 C,60 C,structured_retrieval,True,60 C,vector_baseline,True
+thr_052,threshold_lookup,numeric,2050 yr,2050 yr,structured_retrieval,True,2050 yr,vector_baseline,True
+thr_053,threshold_lookup,numeric,2030 yr,2030 yr,structured_retrieval,True,2030 yr,vector_baseline,True
+thr_054,threshold_lookup,numeric,80 MW,80 MW,structured_retrieval,True,80 MW,vector_baseline,True
+thr_055,threshold_lookup,numeric,85 C,85 C,structured_retrieval,True,85 C,vector_baseline,True
+cmp_001,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,True
+cmp_002,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,False
+cmp_003,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,False
+cmp_004,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,True
+cmp_005,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,False
+cmp_006,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,False
+cmp_007,compliance_verdict,verdict,non_compliant,non_compliant,symbolic_gate,True,2023,vector_baseline,False
+cmp_008,compliance_verdict,verdict,conditional,conditional,symbolic_gate,True,2023,vector_baseline,False
+cmp_009,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,True
+cmp_010,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,False
+cmp_011,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,True
+cmp_012,compliance_verdict,verdict,conditional,conditional,symbolic_gate,True,2023,vector_baseline,False
+cmp_013,compliance_verdict,verdict,non_compliant,non_compliant,symbolic_gate,True,2023,vector_baseline,False
+cmp_014,compliance_verdict,verdict,compliant,compliant,symbolic_gate,True,2023,vector_baseline,True
+cmp_015,compliance_verdict,verdict,conditional,conditional,symbolic_gate,True,2023,vector_baseline,False
+mh_001,multi_hop,multi_token,hp|heat pump / article 26,compliant,symbolic_gate,True,2,vector_baseline,False
+mh_002,multi_hop,multi_token,co2|hthp / article 26,compliant,symbolic_gate,True,2,vector_baseline,False
+mh_003,multi_hop,multi_token,exempt|exemption|conditional / report|reporting,1 MW,structured_retrieval,False,1 MW,vector_baseline,False
+mh_004,multi_hop,multi_token,heat pump|hp,90 C,structured_retrieval,False,40,vector_baseline,False
+mh_005,multi_hop,multi_token,mandatory / connection,25 MW,structured_retrieval,False,25 MW,vector_baseline,False
+mh_006,multi_hop,multi_token,tee|white certificate|certificati,"If Project typology is pasteurizer, spiralizing machine, thermal insulation of d",structured_retrieval,False,10 MW,vector_baseline,False
+mh_007,multi_hop,multi_token,50,50 %,structured_retrieval,True,31,vector_baseline,True
+mh_008,multi_hop,multi_token,energy management|ems|50001,85 TJ,structured_retrieval,True,85 TJ,vector_baseline,True
+mh_009,multi_hop,multi_token,energy reuse|waste heat|reuse,Commission Delegated Regulation (EU) 2024/1364 on the first phase of the establi,structured_retrieval,True,2024,vector_baseline,True
+mh_010,multi_hop,multi_token,article 12,500 kW,structured_retrieval,True,500 kW,vector_baseline,True
+mh_011,multi_hop,multi_token,heat pump|hp,75 C,structured_retrieval,True,75 C,vector_baseline,True
+mh_012,multi_hop,multi_token,co2|hthp,Process Exhaust Air Recovery Utilization Range: 30-90 %. Technical recovery effi,structured_retrieval,False,15,vector_baseline,False
+mh_013,multi_hop,multi_token,5,District heating/cooling system minimum heat output: 5 MW. Triggers efficiency p,structured_retrieval,True,5 MW,vector_baseline,True
+mh_014,multi_hop,multi_token,12 / 26 / tee,compliant,symbolic_gate,True,2,vector_baseline,False
+mh_015,multi_hop,multi_token,cost-benefit|cba,1 MW,structured_retrieval,True,1 MW,vector_baseline,True
+mh_016,multi_hop,multi_token,50001,If Enterprise with average annual energy consumption > 85 TJ (all carriers) acro,structured_retrieval,True,85 TJ,vector_baseline,True
+mh_017,multi_hop,multi_token,50600,Commission Delegated Regulation (EU) 2024/1364 on the first phase of the establi,structured_retrieval,True,2024,vector_baseline,True
+mh_018,multi_hop,multi_token,non-compliant|non_compliant|not compliant,Article 14 paragraph 6 CBA exemption by Member State thresholds: Member States p,structured_retrieval,False,14,vector_baseline,False
+mh_019,multi_hop,multi_token,italy / denmark,Regulation and planning of district heating in Denmark. This Danish Energy Agenc,structured_retrieval,False,Regulation and planning of district heating in Denmark. This,vector_baseline,False
+mh_020,multi_hop,multi_token,500 / 2024,500 kW,structured_retrieval,True,1,vector_baseline,False
+cmpv_001,comparative,keyword,incentive,Art. 1 Scope and Objectives: The decree determines objectives and quantitative o,structured_retrieval,False,Heat Supply Act - Municipal Heat Planning Municipal planning,vector_baseline,False
+cmpv_002,comparative,keyword,planning,Regulation and planning of district heating in Denmark. This Danish Energy Agenc,structured_retrieval,True,Regulation and planning of district heating in Denmark. This,vector_baseline,True
+cmpv_003,comparative,keyword,co2,Hot aisle/return water temperature (air-cooled DC): 30-35 °C. Determines waste h,structured_retrieval,True,30,vector_baseline,True
+cmpv_004,comparative,keyword,liquid,ICEF Sustainable Data Centers Roadmap - Chapter 2.4: Heat Reuse. Chapter from th,structured_retrieval,True,2.4,vector_baseline,True
+cmpv_005,comparative,keyword,12,Total Thermal Input Threshold for Industrial CBA: 20 MWth. Triggers CBA requirem,structured_retrieval,True,12.4,vector_baseline,True
+cmpv_006,comparative,keyword,26,Energy efficiency savings obligation (annual): 0.8 %. Annual end-use energy savi,structured_retrieval,True,12.4,vector_baseline,True
+cmpv_007,comparative,keyword,3.2 / mid / 1 mw / exceed,500 kW,structured_retrieval,True,1 MW,vector_baseline,True
+cmpv_008,comparative,keyword,130 / high,If DH network operates legacy 1GDH/2GDH supply temperature (80–110°C) then DC wa,structured_retrieval,True,1,vector_baseline,True
+cmpv_009,comparative,keyword,market / trading,Profitable Heat Recovery with Open District Heating - Annex 47 Case Study. This ,structured_retrieval,False,47 C,vector_baseline,False
+cmpv_010,comparative,keyword,130,90 C,structured_retrieval,False,40,vector_baseline,False
+cmpv_011,comparative,keyword,12 / report,500 kW,structured_retrieval,True,26,vector_baseline,True
+cmpv_012,comparative,keyword,italy,Commercial minimum - white certificates: 1 TEP (Tonnellata Equivalente di Petrol,structured_retrieval,False,1 tep,vector_baseline,False

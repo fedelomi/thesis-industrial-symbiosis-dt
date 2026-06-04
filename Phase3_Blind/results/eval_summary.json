@@ -1,0 +1,31 @@
+{
+  "n_questions": 102,
+  "nsrr_accuracy": 0.8529,
+  "baseline_accuracy": 0.6765,
+  "gap": 0.1765,
+  "nsrr_groundedness": 0.9412,
+  "baseline_groundedness": 0.9118,
+  "by_category": {
+    "comparative": {
+      "n": 12,
+      "nsrr": 0.6667,
+      "baseline": 0.6667
+    },
+    "compliance_verdict": {
+      "n": 15,
+      "nsrr": 1.0,
+      "baseline": 0.3333
+    },
+    "multi_hop": {
+      "n": 20,
+      "nsrr": 0.65,
+      "baseline": 0.45
+    },
+    "threshold_lookup": {
+      "n": 55,
+      "nsrr": 0.9273,
+      "baseline": 0.8545
+    }
+  },
+  "baseline_backend": "tfidf"
+}
