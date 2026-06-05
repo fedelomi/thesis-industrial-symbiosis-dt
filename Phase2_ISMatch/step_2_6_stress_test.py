@@ -71,7 +71,7 @@ Q_NOMINAL_LC: dict[str, float] = {
     "Hyperscale_LC": 24_500_000.0,
 }
 
-ALPHA_Q, ALPHA_T, ALPHA_t, ALPHA_d = 0.25, 0.35, 0.25, 0.15
+ALPHA_Q, ALPHA_T, ALPHA_t, ALPHA_d = 0.25, 0.35, 0.25, 0.0
 BETA_DEFAULT = 0.40
 GAMMA_DEFAULT = 0.40
 DELTA_DEFAULT = 0.20

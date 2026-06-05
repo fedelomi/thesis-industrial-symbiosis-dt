@@ -1,7 +1,7 @@
-arm,metric,n_paired,gap_mean,p_raw,holm_factor,p_holm,sig_at_05_holm
-9LC,shapley_fairness,90,-0.20714120474797046,0.0001,6,0.0006000000000000001,True
-S_AIR_M,shapley_fairness,10,-0.08245298275587298,0.0001,5,0.0006000000000000001,True
-S_AIR_M,convergence_rate,10,-0.5933333333333334,0.0001,4,0.0006000000000000001,True
-9LC,price_of_anarchy,90,0.030352798437543627,0.2182,3,0.6546000000000001,False
-S_AIR_M,price_of_anarchy,10,-0.012538671266059698,0.7258,2,1.0,False
-9LC,convergence_rate,90,0.0,1.0,1,1.0,False
+arm,metric,gap_mean,p_raw,holm_factor,p_holm,sig_at_05_holm
+9LC,shapley_fairness,-0.2078,0.0001,6,0.0006,True
+S_AIR_M,shapley_fairness,-0.0824,0.0001,5,0.0006,True
+S_AIR_M,convergence_rate,-0.593,0.0001,4,0.0006,True
+9LC,price_of_anarchy,0.03,0.2236,3,0.6708,False
+S_AIR_M,price_of_anarchy,-0.0128,0.7906,2,1.0,False
+9LC,convergence_rate,0.0,2.0,1,1.0,False

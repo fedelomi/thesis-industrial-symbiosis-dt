@@ -122,6 +122,25 @@ def outputs_exist(step):
     return all((RESULTS_DIR / f).exists() for f in step["output"])
 
 
+def script_is_runnable(script_path: Path) -> bool:
+    """Return True if the step script compiles and has a __main__ entrypoint.
+
+    Guards against a truncated step (audit 2026-06-05): a script cut off before
+    its `if __name__ == "__main__"` guard exits without running main(), leaving a
+    stale output that outputs_exist would wrongly accept as a passing step.
+    """
+    script_path = Path(script_path)
+    if not script_path.exists():
+        return False
+    try:
+        source = script_path.read_text(encoding="utf-8")
+        compile(source, str(script_path), "exec")
+    except (SyntaxError, ValueError):
+        return False
+    return ('if __name__ == "__main__":' in source
+            or "if __name__ == '__main__':" in source)
+
+
 def run_step(step, idx, total, skip_existing):
     script_path = BASE_DIR / step["script"]
     sep()
@@ -129,13 +148,17 @@ def run_step(step, idx, total, skip_existing):
     sep("-")
     sys.stdout.flush()
 
-    # Skip mode
+    # Skip mode: skip only if outputs exist AND the script is runnable. A truncated
+    # step (output present but no runnable entrypoint) must not be silently skipped
+    # (audit 2026-06-05): re-run it so the stale output is regenerated.
     if skip_existing and outputs_exist(step):
-        for f in step["output"]:
-            p = RESULTS_DIR / f
-            print(f"  [SKIP]  {f:<45} {fmt_size(p):>8}  (already present)")
-        print(f"\n  Time: 0.0s  (skipped)")
-        return True, 0.0
+        if script_is_runnable(script_path):
+            for f in step["output"]:
+                p = RESULTS_DIR / f
+                print(f"  [SKIP]  {f:<45} {fmt_size(p):>8}  (already present)")
+            print(f"\n  Time: 0.0s  (skipped)")
+            return True, 0.0
+        print(f"  [WARN]  outputs present but {step['script']} is not runnable; re-running")
 
     if not script_path.exists():
         print(f"  ERROR: script not found -- {script_path}")

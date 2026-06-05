@@ -20,6 +20,8 @@ data/*
 # ...but always track the legacy archive (kept for thesis appendix reference)
 !data/legacy_gpt4o_mini/
 !data/legacy_gpt4o_mini/**
+# ...and the frozen canonical judge verdicts (regeneration input for step_3_12, audit 2026-06-05)
+!data/step_3_9_judge_verdicts_canonical.csv
 
 # IDE
 .idea/

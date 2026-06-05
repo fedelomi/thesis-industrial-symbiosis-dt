@@ -4,7 +4,7 @@
 # Identical logic to step_1_4b_sensitivity.py -- only paths and scenarios differ.
 # ==============================================================================
 
-# Decision active: D5 — privacy-fidelity sensitivity over D5-parametrized LC profile.
+# Decision active: D5, privacy-fidelity sensitivity over D5-parametrized LC profile.
 
 
 THESIS_INTERPRETATION = (
@@ -164,4 +164,9 @@ def main() -> None:
     print("=" * 62)
     print("THESIS INTERPRETATION (Ch. 4.3) -- Liquid Cooling:")
     print("=" * 62)
+    print(THESIS_INTERPRETATION)
+
+
+if __name__ == "__main__":
+    main()
   

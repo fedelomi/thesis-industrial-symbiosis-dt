@@ -1,13 +1,13 @@
 config,scenario_group,metric,mean,ci95_lo_bca,ci95_hi_bca,std_bootstrap,n_obs,method
 A0,9LC,price_of_anarchy,0.7525,0.7294,0.7775,0.0122,90,BCa
-A0,9LC,shapley_fairness,0.6582,0.624,0.6918,0.0173,90,BCa
-A0,9LC,convergence_rate,1.0,1.0,1.0,0.0,90,BCa
 D,9LC,price_of_anarchy,0.7828,0.744,0.8199,0.0193,90,BCa
+A0,9LC,shapley_fairness,0.6582,0.624,0.6918,0.0173,90,BCa
 D,9LC,shapley_fairness,0.451,0.3794,0.5194,0.0358,90,BCa
+A0,9LC,convergence_rate,1.0,1.0,1.0,0.0,90,BCa
 D,9LC,convergence_rate,1.0,1.0,1.0,0.0,90,BCa
 A0,S_AIR_M,price_of_anarchy,0.7735,0.7202,0.8617,0.0345,10,BCa
-A0,S_AIR_M,shapley_fairness,0.7793,0.7793,0.7793,0.0,10,BCa
-A0,S_AIR_M,convergence_rate,1.0,1.0,1.0,0.0,10,BCa
 D,S_AIR_M,price_of_anarchy,0.761,0.7362,0.7989,0.0155,10,BCa
+A0,S_AIR_M,shapley_fairness,0.7793,0.7793,0.7793,0.0,10,BCa
 D,S_AIR_M,shapley_fairness,0.6969,0.6762,0.7214,0.0114,10,BCa
+A0,S_AIR_M,convergence_rate,1.0,1.0,1.0,0.0,10,BCa
 D,S_AIR_M,convergence_rate,0.4067,0.2867,0.5333,0.0635,10,BCa

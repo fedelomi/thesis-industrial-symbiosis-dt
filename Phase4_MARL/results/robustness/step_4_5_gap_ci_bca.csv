@@ -1,7 +1,7 @@
 scenario_group,metric,gap_D_minus_A0_mean,ci95_lo_bca,ci95_hi_bca,significant_at_95_bca,std_bootstrap,n_bootstrap,method
-9LC,price_of_anarchy,0.0304,-0.0197,0.0771,False,0.0246,10000,BCa
-9LC,shapley_fairness,-0.2071,-0.2854,-0.1399,True,0.0376,10000,BCa
+9LC,price_of_anarchy,0.03,-0.0179,0.0779,False,0.0245,10000,BCa
+9LC,shapley_fairness,-0.2078,-0.2877,-0.1386,True,0.0377,10000,BCa
 9LC,convergence_rate,0.0,0.0,0.0,False,0.0,10000,BCa
-S_AIR_M,price_of_anarchy,-0.0125,-0.1116,0.0477,False,0.0388,10000,BCa
-S_AIR_M,shapley_fairness,-0.0825,-0.1032,-0.058,True,0.0114,10000,BCa
-S_AIR_M,convergence_rate,-0.5933,-0.71,-0.4633,True,0.0635,10000,BCa
+S_AIR_M,price_of_anarchy,-0.0128,-0.1116,0.0477,False,0.0388,10000,BCa
+S_AIR_M,shapley_fairness,-0.0824,-0.1032,-0.058,True,0.0114,10000,BCa
+S_AIR_M,convergence_rate,-0.593,-0.7133,-0.4667,True,0.0635,10000,BCa
