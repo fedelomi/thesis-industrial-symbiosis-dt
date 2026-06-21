@@ -73,6 +73,18 @@ models/
 *.err
 *.pid
 
-# Ablation run side artefacts (PPO logger stderr + Start-Process PID file)
-*.err
-*.pid
+# Local Documents folder accidentally included in repo (Windows ~/Documenti)
+Documenti/
+
+# TensorBoard event logs (binary, noisy on diff)
+**/runs/
+*.tfevents.*
+
+# Phase 3 exploratory probes (underscore-prefixed scripts and intermediate dumps)
+# These are kept locally for reproducibility but excluded from the public repo.
+# Comment the following two lines if you want to commit them.
+Phase3_GraphRAG/_*.py
+Phase3_GraphRAG/results/_*
+
+# Phase 3 cache directory
+Phase3_GraphRAG/cache/

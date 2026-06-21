@@ -8,6 +8,9 @@ full attribution ablation over algorithm {ppo, sac} and curriculum {on, off}:
     PPO_curr   = PPO + curriculum    (isolates the curriculum under the canonical algo)
     PPO_nocurr = PPO, no curriculum  (= canonical D baseline, should reproduce ~0.41)
 
+Canonical S_AIR_M shielded D baseline: conv 0.4067, CI95 [0.255, 0.558], n=10
+(ablation_results_ci95.csv, thesis Tab 5.8); the bare "0.41" is that 10-seed mean.
+
 Run a single cell (real env, from the Phase4_MARL folder so env / config import):
     python -m fw2_sac.train_sac_curriculum --algo sac --n-seeds 5 --timesteps 200000
     python -m fw2_sac.train_sac_curriculum --algo sac --no-curriculum --n-seeds 5 --timesteps 200000
@@ -262,7 +265,7 @@ def _aggregate(rows: list) -> None:
     cells = {}
     for r in rows:
         cells.setdefault(r["config"], []).append(r)
-    LOG.info("=== ABLATION SUMMARY (S_AIR_M, baseline to beat: PPO_nocurr ~0.41) ===")
+    LOG.info("=== ABLATION SUMMARY (S_AIR_M, canonical D baseline conv 0.41 CI95 [0.255, 0.558] n=10) ===")
     LOG.info("%-12s %5s | %-18s %-18s %-12s", "cell", "n", "conv_rate", "PoA", "w_dc")
     for label, recs in sorted(cells.items()):
         c_m, c_h = ic95([r["convergence_rate"] for r in recs])

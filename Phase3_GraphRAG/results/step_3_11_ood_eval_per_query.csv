@@ -1,0 +1,91 @@
+id,category,difficulty,coverage,production_template,routing_ok,lcr,em_strict,em_semantic,error_class,answer
+OOD01,parameter-lookup,easy,covered,P4_incentives_it_whr,True,0.0,1.0,1.0,correct,The Italian name for the white-certificate incentive scheme is **Titoli di Efficienza Energetica / Certificati Bianchi**.
+OOD02,parameter-lookup,easy,covered,P3_regulatory_screening_dk,True,1.0,1.0,1.0,correct,"The Danish law is called **Varmeforsyningsloven — Heat Supply Act**, which establishes the DH Connection Mandate obligation for heat sources greater than 1MW in municipal district heating planning areas."
+OOD03,parameter-lookup,easy,covered,ISO50001_PROCESS_COMPLIANCE,True,1.0,1.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The rows provided contain ISO clause references (such as '4.1', '6.3', '6.4', '9.1.1', '9.1.2') but do not specify which ISO standard number these clauses belong to or provide information about energy management systems standards."
+OOD04,parameter-lookup,medium,covered,GENERIC_DC,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided rows contain data center specifications (IT power, cooling type, PUE, and waste heat output) but do not include information about upgrade technologies or how waste heat is paired with industrial processes."
+OOD05,parameter-lookup,medium,covered,GENERIC_STANDARD,True,1.0,1.0,1.0,correct,"ASHRAE-90.4 ""Energy Standard for Data Centers"" is the ASHRAE standard specifically applicable to energy efficiency in data centers."
+OOD06,parameter-lookup,medium,covered,GENERIC_ACTOR,True,1.0,1.0,1.0,correct,"Gestore Servizi Energetici S.p.A. (GSE) is the public body in Italy that administers the white-certificate scheme for energy efficiency, as it issues and verifies Energy Efficiency Certificates (Titoli di Efficienza Energetica)."
+OOD07,parameter-lookup,medium,covered,GENERIC_STANDARD,True,1.0,1.0,1.0,correct,"ISO-23247 is the ISO standard that defines a digital twin framework for manufacturing, which is relevant for modelling data center waste heat integration into a production line."
+OOD08,compliance-multi-hop,medium,covered,P1_eed_art26_threshold,True,1.0,1.0,1.0,correct,"Not available in the knowledge graph.
+
+The provided row only specifies that data centers with IT power ≥1 MW must disclose waste heat capacity annually under Article 26, but does not contain information about detailed monitoring obligations, the Italian white-certificate scheme, or financial incenti"
+OOD09,compliance-multi-hop,medium,covered,P3_regulatory_screening_dk,True,1.0,1.0,0.0,synthesis_fail,"No, the Heat Supply Act does not impose a connection obligation on this facility because the edge data center's capacity of ~0.5 MW falls below the 1.0 MW threshold required under the DH Connection Mandate. Regarding fourth-generation district heating network operating temperature parameters for tec"
+OOD10,compliance-multi-hop,medium,covered,ALL_REGULATORY_ARTICLES,True,1.0,1.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The rows provided do not contain information about which article requires national authorities to assess whether waste heat can serve local industrial or district heating demand, nor do they specify the efficiency criteria that a proposed heat supply must meet "
+OOD11,compliance-multi-hop,hard,KG_COVERAGE_GAP,P2_thermal_compatibility_all,True,1.0,,,coverage_gap,"Not available in the knowledge graph.
+
+The provided rows contain only technical specifications for scenario S9 (datacenter DC-L, hyperscale, sterilization process, CO2_HTHP upgrade technology, supply/required capacity values, and GAP status). They do not include information about geographic location"
+OOD12,compliance-multi-hop,hard,covered,P3_regulatory_screening_dk,True,1.0,1.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided row only specifies that heat sources >1MW in municipal DH planning areas must connect to the DH network if economically feasible under the DH Connection Mandate. It does not contain information about obligations specific to data center heat supplie"
+OOD13,compliance-multi-hop,hard,covered,ALL_REGULATORY_ARTICLES,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The rows provided contain information about EED 2023/1791 Article 26 requiring data centers ≥1MW to disclose waste heat capacity annually, and Article 11 mentioning waste heat reuse as a recommended measure. However, the knowledge graph does not contain details"
+OOD14,compliance-multi-hop,medium,KG_COVERAGE_GAP,ALL_REGULATORY_ARTICLES,True,1.0,,,coverage_gap,"Not available in the knowledge graph.
+
+The provided rows contain only a summary stating that Article 24 covers ""Efficient district heating and cooling criteria,"" but do not specify the actual efficiency criteria that waste heat recovery projects must meet, nor do they contain any information about s"
+OOD15,compliance-multi-hop,hard,covered,P3_regulatory_screening_dk,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided row contains information about Denmark's Heat Supply Act DH Connection Mandate (threshold: >1MW, obligation to connect if economically feasible) and compliant data centers, but does not include details about digital twin modeling standards (ISO 232"
+OOD16,compliance-multi-hop,easy,covered,P4_incentives_it_whr,True,0.0,0.0,0.0,routing_fail,"Not available in the knowledge graph.
+
+The provided data contains information about the Titoli di Efficienza Energetica incentive mechanism and its eligible technologies (including waste-heat-recovery), but does not include details about Article 12 of EU EED 2023/1791 or mandatory energy audit oblig"
+OOD17,compliance-multi-hop,medium,covered,P1_eed_art26_threshold,True,1.0,1.0,1.0,correct,"Not available in the knowledge graph.
+
+The knowledge graph only contains information about data centers with IT power ≥ 1.0 MW falling under mandatory disclosure obligations. Your scenario involves an edge data center at ~0.5 MW, which falls below the 1.0 MW threshold, and also asks about Denmark-sp"
+OOD18,cross-comparison,easy,covered,P3_regulatory_screening_dk,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided rows contain information only about Denmark's Heat Supply Act and its district heating connection obligation, but do not include any data about Italy's white-certificate approach or a comparison between the two mechanisms."
+OOD19,cross-comparison,easy,KG_COVERAGE_GAP,DK_DH_COMPARE,True,0.0,,,coverage_gap,"The key difference is that 3rd Generation DH requires an 80°C supply temperature, necessitating a heat pump upgrade for data center waste heat recovery, while 4th Generation DH operates at 60°C supply temperature, which is directly compatible with data center low-temperature waste heat (~47°C) witho"
+OOD20,cross-comparison,medium,covered,P2_thermal_compatibility_all,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The rows contain supply and required capacity values for both scenarios (S3: 110.0 kW supply vs. S7: 47.6 kW supply), allowing a comparison of thermal energy delivery, but they do not contain information about regulatory disclosure burdens under EU EED Article "
+OOD21,cross-comparison,medium,covered,P1_eed_art26_threshold,True,1.0,0.0,0.0,synthesis_fail,Not available in the knowledge graph.
+OOD22,cross-comparison,medium,covered,P3_regulatory_screening_dk,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided data only contains information about Denmark's Varmeforsyningsloven (Heat Supply Act) with its DH Connection Mandate. There is no information about Italy's regulatory framework, nor any details comparing the two countries' approaches to waste heat "
+OOD23,cross-comparison,hard,covered,P2_thermal_compatibility_all,True,1.0,0.0,1.0,correct,"Not available in the knowledge graph.
+
+The provided data does not contain information about EU EED Art. 24 efficiency criteria compliance or Certificati Bianchi valuation methodologies. Additionally, S5 uses Pasteurization (not Paper Drying) and both scenarios show identical supply/required capacity"
+OOD24,cross-comparison,hard,covered,ALL_REGULATORY_ARTICLES,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided rows contain information about EU regulations (DEL-REG-2024-1364 and EED-2023-1791) but do not include any data about ISO 50001 requirements or energy performance indicators mandated by that standard, making a comparison impossible."
+OOD25,cross-comparison,medium,covered,P2_thermal_compatibility_all,True,1.0,1.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided data shows supply and required capacity values (supply_c and required_c) for pasteurization and sterilization, but does not contain information about waste heat temperature requirements, temperature bands, or which processes can operate without upg"
+OOD26,cross-comparison,easy,covered,GENERIC_STANDARD,True,1.0,1.0,1.0,correct,"ASHRAE-90.4 focuses on the energy efficiency of the data center facility itself (data-center-energy-efficiency scope), while ISO-50001-2018 focuses on the broader energy management system (energy-management-system scope) that would govern the heat supply arrangement between the data center and manuf"
+OOD27,regulatory-traversal,easy,covered,P1_eed_art26_threshold,True,1.0,0.0,0.0,synthesis_fail,Not available in the knowledge graph.
+OOD28,regulatory-traversal,easy,covered,GENERIC_ACTOR,True,1.0,1.0,1.0,correct,"Gestore Servizi Energetici S.p.A. (GSE) is the Italian public body responsible for issuing and managing Certificati Bianchi (White Certificates). When a data center operator applies for white certificates for a waste heat recovery project, GSE acts as a regulator that issues and verifies the Energy "
+OOD29,regulatory-traversal,medium,covered,P3_regulatory_screening_dk,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided row describes the DH Connection Mandate threshold and which data centers are compliant, but does not contain information about enforcement authorities or the legal mechanisms for enforcing compliance."
+OOD30,regulatory-traversal,medium,covered,ALL_REGULATORY_ARTICLES,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided rows contain information about EED 2023/1791 Article 23 (Comprehensive Assessment of District Heating every 5 years) and Article 26 (Data Centers waste heat disclosure), but they do not include any information about Danish national-level planning i"
+OOD31,regulatory-traversal,medium,covered,P4_incentives_it_whr,True,0.0,0.0,1.0,correct,"Not available in the knowledge graph.
+
+The provided data shows that Certificati Bianchi incentivizes waste-heat-recovery among eligible technologies and is governed by DM 2021 and DM MASE 2025, but it does not contain information about the regulatory pathway from ISO 50001 implementation to obtainin"
+OOD32,regulatory-traversal,hard,covered,ALL_REGULATORY_ARTICLES,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided rows confirm that EED Article 24 addresses ""Efficient district heating and cooling criteria"" and that DEL-REG-2024-1364 defines KPIs including waste heat reuse (T_CDU_return), but they do not contain information about which specific actors at EU, n"
+OOD33,regulatory-traversal,hard,covered,P3_regulatory_screening_dk,True,1.0,0.0,1.0,correct,"Not available in the knowledge graph.
+
+The provided row only contains information about Denmark's Heat Supply Act and the DH Connection Mandate with a 1.0 MW threshold. It does not include data about the national energy and climate plan target, the approving authority for heat supply agreements, or "
+OOD34,regulatory-traversal,medium,covered,P4_incentives_it_whr,True,0.0,0.0,0.0,routing_fail,"Not available in the knowledge graph.
+
+The provided rows contain information about Italian energy efficiency incentives (Titoli di Efficienza Energetica) and eligible technologies, but do not include details about EU EED 2023/1791 articles, energy audit requirements, or obligations for data center o"
+OOD35,regulatory-traversal,easy,covered,GENERIC_COUNTRY,True,1.0,0.0,0.0,synthesis_fail,Not available in the knowledge graph.
+OOD36,regulatory-traversal,hard,KG_COVERAGE_GAP,ALL_REGULATORY_ARTICLES,True,1.0,,,coverage_gap,"Not available in the knowledge graph.
+
+The provided rows contain only limited information about EED 2023/1791 articles on data centers, energy management systems, and heating/cooling, but do not include any details about ISO 23247, ISO 50001, the EU EED delegated regulation's specific KPI alignment "
+OOD37,regulatory-traversal,medium,covered,P3_regulatory_screening_dk,True,1.0,1.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided row describes Denmark's Heat Supply Act threshold (>1MW heat sources must connect if economically feasible) and compliant data centers, but does not contain information about the specific legal sequence of steps that transforms an EU EED Art. 23 as"
+OOD38,compliance-multi-hop,hard,covered,P3_regulatory_screening_dk,True,1.0,0.0,0.0,synthesis_fail,"Not available in the knowledge graph.
+
+The provided rows contain only information about Denmark's Heat Supply Act and its DH Connection Mandate threshold, but do not include data on EU EED 2023/1791 obligations, industrial exemptions from the Heat Supply Act, or ISO 50001 certification implications "

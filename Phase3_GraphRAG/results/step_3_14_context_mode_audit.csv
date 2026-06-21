@@ -1,0 +1,14 @@
+artefact,n_queries,answer_eq_context_frac,mode,em_stored,em_recomputed,matcher_parity_frac
+evaluation_results_graph-rag-ood-full38_20260606_102712.json,22,1.0,context-only,,,
+evaluation_results_graph-rag-ood-v8_20260606_095849.json,20,0.0,llm-in-loop,,,
+evaluation_results_graph-rag-ood_20260602_114216.json,4,0.0,llm-in-loop,,,
+evaluation_results_graph-rag-ood_20260602_115500.json,38,0.0,llm-in-loop,,,
+evaluation_results_graph-rag-ood_20260603_101424.json,5,0.0,llm-in-loop,,,
+evaluation_results_graph-rag-ood_20260603_102245.json,38,0.0,llm-in-loop,,,
+evaluation_results_graph-rag_20260517_095432.json,100,1.0,context-only,0.53,0.53,1.0
+evaluation_results_graph-rag_20260517_151646.json,100,1.0,context-only,0.57,0.57,1.0
+evaluation_results_graph-rag_20260517_155731.json,100,1.0,context-only,0.59,0.59,1.0
+evaluation_results_graph-rag_20260602_050051.json,100,1.0,context-only,0.63,0.63,1.0
+evaluation_results_graph-rag_20260602_080103.json,100,1.0,context-only,0.66,0.66,1.0
+evaluation_results_llm-cypher_20260517_101352.json,100,0.05,llm-in-loop,0.2737,0.2737,1.0
+evaluation_results_no-rag_20260517_100514.json,100,0.0,llm-in-loop,0.28,0.28,1.0

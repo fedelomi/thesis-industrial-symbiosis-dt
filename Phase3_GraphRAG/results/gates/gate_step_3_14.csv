@@ -1,0 +1,2 @@
+metric,value,threshold,status
+em_matcher_parity_min,1.0,1.0,PASS

@@ -1,0 +1,13 @@
+metric,value
+decisions_filled,0/16
+source,gap_type_hint (PROVISIONAL)
+kg_missing,4
+retrieval_miss,8
+ambiguous,4
+orig_coverage_gap_pct,42.1
+true_kg_coverage_gap_pct_lower_bound,10.5
+revised_class.synthesis_fail,13
+revised_class.routing_fail,9
+revised_class.correct,8
+revised_class.needs_composition,4
+revised_class.kg_coverage_gap_true,4

@@ -1,0 +1,2 @@
+arm,n_queries,em_context_only,em_effective,coverage,em_on_answered,retry_rate,abstain_rate,gen_model,gate_model,source_artefact,tokens,est_cost_usd,dry_run
+canonical,100,0.59,0.41,0.99,0.4141,0.05,0.01,claude-haiku-4-5-20251001,claude-sonnet-4-6,evaluation_results_graph-rag_20260517_155731.json,"{'haiku_in': 43107, 'haiku_out': 5110, 'sonnet_in': 47760, 'sonnet_out': 1848}",0.2397,False

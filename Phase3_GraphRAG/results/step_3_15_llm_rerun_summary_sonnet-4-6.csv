@@ -1,0 +1,2 @@
+n_queries,em_context_only,em_llm_rerun,delta_pp,model,source_artefact,tokens,est_cost_usd,dry_run
+100,0.59,0.45,-14.0,claude-sonnet-4-6,evaluation_results_graph-rag_20260517_155731.json,"{'haiku_in': 39832, 'haiku_out': 5304}",0.0664,False

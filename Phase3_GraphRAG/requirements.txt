@@ -25,3 +25,10 @@ pandas>=2.0
 # --- Robustness layer (step_3_7..3_10) ---
 scipy>=1.10
 pytest
+
+# --- Semantic routing fallback (semantic_router.py) ---
+# scikit-learn powers the default zero-download TF-IDF backend.
+scikit-learn>=1.3
+# Optional embedding backend (SEMANTIC_ROUTER_BACKEND=st). Heavier, one-time
+# model download (no API cost), stronger OOD generalisation than TF-IDF.
+# sentence-transformers>=2.2

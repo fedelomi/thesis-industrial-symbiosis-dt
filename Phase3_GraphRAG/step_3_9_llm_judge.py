@@ -60,7 +60,10 @@ OUT_SUMMARY = RESULTS_DIR / "step_3_9_llm_judge_summary.csv"
 
 JUDGE_MODEL = "claude-sonnet-4-6"
 JUDGE_TEMPERATURE = 0.0
-MAX_OUTPUT_TOKENS = 200
+# Raised from 200: at 200 the rationale was truncated mid-JSON, breaking the
+# parse and defaulting the verdict to False even when semantic_correct was true
+# at the start (e.g. B09, C27). 512 leaves room for the full verdict.
+MAX_OUTPUT_TOKENS = 512
 SLEEP_BETWEEN_CALLS_S = 0.0
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
@@ -89,19 +92,30 @@ def _build_judge_prompt(nl_question: str, ground_truth: str, answer: str) -> str
 
 
 def _parse_judge_output(raw: str) -> tuple[bool, str]:
-    match = re.search(r"\{[^{}]*\"semantic_correct\"[^{}]*\}", raw, flags=re.DOTALL)
-    snippet = match.group(0) if match else raw.strip()
+    """Extract the verdict robustly, tolerating truncated or malformed JSON.
+
+    The verdict boolean is emitted first by the judge, so a regex on the boolean
+    recovers the answer even when the trailing rationale is cut off mid-JSON (the
+    old behaviour defaulted those to False, a measurement artifact). Only when the
+    boolean itself is absent do we report PARSE_ERROR.
+    """
+    m = re.search(r'"semantic_correct"\s*:\s*(true|false)', raw, flags=re.IGNORECASE)
+    if m is not None:
+        semantic = m.group(1).lower() == "true"
+        rm = re.search(r'"rationale"\s*:\s*"(.*?)"\s*[},]', raw, flags=re.DOTALL)
+        if rm is None:
+            rm = re.search(r'"rationale"\s*:\s*"(.*)', raw, flags=re.DOTALL)
+        rationale = (rm.group(1).strip() if rm else raw.strip())[:300]
+        return semantic, rationale
+    # No boolean found: last-resort full-JSON parse, else genuine parse error.
+    match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
+    snippet = (match.group(0) if match else raw.strip())
+    snippet = snippet.replace("True", "true").replace("False", "false")
     try:
         obj = json.loads(snippet)
     except json.JSONDecodeError:
-        snippet_clean = snippet.replace("True", "true").replace("False", "false")
-        try:
-            obj = json.loads(snippet_clean)
-        except json.JSONDecodeError:
-            return False, f"PARSE_ERROR | raw={raw[:200]!r}"
-    semantic = bool(obj.get("semantic_correct", False))
-    rationale = str(obj.get("rationale", "")).strip()
-    return semantic, rationale
+        return False, f"PARSE_ERROR | raw={raw[:200]!r}"
+    return bool(obj.get("semantic_correct", False)), str(obj.get("rationale", "")).strip()
 
 
 def main() -> None:
@@ -161,7 +175,11 @@ def main() -> None:
 
     df_per = pd.DataFrame(rows)
     df_per.to_csv(OUT_PER_QUERY, index=False)
-    logger.info("Wrote %s (%d rows)", OUT_PER_QUERY.name, len(df_per))
+    # Also keep a timestamped copy so each run is preserved for regression diffs
+    # (the fixed-name file above is overwritten every run).
+    ts = time.strftime("%Y%m%d_%H%M%S")
+    df_per.to_csv(RESULTS_DIR / f"step_3_9_llm_judge_per_query_{ts}.csv", index=False)
+    logger.info("Wrote %s (%d rows) + timestamped copy", OUT_PER_QUERY.name, len(df_per))
 
     em_strict_pct = round(100.0 * df_per["em_strict"].mean(), 2)
     em_semantic_pct = round(100.0 * df_per["em_semantic"].mean(), 2)

@@ -63,6 +63,10 @@ CONSTRAINTS: list[tuple[str, str, str]] = [
     # Layer 2
     ("Regulation",          "id",           "constraint_regulation_id"),
     ("RegulatoryArticle",   "id",           "constraint_regarticle_id"),
+    # eed_article: unique per EED article number (11, 12, ...). Allows nulls, so
+    # non-EED articles (ISO clauses, DK acts) are unaffected. Added 2026-06 for
+    # the EED Art.11/12 audit enrichment (step_3_1f).
+    ("RegulatoryArticle",   "eed_article",  "constraint_regarticle_eed_article"),
     ("PolicyFramework",     "id",           "constraint_policyfw_id"),
     ("Incentive",           "id",           "constraint_incentive_id"),
     ("Country",             "iso",          "constraint_country_iso"),

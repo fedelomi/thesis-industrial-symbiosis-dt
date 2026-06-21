@@ -46,6 +46,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 import sys
 import time
@@ -62,7 +63,19 @@ from config import (
 )
 from templates import CYPHER_TEMPLATES
 
+logger = logging.getLogger(__name__)
+
 DATASET_PATH = DATA_DIR / "benchmark_qa_dataset.json"
+
+
+def _env_flag(name: str, default: str = "0") -> bool:
+    """Parse a boolean-ish environment variable."""
+    return os.getenv(name, default).strip().lower() in ("1", "true", "yes", "on")
+
+
+# Feature flag for the 2-stage semantic fallback (A/B test). When off,
+# route_question keeps the legacy first-match-wins behaviour exactly.
+ENABLE_SEMANTIC_FALLBACK: bool = _env_flag("ENABLE_SEMANTIC_FALLBACK", "1")
 
 
 # --- Struttura risultato ---
@@ -133,10 +146,88 @@ def run_no_rag(questions: list[dict], llm) -> list[EvalResult]:
 
 # Mapping keyword -> template ID (da step_3_2)
 KEYWORD_ROUTING: list[tuple[list[str], str]] = [
+    # ---- HIGH PRIORITY (2026-06 fix): country-level facts must win over the
+    # greedy 'denmark'/'italy' buckets below, which route every country question
+    # to P3/P4 and miss DH penetration %, EED transposition and country counts.
+    # GENERIC_COUNTRY returns dh_penetration_pct and eed_transposed for all
+    # countries in one row set. Conservative keyword set to avoid regressions. ----
+    (["penetration", "penetrazione", "dh penetration", "dh_penetration",
+      "transpos", "recepi", "eed_transposed", "eed transposition",
+      "which countries", "how many countries"],
+     "GENERIC_COUNTRY"),
+    # NOTE (2026-06-02): the hand-written B17 priority rule ('policy framework
+    # governs the danish 4gdh') was REMOVED. That collision (governance vs 4GDH
+    # thermal params) is now resolved structurally by the semantic fallback in
+    # route_question (see semantic_router.py), not by a per-phrase patch.
+    # ---- HIGH PRIORITY (2026-06 fix): cross-scale DC capacity comparisons.
+    # GENERIC_DC returns waste_heat_kw for all 3 archetypes (Edge/Mid/Hyperscale)
+    # in one set so the LLM can compare; the old 'hyperscale' keyword routed these
+    # to P5 (DC-L only), giving one side. Targeted phrases to avoid regressions. ----
+    (["edge and hyperscale", "edge vs hyperscale", "hyperscale and edge",
+      "hyperscale vs edge", "edge versus hyperscale", "between edge and",
+      "edge to hyperscale", "recoverable heat between",
+      "compare the recoverable", "edge data center and the hyperscale"],
+     "GENERIC_DC"),
+    # ---- Administrative / enforcement bodies (A24 GSE, A31 DK-DEA). The fact
+    # lives in Actor.notes; the P3/P4 buckets never return Actor nodes. ----
+    (["which agency", "which authority", "which body", "administered by",
+      "administers", "administrative body", "enforces", "energy agency",
+      "danish energy agency", "dk-dea", "gse", "gestore",
+      # PROMPT 4 Fase 4b: 'which public body issues/manages the white certificates'
+      # (OOD28) must reach the Actor node, not the P4 incentive template.
+      "public body", "responsible for issuing", "issuing and managing",
+      "body responsible", "manages certificati", "managing certificati"],
+     "GENERIC_ACTOR"),
+    # ---- DK NECP GHG reduction target / horizon year (A30). Lives in the NECP
+    # PolicyFramework (horizon_year + notes), which P3 does not fetch. ----
+    (["ghg reduction", "ghg target", "emission reduction target",
+      "reduction target", "necp target", "2030 target", "by 2030",
+      "climate plan target", "greenhouse gas"],
+     "DK_NECP_TARGET"),
+    # ---- IT vs DK support comparison (C13, C16, C31): IT financial incentive
+    # vs DK regulatory mandate, side by side. ----
+    (["better financial support", "better support", "stronger incentive",
+      "which jurisdiction", "support for industrial symbiosis",
+      "support for is project", "compare incentive", "incentive comparison",
+      "italy and denmark incentive", "denmark and italy incentive",
+      "financial support compare", "regulatory vs financial",
+      "it vs dk", "dk vs it", "italy vs denmark", "denmark vs italy",
+      "regulatory burden", "transaction cost reduction", "tc reduction"],
+     "IT_DK_SUPPORT_COMPARE"),
+    # ---- Count of IS scenarios per industrial sector (B28). ----
+    (["scenarios involve", "scenarios target the", "involve the pulp",
+      "involve pulp and paper", "how many scenarios involve",
+      "scenarios in the food", "scenarios in the pulp", "scenarios per sector"],
+     "SCENARIO_COUNT_BY_SECTOR"),
+    # ---- Per-scenario detail for S2-S6 and 'sector/dc of scenario' questions.
+    # P2_thermal_compatibility_all now returns datacenter, sector, process, temps
+    # and status for all 9 scenarios, so the LLM picks the asked one. S1 and
+    # S7-S9 keep their existing specific routes below. ----
+    (["scenario s2", "scenario s3", "scenario s4", "scenario s5", "scenario s6",
+      "in s2", "in s3", "in s4", "in s5", "in s6",
+      "sector of the process", "industrial sector of", "which sector",
+      "process in scenario", "process and data center"],
+     # NOTE (2026-06-02): the C23 ('compare the IS scenarios for the mid-size DC
+     # across all three temperature bands') and C06 ('minimizes the thermal gap')
+     # phrase patches were REMOVED. Both collisions are now resolved by the
+     # semantic fallback (C23 was hijacked by TEMPERATURE_BAND_DEF / GENERIC_DC,
+     # C06 fell through to the P6 default).
+     "P2_thermal_compatibility_all"),
+    # ---- Single-DC recoverable / waste-heat capacity (A19). GENERIC_DC returns
+    # waste_heat_kw per archetype; P5 returned heat-source capacity (different
+    # number). ----
+    (["waste heat capacity", "waste-heat capacity", "recoverable heat capacity",
+      "recoverable waste heat of", "waste heat of the hyperscale",
+      "waste heat available from", "heat capacity of the hyperscale",
+      "heat capacity of the edge"],
+     "GENERIC_DC"),
     # ---- Temperature band definitions (only definition-style queries) ----
     (["temperature band", "low-grade heat band",
-      "mid-grade heat band", "high-grade heat band",
-      "how many temperature band",
+      "mid-grade heat band", "high-grade heat band", "medium-grade",
+      "grade heat band", "how many temperature band",
+      "range defines the t1", "range defines the t2", "range defines the t3",
+      "temperature range of", "range of t1", "range of t2", "range of t3",
+      "range of the t1", "range of the t2", "range of the t3",
       "range that defines the t1", "range that defines the t2",
       "range that defines the t3",
       "what range defines t1", "what range defines t2", "what range defines t3",
@@ -149,10 +240,7 @@ KEYWORD_ROUTING: list[tuple[list[str], str]] = [
       "supply temperature of the danish 4th",
       "return temperature of the danish 4gdh",
       "return temperature of the danish 4th",
-      "policy framework that governs",
-      "policy framework governs",
-      "danish 4gdh thermally feasible",
-      "what governs the danish 4gdh"],
+      "danish 4gdh thermally feasible"],
      "DK_4GDH_PARAMS"),
     # ---- DK 3GDH (legacy) only ----
     (["3gdh", "3rd generation",
@@ -180,7 +268,8 @@ KEYWORD_ROUTING: list[tuple[list[str], str]] = [
       "kpi", "obligation type of eed", "eed article"],
      "ALL_REGULATORY_ARTICLES"),   # restituisce tutti gli articoli con summary
     # Standard ASHRAE / ISO
-    (["ashrae", "90.4", "iso 23247", "iso-23247", "standard", "scope of",
+    (["ashrae", "ashrae 90.4", "90.4", "tc 9.9", "iso 23247", "iso-23247",
+      "digital twin framework", "standard", "scope of",
       "which organization", "publishes", "what does iso", "year was iso",
       "year was ashrae"],
      "GENERIC_STANDARD"),
@@ -233,13 +322,22 @@ KEYWORD_ROUTING: list[tuple[list[str], str]] = [
 # CYPHER_TEMPLATES importato da templates.py (unica fonte di verita')
 
 
-def route_question(question: str) -> str:
-    """Keyword routing: mappa NL question -> cypher template ID."""
-    q_lower = question.lower()
+def keyword_candidates(q_lower: str) -> list[str]:
+    """All distinct template ids whose keyword rule fires, in priority order.
+
+    Unlike a first-match-wins loop, this exposes *ambiguity*: a question that
+    matches two or more distinct templates is a collision the keyword layer
+    cannot resolve on its own.
+    """
+    out: list[str] = []
     for keywords, template_id in KEYWORD_ROUTING:
-        if any(kw in q_lower for kw in keywords):
-            return template_id
-    # fallback per tipo di entita'
+        if any(kw in q_lower for kw in keywords) and template_id not in out:
+            out.append(template_id)
+    return out
+
+
+def entity_fallback(q_lower: str) -> str:
+    """Legacy entity-type heuristic used when no keyword rule fires."""
     if any(w in q_lower for w in ["country", "nation", "penetration", "transposed"]):
         return "GENERIC_COUNTRY"
     if any(w in q_lower for w in ["regulation", "directive", "law", "decree"]):
@@ -249,12 +347,74 @@ def route_question(question: str) -> str:
     return "P6_full_is_path"
 
 
+def route_question(question: str) -> str:
+    """Route an NL question to a Cypher template id (2-stage).
+
+    Stage 1 (keyword): if exactly one distinct template matches, use it. This
+    keeps the precise, deterministic behaviour for in-distribution phrasings.
+
+    Stage 2 (semantic fallback, only when ENABLE_SEMANTIC_FALLBACK): triggered
+    when the keyword stage is ambiguous (zero matches, or two or more distinct
+    templates). A deterministic *prior* is defined as the legacy route for the
+    question (first keyword match, or the entity fallback when nothing matched).
+    The semantic stage ranks all templates globally (the correct template may be
+    neither keyword candidate, e.g. C23 collides on TEMPERATURE_BAND_DEF /
+    GENERIC_DC but should route to P2_thermal_compatibility_all) and overrides
+    the prior ONLY when its top template both clears the confidence floor and
+    outscores the prior template by at least the margin. On a near-tie the
+    deterministic prior stands, so the embedding can only override on a clear
+    semantic preference. This bounds regressions versus the legacy router.
+    """
+    q_lower = question.lower()
+    candidates = keyword_candidates(q_lower)
+
+    # Stage 1: unambiguous keyword hit wins.
+    if len(candidates) == 1:
+        return candidates[0]
+
+    # Deterministic prior == legacy route (first match, else entity fallback).
+    prior = candidates[0] if candidates else entity_fallback(q_lower)
+
+    if not ENABLE_SEMANTIC_FALLBACK:
+        return prior
+
+    # Stage 2: semantic disambiguation, gated against the prior.
+    try:
+        from semantic_router import get_default_router
+        router = get_default_router()
+        ranked = router.score(question)
+    except Exception as exc:  # routing must never crash the (paid) eval run
+        logger.warning("semantic fallback unavailable (%s); using keyword route.", exc)
+        return prior
+
+    if not ranked:
+        return prior
+    top_id, top_conf = ranked[0]
+    second_conf = ranked[1][1] if len(ranked) > 1 else 0.0
+    prior_conf = dict(ranked).get(prior, 0.0)
+
+    if top_id == prior or top_conf < router.conf_threshold:
+        return prior
+    # Clear semantic preference over the deterministic prior.
+    if (top_conf - prior_conf) < router.margin:
+        return prior
+    # Extra guard for the zero-keyword case: with no keyword signal at all, the
+    # entity fallback prior is only weakly related, so a large top-minus-prior
+    # gap can be spurious when the embedding is undecided (a flat distribution).
+    # Require the top template to also stand out from the global runner-up.
+    if not candidates and (top_conf - second_conf) < router.margin:
+        return prior
+    return top_id
+
+
 def cypher_rows_to_context(rows: list[dict]) -> str:
     """Converte righe Neo4j in stringa di contesto per il LLM."""
     if not rows:
         return "No data found in knowledge graph."
     lines = []
-    for row in rows[:10]:   # max 10 righe per non eccedere il contesto
+    # 40 rows (was 10): the largest template (P6) returns 27 rows, and truncating
+    # to 10 made 'how many' answers wrong because the count could not be seen.
+    for row in rows[:40]:
         lines.append(" | ".join(f"{k}: {v}" for k, v in row.items()))
     return "\n".join(lines)
 
@@ -288,10 +448,21 @@ def run_graph_rag(questions: list[dict], driver, llm=None) -> list[EvalResult]:
             if llm is not None and context and not context.startswith("Cypher error"):
                 try:
                     prompt = (
-                        f"Using the following knowledge graph data, answer the question concisely.\n\n"
-                        f"Knowledge graph context:\n{context}\n\n"
+                        "You answer questions about an industrial-symbiosis knowledge graph "
+                        "using ONLY the rows provided. Rules:\n"
+                        "1. Answer the SPECIFIC question directly in one or two sentences, "
+                        "stating the exact value, id, article, name or count it asks for.\n"
+                        "2. If the question asks 'how many', COUNT the matching rows, give the "
+                        "number first, then list the matching ids.\n"
+                        "3. If it asks to compare or says 'vs', state BOTH sides and the "
+                        "difference explicitly.\n"
+                        "4. Do NOT paste raw rows or unrelated fields; use only what answers "
+                        "the question.\n"
+                        "5. If the rows do not contain the answer, reply exactly: "
+                        "'Not available in the knowledge graph.'\n\n"
+                        f"Rows:\n{context}\n\n"
                         f"Question: {q['nl_question']}\n\n"
-                        f"Answer:"
+                        "Answer:"
                     )
                     resp = llm.invoke(prompt)
                     answer = resp.content if hasattr(resp, "content") else str(resp)

@@ -1,0 +1,285 @@
+question_id,category,status,final_answer,answer_v1,gate_feedback_v1,answer_v2,em_context_only,em_final,abstained,arm
+A01,factual-lookup,pass,The minimum IT power threshold for mandatory waste heat disclosure under EED Article 26 (Data Centers) is 1.0 MW.,The minimum IT power threshold for mandatory waste heat disclosure under EED Article 26 (Data Centers) is 1.0 MW.,,,True,True,False,canonical
+A02,factual-lookup,pass,"EED Article 26 compliance is mandatory for data centers above 1 MW, as they must disclose waste heat capacity annually if their IT power is >= 1 MW.","EED Article 26 compliance is mandatory for data centers above 1 MW, as they must disclose waste heat capacity annually if their IT power is >= 1 MW.",,,True,True,False,canonical
+A03,factual-lookup,pass,EED Article 23 requires member states to conduct a mandatory comprehensive assessment of district heating (DH) every 5 years.,EED Article 23 requires member states to conduct a mandatory comprehensive assessment of district heating (DH) every 5 years.,,,True,True,False,canonical
+A04,factual-lookup,pass,The Energy Efficiency Directive 2023/1791 was published in 2023.,The Energy Efficiency Directive 2023/1791 was published in 2023.,,,True,True,False,canonical
+A05,factual-lookup,pass,"The Delegated Regulation 2024/1364 defines three KPIs for data center waste heat: TWH (T_CDU_return), ERF, and EREUSE, as specified in Article 2 (Definitions and KPIs).","The Delegated Regulation 2024/1364 defines three KPIs for data center waste heat: TWH (T_CDU_return), ERF, and EREUSE, as specified in Article 2 (Definitions and KPIs).",,,True,True,False,canonical
+A06,factual-lookup,pass,The obligation type of EED Article 24 regarding district heating criteria is **mandatory**.,The obligation type of EED Article 24 regarding district heating criteria is **mandatory**.,,,True,True,False,canonical
+A07,factual-lookup,pass,"3 RegulatoryArticles are defined under EED 2023/1791: EED-ART-23, EED-ART-24, and EED-ART-26.","3 RegulatoryArticles are defined under EED 2023/1791: EED-ART-23, EED-ART-24, and EED-ART-26.",,,False,False,False,canonical
+A08,factual-lookup,retry_pass,"DEL-REG-2024-1364 (Del.Reg 2024) defines the KPI methodology, specifically defining KPI TWH (T_CDU_return) along with ERF and EREUSE, which applies to data center thermal waste heat reporting as mandated by EED-2023-1791 Article 26.","Not available in the knowledge graph.
+
+The rows show that DEL-REG-2024-1364 defines KPI TWH (T_CDU_return), ERF, and EREUSE, but does not explicitly state it is for ""data center thermal waste heat reporting."" EED-2023-1791 Article 26 addresses data centers and waste heat disclosure, but does not mention KPI methodology definition. No row directly connects KPI methodology definition to data center thermal waste heat reporting.","The rows do contain relevant information: DEL-REG-2024-1364 defines KPIs including TWH (T_CDU_return), ERF, and EREUSE, and EED-2023-1791 Article 26 mandates data center waste heat disclosure, so the candidate answer should have connected these rather than claiming the information is not available.","DEL-REG-2024-1364 (Del.Reg 2024) defines the KPI methodology, specifically defining KPI TWH (T_CDU_return) along with ERF and EREUSE, which applies to data center thermal waste heat reporting as mandated by EED-2023-1791 Article 26.",True,True,False,canonical
+A09,factual-lookup,pass,The scope of the ASHRAE 90.4 standard is data-center-energy-efficiency.,The scope of the ASHRAE 90.4 standard is data-center-energy-efficiency.,,,True,True,False,canonical
+A10,factual-lookup,pass,ASHRAE publishes the ASHRAE-90.4 standard (Energy Standard for Data Centers).,ASHRAE publishes the ASHRAE-90.4 standard (Energy Standard for Data Centers).,,,True,True,False,canonical
+A11,factual-lookup,pass,"ISO-23247 covers digital twin manufacturing framework, issued by ISO in 2021.","ISO-23247 covers digital twin manufacturing framework, issued by ISO in 2021.",,,True,True,False,canonical
+A12,factual-lookup,pass,ISO 23247 was published in 2021.,ISO 23247 was published in 2021.,,,True,True,False,canonical
+A13,factual-lookup,pass,The T1 low-grade heat band is defined by a temperature range of 40.0 to 60.0 degrees Celsius.,The T1 low-grade heat band is defined by a temperature range of 40.0 to 60.0 degrees Celsius.,,,True,True,False,canonical
+A14,factual-lookup,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,True,False,False,canonical
+A15,factual-lookup,pass,The T3 high-grade heat band is defined by a temperature range of 90.0 to 130.0 degrees Celsius.,The T3 high-grade heat band is defined by a temperature range of 90.0 to 130.0 degrees Celsius.,,,True,True,False,canonical
+A16,factual-lookup,pass,"There are 3 temperature bands defined in the IS framework: T1 (Low Grade), T2 (Medium Grade), and T3 (High Grade).","There are 3 temperature bands defined in the IS framework: T1 (Low Grade), T2 (Medium Grade), and T3 (High Grade).",,,True,True,False,canonical
+A17,factual-lookup,pass,The IT capacity of the Edge data center archetype (DC-S) is 500 kilowatts.,The IT capacity of the Edge data center archetype (DC-S) is 500 kilowatts.,,,True,True,False,canonical
+A18,factual-lookup,pass,"All three data center archetypes (DC-S, DC-M, and DC-L) use **liquid cooling**.","All three data center archetypes (DC-S, DC-M, and DC-L) use **liquid cooling**.",,,True,True,False,canonical
+A19,factual-lookup,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,True,False,False,canonical
+A20,factual-lookup,pass,The nominal PUE of the mid-size data center (DC-M) is 1.15.,The nominal PUE of the mid-size data center (DC-M) is 1.15.,,,True,True,False,canonical
+A21,factual-lookup,pass,The value of Italian white certificates (Titoli di Efficienza Energetica / Certificati Bianchi) is **300.0 EUR per toe**.,The value of Italian white certificates (Titoli di Efficienza Energetica / Certificati Bianchi) is **300.0 EUR per toe**.,,,True,True,False,canonical
+A22,factual-lookup,pass,The EUR per MWh value of Italian TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) incentives is 25.8 EUR/MWh.,The EUR per MWh value of Italian TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) incentives is 25.8 EUR/MWh.,,,True,True,False,canonical
+A23,factual-lookup,pass,"The eligible technologies for Italian TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) white certificates are: waste-heat-recovery, heat-pump, and absorption-chiller.","The eligible technologies for Italian TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) white certificates are: waste-heat-recovery, heat-pump, and absorption-chiller.",,,True,True,False,canonical
+A24,factual-lookup,pass,"Not available in the knowledge graph.
+
+The provided row contains information about the Titoli di Efficienza Energetica (White Certificates) system, including incentive values, eligible technologies, and governing decrees, but does not specify which Italian body administers this system.","Not available in the knowledge graph.
+
+The provided row contains information about the Titoli di Efficienza Energetica (White Certificates) system, including incentive values, eligible technologies, and governing decrees, but does not specify which Italian body administers this system.",,,False,False,False,canonical
+A25,factual-lookup,pass,There are 2 Italian regulatory decrees on energy efficiency in the knowledge graph: 'DM 2021 (fondante)' and 'DM MASE 2025'.,There are 2 Italian regulatory decrees on energy efficiency in the knowledge graph: 'DM 2021 (fondante)' and 'DM MASE 2025'.,,,False,False,False,canonical
+A26,factual-lookup,pass,"DM 2021 (fondante) is considered the founding act of the TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) system, as indicated by the ""(fondante)"" designation in the governing decrees.","DM 2021 (fondante) is considered the founding act of the TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) system, as indicated by the ""(fondante)"" designation in the governing decrees.",,,False,False,False,canonical
+A27,factual-lookup,pass,The mandatory DH connection threshold under Danish Varmeforsyningsloven is 1.0 MW for heat sources located in municipal DH planning areas.,The mandatory DH connection threshold under Danish Varmeforsyningsloven is 1.0 MW for heat sources located in municipal DH planning areas.,,,True,True,False,canonical
+A28,factual-lookup,pass,The supply temperature of the Danish 4th Generation DH (Generic) network is 60.0 degrees Celsius.,The supply temperature of the Danish 4th Generation DH (Generic) network is 60.0 degrees Celsius.,,,True,True,False,canonical
+A29,factual-lookup,pass,The return temperature of the Danish 4GDH network is 35.0 degrees Celsius.,The return temperature of the Danish 4GDH network is 35.0 degrees Celsius.,,,True,True,False,canonical
+A30,factual-lookup,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+A31,factual-lookup,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+A32,factual-lookup,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+A33,factual-lookup,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+A34,factual-lookup,pass,The supply temperature of the Danish 3GDH legacy network is 80.0 degrees Celsius.,The supply temperature of the Danish 3GDH legacy network is 80.0 degrees Celsius.,,,True,True,False,canonical
+B01,multi-hop-is,pass,The thermal compatibility status of Scenario S1 using direct heat exchange is REQUIRES_UPGRADE.,The thermal compatibility status of Scenario S1 using direct heat exchange is REQUIRES_UPGRADE.,,,True,False,False,canonical
+B02,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided rows contain data center specifications (DC-S, DC-M, DC-L) with their technical parameters, but do not include any information about scenarios or processes associated with them.","Not available in the knowledge graph.
+
+The provided rows contain data center specifications (DC-S, DC-M, DC-L) with their technical parameters, but do not include any information about scenarios or processes associated with them.",,,True,False,False,canonical
+B03,multi-hop-is,pass,The upgrade technology associated with Scenario S9 is CO2_HTHP.,The upgrade technology associated with Scenario S9 is CO2_HTHP.,,,True,False,False,canonical
+B04,multi-hop-is,retry_pass,"Not available in the knowledge graph.
+
+The provided rows contain only 1 scenario (S1), which uses direct heat exchange. To answer how many of the 9 IS scenarios use liquid cooling with direct heat exchange, I would need rows for all 9 scenarios, which are not provided.",1 scenario uses liquid cooling with direct heat exchange: S1.,"The rows only contain one scenario (S1), so the answer cannot verify the claim about '9 IS scenarios' or confirm that S1 is the only one using direct heat exchange among all 9 scenarios.","Not available in the knowledge graph.
+
+The provided rows contain only 1 scenario (S1), which uses direct heat exchange. To answer how many of the 9 IS scenarios use liquid cooling with direct heat exchange, I would need rows for all 9 scenarios, which are not provided.",False,False,False,canonical
+B05,multi-hop-is,pass,"The available heat capacity in Scenario S7 is 29,500 kW.","The available heat capacity in Scenario S7 is 29,500 kW.",,,True,False,False,canonical
+B06,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided row only contains data for Scenario S1 with datacenter DC-S and band T1. There is no data for Scenario S3, Edge DC, or band T3 in the rows provided.","Not available in the knowledge graph.
+
+The provided row only contains data for Scenario S1 with datacenter DC-S and band T1. There is no data for Scenario S3, Edge DC, or band T3 in the rows provided.",,,False,False,False,canonical
+B07,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided rows do not contain any data for Scenario S2.","Not available in the knowledge graph.
+
+The provided rows do not contain any data for Scenario S2.",,,True,False,False,canonical
+B08,multi-hop-is,retry_pass,"3 distinct scenarios target processes in the Food, Drink and Milk sector: S7, S9, and S4.","6 scenarios target processes in the Food, Drink and Milk sector: S7, S7, S7, S9, S9, S9.","The candidate answer lists 6 rows but counts duplicate scenario IDs (S7 appears 3 times, S9 appears 3 times), when the question asks for distinct scenarios; the correct count of distinct scenarios targeting Food, Drink and Milk is 2 (S7 and S9), and the answer also omits the DC-M row for S4 which al","3 distinct scenarios target processes in the Food, Drink and Milk sector: S7, S9, and S4.",True,False,False,canonical
+B09,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided rows contain only process parameters, temperature bands, upgrade technologies, and available power for scenarios S7, S8, and S9. They do not include information about data center involvement, industrial sector connections, or the full industrial-symbiosis pathway that would be needed to trace the complete IS pathway for Scenario S8.","Not available in the knowledge graph.
+
+The provided rows contain only process parameters, temperature bands, upgrade technologies, and available power for scenarios S7, S8, and S9. They do not include information about data center involvement, industrial sector connections, or the full industrial-symbiosis pathway that would be needed to trace the complete IS pathway for Scenario S8.",,,True,False,False,canonical
+B10,multi-hop-is,pass,"Data centers with IT power greater than or equal to 1.0 MW must comply with EED Article 26 disclosure, as they are obligated to disclose their waste heat capacity annually.","Data centers with IT power greater than or equal to 1.0 MW must comply with EED Article 26 disclosure, as they are obligated to disclose their waste heat capacity annually.",,,True,False,False,canonical
+B11,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided row contains information about Data Centers under EED Article 26 with a 1.0 MW threshold, but it does not specify which individual data centers (such as ""Edge data center (DC-S)"") fall under this obligation. To answer whether DC-S is subject to mandatory disclosure, I would need rows that explicitly identify DC-S and its IT power capacity relative to the 1.0 MW threshold.","Not available in the knowledge graph.
+
+The provided row contains information about Data Centers under EED Article 26 with a 1.0 MW threshold, but it does not specify which individual data centers (such as ""Edge data center (DC-S)"") fall under this obligation. To answer whether DC-S is subject to mandatory disclosure, I would need rows that explicitly identify DC-S and its IT power capacity relative to the 1.0 MW threshold.",,,True,True,False,canonical
+B12,multi-hop-is,pass,"Under Danish Varmeforsyningsloven (Heat Supply Act), data centers DC-M and DC-L must connect to the DH network if they are heat sources exceeding 1.0 MW in municipal DH planning areas and if connection is economically feasible.","Under Danish Varmeforsyningsloven (Heat Supply Act), data centers DC-M and DC-L must connect to the DH network if they are heat sources exceeding 1.0 MW in municipal DH planning areas and if connection is economically feasible.",,,True,True,False,canonical
+B13,multi-hop-is,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+B14,multi-hop-is,pass,"Yes, waste-heat-recovery is directly eligible for Italian white certificates (Titoli di Efficienza Energetica / Certificati Bianchi), as listed in the eligible_technologies.","Yes, waste-heat-recovery is directly eligible for Italian white certificates (Titoli di Efficienza Energetica / Certificati Bianchi), as listed in the eligible_technologies.",,,True,True,False,canonical
+B15,multi-hop-is,pass,The financial value of recovering waste heat from a mid-size DC in Italy under TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) is **25.8 EUR/MWh**.,The financial value of recovering waste heat from a mid-size DC in Italy under TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) is **25.8 EUR/MWh**.,,,True,True,False,canonical
+B16,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The rows show that DEL-REG-2024-1364 Article 2 defines KPIs (TWH, ERF, EREUSE), and EED-2023-1791 Article 26 mandates data center waste heat disclosure for facilities ≥1MW, but neither row explicitly connects these requirements or specifies that KPI reporting is mandated for hyperscale data centers.","Not available in the knowledge graph.
+
+The rows show that DEL-REG-2024-1364 Article 2 defines KPIs (TWH, ERF, EREUSE), and EED-2023-1791 Article 26 mandates data center waste heat disclosure for facilities ≥1MW, but neither row explicitly connects these requirements or specifies that KPI reporting is mandated for hyperscale data centers.",,,True,True,False,canonical
+B17,multi-hop-is,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+B18,multi-hop-is,pass,"1 mandatory regulatory obligation applies to a 5 MW data center operating in Denmark: the DH Connection Mandate under the Varmeforsyningsloven (Heat Supply Act), which requires heat sources exceeding 1 MW in municipal DH planning areas to connect to the district heating network if economically feasible.","1 mandatory regulatory obligation applies to a 5 MW data center operating in Denmark: the DH Connection Mandate under the Varmeforsyningsloven (Heat Supply Act), which requires heat sources exceeding 1 MW in municipal DH planning areas to connect to the district heating network if economically feasible.",,,False,False,False,canonical
+B19,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The rows provided do not contain a ""supply temperature"" field. While Scenario S4 is present in the data (associated with DC-M, Mid-size scale, direct_HX upgrade, Pasteurization process), the supply temperature of the heat source is not included in any of the columns shown.","Not available in the knowledge graph.
+
+The rows provided do not contain a ""supply temperature"" field. While Scenario S4 is present in the data (associated with DC-M, Mid-size scale, direct_HX upgrade, Pasteurization process), the supply temperature of the heat source is not included in any of the columns shown.",,,True,True,False,canonical
+B20,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided rows contain information about industrial processes (Pasteurization, Paper Drying, Sterilization) with their temperatures and upgrade technologies, but do not include any data about heat source nodes or hyperscale data centers.","Not available in the knowledge graph.
+
+The provided rows contain information about industrial processes (Pasteurization, Paper Drying, Sterilization) with their temperatures and upgrade technologies, but do not include any data about heat source nodes or hyperscale data centers.",,,True,False,False,canonical
+B21,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided rows contain temperature band definitions (T1, T2, T3) but do not include any information about heat sources or their linkages to these bands.","Not available in the knowledge graph.
+
+The provided rows contain temperature band definitions (T1, T2, T3) but do not include any information about heat sources or their linkages to these bands.",,,True,False,False,canonical
+B22,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The rows provided contain only data center specifications (scale, IT power, cooling type, PUE, and waste heat). They do not include information about manufacturing processes or HP (heat pump) upgrades.","Not available in the knowledge graph.
+
+The rows provided contain only data center specifications (scale, IT power, cooling type, PUE, and waste heat). They do not include information about manufacturing processes or HP (heat pump) upgrades.",,,False,False,False,canonical
+B23,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The rows provided do not contain delta-T (temperature difference) values, supply temperatures, or process temperature requirements needed to calculate the delta-T between HS-L-CO2_HTHP supply and sterilization process requirement.","Not available in the knowledge graph.
+
+The rows provided do not contain delta-T (temperature difference) values, supply temperatures, or process temperature requirements needed to calculate the delta-T between HS-L-CO2_HTHP supply and sterilization process requirement.",,,False,False,False,canonical
+B24,multi-hop-is,pass,"Yes, a direct connection between DC-S and Danish 4GDH is thermally feasible without upgrade. The 4GDH system has a supply temperature of 60°C, and the enabling condition notes that a DC with supply temperature around 47°C is ""directly compatible without HP"" (heat pump), indicating thermal compatibility without requiring infrastructure upgrades.","Yes, a direct connection between DC-S and Danish 4GDH is thermally feasible without upgrade. The 4GDH system has a supply temperature of 60°C, and the enabling condition notes that a DC with supply temperature around 47°C is ""directly compatible without HP"" (heat pump), indicating thermal compatibility without requiring infrastructure upgrades.",,,False,False,False,canonical
+B25,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The rows provided do not contain information about ""DC-M waste heat,"" ""T2 band compatibility,"" or any mapping between upgrade technologies and temperature band compatibility requirements. The data shows upgrade technologies and supply/required capacity values, but not the specific temperature band compatibility criteria you're asking about.","Not available in the knowledge graph.
+
+The rows provided do not contain information about ""DC-M waste heat,"" ""T2 band compatibility,"" or any mapping between upgrade technologies and temperature band compatibility requirements. The data shows upgrade technologies and supply/required capacity values, but not the specific temperature band compatibility criteria you're asking about.",,,False,False,False,canonical
+B26,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided rows contain datacenter, scale, upgrade, band, process, sector, and scenario information, but do not include any PRODUCES_HEAT relationships or HeatSource nodes.","Not available in the knowledge graph.
+
+The provided rows contain datacenter, scale, upgrade, band, process, sector, and scenario information, but do not include any PRODUCES_HEAT relationships or HeatSource nodes.",,,True,False,False,canonical
+B27,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The rows provided contain sector information (Food, Drink and Milk; Pulp and Paper Industry) and band/temperature tier designations (T1, T2, T3), but do not include explicit temperature requirement values needed to determine which sector has the highest temperature requirement.","Not available in the knowledge graph.
+
+The rows provided contain sector information (Food, Drink and Milk; Pulp and Paper Industry) and band/temperature tier designations (T1, T2, T3), but do not include explicit temperature requirement values needed to determine which sector has the highest temperature requirement.",,,True,True,False,canonical
+B28,multi-hop-is,abstain,Not available in the knowledge graph.,"2 IS scenarios involve the Pulp and Paper sector: S8 (Paper Drying process with direct_HX upgrade) and S8 (Paper Drying process with HP upgrade) and S8 (Paper Drying process with CO2_HTHP upgrade).
+
+To be precise: **3 rows** match the Pulp and Paper Industry sector, all in scenario S8.","The candidate answer contradicts itself by first stating '2 IS scenarios' and then correcting to 3 rows, and the question asks how many scenarios (the answer is 1 unique scenario: S8), not how many rows.",1 IS scenario involves the Pulp and Paper sector: S8 (appearing in 2 rows with different upgrades).,True,False,True,canonical
+B29,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The rows show that all three data centers (DC-S, DC-M, DC-L) use liquid cooling and generate waste heat, but they do not contain a ""profile type"" field for these heat sources.","Not available in the knowledge graph.
+
+The rows show that all three data centers (DC-S, DC-M, DC-L) use liquid cooling and generate waste heat, but they do not contain a ""profile type"" field for these heat sources.",,,False,False,False,canonical
+B30,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided rows do not contain information about Italian IS projects, incentive revenue, EUR/MWh rates, or operating hours. The rows only show scenarios with data center scales, industrial processes, upgrade technologies, and heat capacity supply/required values.","Not available in the knowledge graph.
+
+The provided rows do not contain information about Italian IS projects, incentive revenue, EUR/MWh rates, or operating hours. The rows only show scenarios with data center scales, industrial processes, upgrade technologies, and heat capacity supply/required values.",,,False,False,False,canonical
+B31,multi-hop-is,pass,"A Danish hyperscale DC would need to comply with the **Varmeforsyningsloven — Heat Supply Act**, which mandates that heat sources exceeding 1.0 MW in municipal district heating planning areas must connect to the DH network if economically feasible.","A Danish hyperscale DC would need to comply with the **Varmeforsyningsloven — Heat Supply Act**, which mandates that heat sources exceeding 1.0 MW in municipal district heating planning areas must connect to the DH network if economically feasible.",,,True,True,False,canonical
+B32,multi-hop-is,pass,"Not available in the knowledge graph.
+
+The provided row shows Denmark has the Heat Supply Act (Varmeforsyningsloven) framework, but does not specify whether this constitutes a transposed EED (Energy Efficiency Directive) or provide information about EED transposition status.","Not available in the knowledge graph.
+
+The provided row shows Denmark has the Heat Supply Act (Varmeforsyningsloven) framework, but does not specify whether this constitutes a transposed EED (Energy Efficiency Directive) or provide information about EED transposition status.",,,False,True,False,canonical
+B33,multi-hop-is,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+C01,comparative,pass,"All three scenarios have identical available heat capacity: S7, S8, and S9 each have 29,500 kW available. There is no difference across the three hyperscale scenarios.","All three scenarios have identical available heat capacity: S7, S8, and S9 each have 29,500 kW available. There is no difference across the three hyperscale scenarios.",,,True,True,False,canonical
+C02,comparative,pass,"Scenarios S3, S6, and S9 all provide the highest supply temperature for industrial use at 110.0°C, which is used for the Sterilization process with CO2_HTHP upgrade technology.","Scenarios S3, S6, and S9 all provide the highest supply temperature for industrial use at 110.0°C, which is used for the Sterilization process with CO2_HTHP upgrade technology.",,,True,True,False,canonical
+C03,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain industrial symbiosis scenarios (S7, S8, S9) with processes like Pasteurization, Paper Drying, and Sterilization. They do not include any information about Edge (DC-S) or Hyperscale (DC-L) data centers or their recoverable heat capacities.","Not available in the knowledge graph.
+
+The provided rows contain industrial symbiosis scenarios (S7, S8, S9) with processes like Pasteurization, Paper Drying, and Sterilization. They do not include any information about Edge (DC-S) or Hyperscale (DC-L) data centers or their recoverable heat capacities.",,,False,False,False,canonical
+C04,comparative,pass,"Not available in the knowledge graph.
+
+The provided row specifies that data centers with IT power >= 1 MW have a mandatory disclosure obligation, but it does not identify which data center scales are exempt from this requirement.","Not available in the knowledge graph.
+
+The provided row specifies that data centers with IT power >= 1 MW have a mandatory disclosure obligation, but it does not identify which data center scales are exempt from this requirement.",,,True,False,False,canonical
+C05,comparative,pass,"The thermal gaps across the three temperature bands are: Low Grade (T1) = 20°C, Medium Grade (T2) = 30°C, and High Grade (T3) = 40°C. The High Grade band has the largest thermal gap at 40°C, which is 20°C wider than Low Grade and 10°C wider than Medium Grade.","The thermal gaps across the three temperature bands are: Low Grade (T1) = 20°C, Medium Grade (T2) = 30°C, and High Grade (T3) = 40°C. The High Grade band has the largest thermal gap at 40°C, which is 20°C wider than Low Grade and 10°C wider than Medium Grade.",,,False,False,False,canonical
+C06,comparative,pass,"Not available in the knowledge graph.
+
+The rows provided show that T2 band processes use the ""HP"" upgrade technology, but there is no information about thermal gap values or which upgrade minimizes thermal gap for any band.","Not available in the knowledge graph.
+
+The rows provided show that T2 band processes use the ""HP"" upgrade technology, but there is no information about thermal gap values or which upgrade minimizes thermal gap for any band.",,,False,False,False,canonical
+C07,comparative,retry_pass,"Food, Drink and Milk sector has 2 distinct scenarios (S7 and S9) vs Pulp and Paper Industry sector has 1 distinct scenario (S8), a difference of 1 scenario.","Food, Drink and Milk sector: 6 scenarios (S7, S7, S7, S9, S9, S9); Pulp and Paper Industry sector: 3 scenarios (S8, S8, S8). The Food sector targets twice as many scenarios as the Paper sector.","The answer counts duplicate scenario entries (S7 appears 3 times, S9 appears 3 times) rather than distinct scenarios; the correct comparison is 2 distinct scenarios (S7 and S9) for Food, Drink and Milk vs 1 distinct scenario (S8) for Pulp and Paper Industry, though counting raw rows (6 vs 3) is also","Food, Drink and Milk sector has 2 distinct scenarios (S7 and S9) vs Pulp and Paper Industry sector has 1 distinct scenario (S8), a difference of 1 scenario.",True,False,False,canonical
+C08,comparative,pass,"Not available in the knowledge graph.
+
+The rows contain data center scale, process type, upgrade technology, supply capacity, and required capacity, but do not include upgrade cost information needed to determine which scenario offers the best thermal match considering cost for each data center scale.","Not available in the knowledge graph.
+
+The rows contain data center scale, process type, upgrade technology, supply capacity, and required capacity, but do not include upgrade cost information needed to determine which scenario offers the best thermal match considering cost for each data center scale.",,,True,False,False,canonical
+C09,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows do not contain information about ""Edge"" vs ""Hyperscale"" categories or how heat capacity scales between them. The rows only show available_kw values (all 29500.0 kW) for three scenarios with different upgrade technologies, but no Edge-to-Hyperscale scaling data.","Not available in the knowledge graph.
+
+The provided rows do not contain information about ""Edge"" vs ""Hyperscale"" categories or how heat capacity scales between them. The rows only show available_kw values (all 29500.0 kW) for three scenarios with different upgrade technologies, but no Edge-to-Hyperscale scaling data.",,,True,False,False,canonical
+C10,comparative,pass,"Not available in the knowledge graph.
+
+The provided row contains information about Denmark's Heat Supply Act framework and DH connection obligations, but does not include DH penetration rate data for either Denmark or Italy.","Not available in the knowledge graph.
+
+The provided row contains information about Denmark's Heat Supply Act framework and DH connection obligations, but does not include DH penetration rate data for either Denmark or Italy.",,,False,False,False,canonical
+C11,comparative,pass,"Not available in the knowledge graph.
+
+The rows provided contain only district heating percentage (dh_pct) and energy efficiency directive (eed_transposed) data. They do not include information about mandatory industrial symbiosis (IS) obligations for data centers.","Not available in the knowledge graph.
+
+The rows provided contain only district heating percentage (dh_pct) and energy efficiency directive (eed_transposed) data. They do not include information about mandatory industrial symbiosis (IS) obligations for data centers.",,,False,False,False,canonical
+C12,comparative,pass,"Not available in the knowledge graph.
+
+The knowledge graph only contains data for Denmark (Varmeforsyningsloven — Heat Supply Act). There are no rows with policy framework information for Italy.","Not available in the knowledge graph.
+
+The knowledge graph only contains data for Denmark (Varmeforsyningsloven — Heat Supply Act). There are no rows with policy framework information for Italy.",,,False,False,False,canonical
+C13,comparative,pass,"Not available in the knowledge graph.
+
+The provided row contains information about Denmark's Heat Supply Act framework and DH connection obligations, but includes no data about financial support mechanisms for industrial symbiosis projects in either Italy or Denmark, nor any comparable information about Italy.","Not available in the knowledge graph.
+
+The provided row contains information about Denmark's Heat Supply Act framework and DH connection obligations, but includes no data about financial support mechanisms for industrial symbiosis projects in either Italy or Denmark, nor any comparable information about Italy.",,,False,False,False,canonical
+C14,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain only 4GDH data (supply temperature 60.0°C, compatible with LC data centers without heat pump at ~47°C). There is no 3GDH row to enable the comparison you requested.","Not available in the knowledge graph.
+
+The provided rows contain only 4GDH data (supply temperature 60.0°C, compatible with LC data centers without heat pump at ~47°C). There is no 3GDH row to enable the comparison you requested.",,,True,False,False,canonical
+C15,comparative,pass,"4 mandatory obligations vs 0 voluntary obligations. All four articles in the knowledge graph (DEL-REG-ART-2, EED-ART-23, EED-ART-24, EED-ART-26) specify ""mandatory"" as their obligation type.","4 mandatory obligations vs 0 voluntary obligations. All four articles in the knowledge graph (DEL-REG-ART-2, EED-ART-23, EED-ART-24, EED-ART-26) specify ""mandatory"" as their obligation type.",,,True,True,False,canonical
+C16,comparative,pass,"Not available in the knowledge graph.
+
+The provided data only contains information about Denmark's Heat Supply Act framework. There is no data about Italy's regulatory framework or requirements for data centers, making a comparison impossible.","Not available in the knowledge graph.
+
+The provided data only contains information about Denmark's Heat Supply Act framework. There is no data about Italy's regulatory framework or requirements for data centers, making a comparison impossible.",,,False,False,False,canonical
+C17,comparative,pass,Not available in the knowledge graph.,Not available in the knowledge graph.,,,False,False,False,canonical
+C18,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows only contain information about 4GDH (Danish 4th Generation DH) with a supply temperature of 60°C and return temperature of 35°C. There is no data about 3GDH networks or a comparison between 3GDH and 4GDH systems in the knowledge graph.","Not available in the knowledge graph.
+
+The provided rows only contain information about 4GDH (Danish 4th Generation DH) with a supply temperature of 60°C and return temperature of 35°C. There is no data about 3GDH networks or a comparison between 3GDH and 4GDH systems in the knowledge graph.",,,False,False,False,canonical
+C19,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain only one upgrade technology (direct_HX with supply_temp_c of 47.6°C). Data for HP and CO2_HTHP upgrade technologies are not included in the knowledge graph.","Not available in the knowledge graph.
+
+The provided rows contain only one upgrade technology (direct_HX with supply_temp_c of 47.6°C). Data for HP and CO2_HTHP upgrade technologies are not included in the knowledge graph.",,,True,True,False,canonical
+C20,comparative,pass,"Not available in the knowledge graph.
+
+The rows provided do not contain supply temperature data. To answer which upgrade technology achieves the highest supply temperature, I would need a column showing temperature values for each upgrade type (direct_HX, HP, CO2_HTHP).","Not available in the knowledge graph.
+
+The rows provided do not contain supply temperature data. To answer which upgrade technology achieves the highest supply temperature, I would need a column showing temperature values for each upgrade type (direct_HX, HP, CO2_HTHP).",,,False,True,False,canonical
+C21,comparative,pass,"Not available in the knowledge graph.
+
+The rows provided do not contain temperature delta-T (supply minus return) values for any of the upgrade technologies (direct_HX, HP, or CO2_HTHP).","Not available in the knowledge graph.
+
+The rows provided do not contain temperature delta-T (supply minus return) values for any of the upgrade technologies (direct_HX, HP, or CO2_HTHP).",,,False,False,False,canonical
+C22,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain only Pasteurization, Paper Drying, and Sterilization processes—no rubber vulcanization process is included.","Not available in the knowledge graph.
+
+The provided rows contain only Pasteurization, Paper Drying, and Sterilization processes—no rubber vulcanization process is included.",,,False,False,False,canonical
+C23,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain only temperature band definitions (Low Grade, Medium Grade, High Grade) with their temperature ranges. There is no data about IS (industrial-symbiosis) scenarios, data centers (DC), or mid-size facilities.","Not available in the knowledge graph.
+
+The provided rows contain only temperature band definitions (Low Grade, Medium Grade, High Grade) with their temperature ranges. There is no data about IS (industrial-symbiosis) scenarios, data centers (DC), or mid-size facilities.",,,False,False,False,canonical
+C24,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows do not contain any information about absorption chillers or their eligibility as TEE/CB technologies in Italy. The upgrade technologies listed are only: direct_HX, HP, and CO2_HTHP.","Not available in the knowledge graph.
+
+The provided rows do not contain any information about absorption chillers or their eligibility as TEE/CB technologies in Italy. The upgrade technologies listed are only: direct_HX, HP, and CO2_HTHP.",,,False,False,False,canonical
+C25,comparative,pass,"T1 band targets 2 sectors (Food, Drink and Milk; Pulp and Paper Industry), T2 band targets 2 sectors (Food, Drink and Milk; Pulp and Paper Industry), and T3 band targets 2 sectors (Food, Drink and Milk; Pulp and Paper Industry). All three bands target the same number of sectors with no difference.","T1 band targets 2 sectors (Food, Drink and Milk; Pulp and Paper Industry), T2 band targets 2 sectors (Food, Drink and Milk; Pulp and Paper Industry), and T3 band targets 2 sectors (Food, Drink and Milk; Pulp and Paper Industry). All three bands target the same number of sectors with no difference.",,,True,True,False,canonical
+C26,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain industrial processes (Pasteurization, Paper Drying, Sterilization) with upgrade technologies and temperature data, but do not include any information about data center scale or industrial symbiosis (IS) heat capacity metrics needed to answer this question.","Not available in the knowledge graph.
+
+The provided rows contain industrial processes (Pasteurization, Paper Drying, Sterilization) with upgrade technologies and temperature data, but do not include any information about data center scale or industrial symbiosis (IS) heat capacity metrics needed to answer this question.",,,False,False,False,canonical
+C27,comparative,pass,"Not available in the knowledge graph.
+
+The provided row contains only details about the TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) incentive itself (eligible technologies, value, governing decrees), but does not include information about its applicability across 9 industrial-symbiosis scenarios in Italy.","Not available in the knowledge graph.
+
+The provided row contains only details about the TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) incentive itself (eligible technologies, value, governing decrees), but does not include information about its applicability across 9 industrial-symbiosis scenarios in Italy.",,,False,False,False,canonical
+C28,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows only contain Regulation nodes (7 total). There are no RegulatoryArticle nodes shown in the data, so a comparison between the two types cannot be made from the information provided.","Not available in the knowledge graph.
+
+The provided rows only contain Regulation nodes (7 total). There are no RegulatoryArticle nodes shown in the data, so a comparison between the two types cannot be made from the information provided.",,,True,True,False,canonical
+C29,comparative,pass,"Not available in the knowledge graph.
+
+The knowledge graph only contains data for Danish 4th Generation DH (4GDH) with a capacity of 300.0 MW. There is no row for Danish 3rd Generation DH (3GDH) to make a comparison.","Not available in the knowledge graph.
+
+The knowledge graph only contains data for Danish 4th Generation DH (4GDH) with a capacity of 300.0 MW. There is no row for Danish 3rd Generation DH (3GDH) to make a comparison.",,,True,True,False,canonical
+C30,comparative,pass,"Not available in the knowledge graph.
+
+The provided row describes the Danish Heat Supply Act's DH Connection Mandate and identifies two compliant district cooling systems (DC-M and DC-L), but it does not contain information about industrial-symbiosis (IS) scenarios or their eligibility for this mandate.","Not available in the knowledge graph.
+
+The provided row describes the Danish Heat Supply Act's DH Connection Mandate and identifies two compliant district cooling systems (DC-M and DC-L), but it does not contain information about industrial-symbiosis (IS) scenarios or their eligibility for this mandate.",,,True,False,False,canonical
+C31,comparative,pass,"Not available in the knowledge graph.
+
+The provided row contains information about Italian incentives (Titoli di Efficienza Energetica) but does not include data for Denmark (DK) IS projects or comparative transaction cost reduction potential between IT and DK.","Not available in the knowledge graph.
+
+The provided row contains information about Italian incentives (Titoli di Efficienza Energetica) but does not include data for Denmark (DK) IS projects or comparative transaction cost reduction potential between IT and DK.",,,False,False,False,canonical
+C32,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain only information about district heating percentage (dh_pct) and energy efficiency directive transposition (eed_transposed), but do not include data about regulatory instruments for industrial symbiosis (IS).","Not available in the knowledge graph.
+
+The provided rows contain only information about district heating percentage (dh_pct) and energy efficiency directive transposition (eed_transposed), but do not include data about regulatory instruments for industrial symbiosis (IS).",,,False,False,False,canonical
+C33,comparative,pass,"Not available in the knowledge graph.
+
+The provided rows contain only technical parameters (dc_scale, process, upgrade_tech, supply_c, required_c, and status) but do not include data on regulatory support or financial incentive metrics needed to evaluate the ""best combination"" for a new IS project developer.","Not available in the knowledge graph.
+
+The provided rows contain only technical parameters (dc_scale, process, upgrade_tech, supply_c, required_c, and status) but do not include data on regulatory support or financial incentive metrics needed to evaluate the ""best combination"" for a new IS project developer.",,,False,False,False,canonical

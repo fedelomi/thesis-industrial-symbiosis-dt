@@ -60,9 +60,12 @@ CYPHER_TEMPLATES: dict[str, str] = {
         MATCH (s)-[:USES_DC]->(dc:DataCenter)
         MATCH (s)-[:TARGETS_PROCESS]->(mp:ManufacturingProcess)
         MATCH (s)-[:HAS_HEATSOURCE]->(hs:HeatSource)
+        OPTIONAL MATCH (mp)-[:PART_OF]->(sector:IndustrialSector)
         RETURN s.id AS scenario,
+               dc.id AS datacenter,
                dc.scale AS dc_scale,
                mp.name AS process,
+               sector.name AS sector,
                hs.upgrade_tech AS upgrade_tech,
                hs.temp_supply_c AS supply_c,
                mp.temp_required_c AS required_c,
@@ -288,5 +291,70 @@ CYPHER_TEMPLATES: dict[str, str] = {
                'degrees Celsius' AS temp_unit,
                dh.notes AS notes
         ORDER BY dh.generation
+    """,
+
+    # ------------------------------------------------------------------
+    # GENERIC_ACTOR -- all administrative/enforcement bodies (GSE for IT
+    # TEE/CB, DK-DEA for the Heat Supply Act / NECP). Fixes A24 (which body
+    # administers the white certificates) and A31 (which agency enforces the
+    # Danish Heat Supply Act): the facts live in Actor.notes.
+    # Schema: (:Actor {id, name, type, country, notes}).
+    # ------------------------------------------------------------------
+    "GENERIC_ACTOR": """
+        MATCH (a:Actor)
+        RETURN a.id AS actor_id, a.name AS name, a.type AS role,
+               a.country AS country, a.notes AS notes
+        ORDER BY a.country
+    """,
+
+    # ------------------------------------------------------------------
+    # DK_NECP_TARGET -- Danish NECP 2024 GHG reduction target and horizon
+    # year (A30). The 70% / 2030 target lives in PolicyFramework.notes and
+    # PolicyFramework.horizon_year.
+    # Schema: (:Country{iso:'DK'})-[:HAS_FRAMEWORK]->(:PolicyFramework{type:'necp'}).
+    # ------------------------------------------------------------------
+    "DK_NECP_TARGET": """
+        MATCH (c:Country {iso: 'DK'})-[:HAS_FRAMEWORK]->(pf:PolicyFramework {type: 'necp'})
+        RETURN pf.id AS framework, pf.name AS name,
+               pf.horizon_year AS target_year, pf.status AS status,
+               pf.notes AS notes
+    """,
+
+    # ------------------------------------------------------------------
+    # IT_DK_SUPPORT_COMPARE -- side-by-side support instruments for IS in
+    # Italy vs Denmark (C13, C16, C31). Italy uses a FINANCIAL incentive
+    # (TEE/CB, 25.8 EUR/MWh); Denmark uses a REGULATORY mandate (DH
+    # connection obligation). Returns one row per country so the LLM can
+    # contrast mechanism and value.
+    # Schema: (:Incentive{country:'IT'}); (:Country{iso:'DK'})-[:HAS_FRAMEWORK]
+    #   ->(:PolicyFramework)-[:CONTAINS]->(:RegulatoryArticle{obligation_type:'mandatory'}).
+    # ------------------------------------------------------------------
+    "IT_DK_SUPPORT_COMPARE": """
+        MATCH (i:Incentive {country: 'IT'})
+        RETURN 'IT' AS country,
+               'financial incentive: ' + i.short_name AS support_type,
+               toString(i.value_eur_mwh) + ' EUR/MWh; eligible: '
+                   + reduce(s = '', t IN i.eligible_tech | s + t + ' ') AS detail
+        UNION ALL
+        MATCH (c:Country {iso: 'DK'})-[:HAS_FRAMEWORK]->(pf:PolicyFramework {id: 'DK-DH-PLANNING-ACT'})
+              -[:CONTAINS]->(a:RegulatoryArticle {obligation_type: 'mandatory'})
+        RETURN 'DK' AS country,
+               'regulatory mandate: ' + pf.name AS support_type,
+               a.summary AS detail
+    """,
+
+    # ------------------------------------------------------------------
+    # SCENARIO_COUNT_BY_SECTOR -- number of IS scenarios per industrial
+    # sector (B28: how many scenarios involve Pulp and Paper). Aggregates
+    # in Cypher so the count is exact regardless of context truncation.
+    # Schema: (:Scenario)-[:TARGETS_PROCESS]->(:ManufacturingProcess)-[:PART_OF]
+    #   ->(:IndustrialSector).
+    # ------------------------------------------------------------------
+    "SCENARIO_COUNT_BY_SECTOR": """
+        MATCH (s:Scenario)-[:TARGETS_PROCESS]->(mp:ManufacturingProcess)-[:PART_OF]->(sector:IndustrialSector)
+        RETURN sector.name AS sector,
+               count(DISTINCT s.id) AS n_scenarios,
+               collect(DISTINCT s.id) AS scenarios
+        ORDER BY sector
     """,
 }

@@ -1,0 +1,2 @@
+n_judged,em_semantic_third_judge,agreement_with_em_strict,judge_model,generator,runtime_gate,separation_ok,tokens,est_cost_usd,dry_run
+100,0.38,0.8,claude-opus-4-8,claude-haiku-4-5-20251001,claude-sonnet-4-6,True,"{'opus_in': 29932, 'opus_out': 6053}",0.903,False

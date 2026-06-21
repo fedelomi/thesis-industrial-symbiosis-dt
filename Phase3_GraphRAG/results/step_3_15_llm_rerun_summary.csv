@@ -1,0 +1,2 @@
+n_queries,em_context_only,em_llm_rerun,delta_pp,model,source_artefact,tokens,est_cost_usd,dry_run
+100,0.59,0.45,-14.0,claude-haiku-4-5-20251001,evaluation_results_graph-rag_20260517_155731.json,"{'haiku_in': 39832, 'haiku_out': 4834}",0.064,False

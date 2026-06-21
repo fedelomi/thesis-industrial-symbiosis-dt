@@ -157,7 +157,7 @@ def _summary(rows: List[dict]) -> None:
         poa = statistics.fmean(poas) if poas else float("nan")
         w_dc = statistics.fmean(r["welfare_dc"] for r in recs)
         print(f"{label:>11} {len(recs):>3} | {conv:>9.3f} {poa:>7.3f} {w_dc:>12,.0f}")
-    print("\nBaseline to beat: PPO_nocurr conv_rate ~0.41 (canonical D on S_AIR_M).")
+    print("\nCanonical S_AIR_M shielded baseline: D conv_rate 0.41, CI95 [0.255, 0.558], n=10 (Tab 5.8).")
 
 
 @app.local_entrypoint()
