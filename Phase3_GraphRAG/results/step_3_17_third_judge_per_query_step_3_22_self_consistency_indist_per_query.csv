@@ -1,0 +1,101 @@
+question_id,status,em_final,third_judge_correct,third_judge_rationale,judge_model
+A01,pass,True,True,"The model answer states 1.0 MW, matching the reference exactly.",claude-opus-4-8
+A02,pass,True,True,"The model correctly identifies that EED Article 26 compliance is mandatory for data centers above 1 MW, matching the reference.",claude-opus-4-8
+A03,pass,True,True,"The model answer correctly states that EED Article 23 requires a mandatory assessment of district heating every 5 years, matching the reference.",claude-opus-4-8
+A04,pass,True,True,The model answer 2023 matches the reference year exactly.,claude-opus-4-8
+A05,pass,True,True,"The model identifies all three reference KPIs (TWH, ERF, EREUSE) with correct meaning, and the extra context does not contradict the reference.",claude-opus-4-8
+A06,pass,True,True,The model answer 'mandatory' matches the reference exactly.,claude-opus-4-8
+A07,pass,False,False,"The reference specifies exactly 3 articles (Art.23, 24, 26), but the model claims 5 articles, adding Articles 11 and 12 which are not in the reference.",claude-opus-4-8
+A08,pass,True,True,"The model correctly identifies Delegated Regulation EU 2024/1364 as the regulation defining the KPI methodology, matching the reference.",claude-opus-4-8
+A09,pass,True,True,The model answer matches the reference exactly.,claude-opus-4-8
+A10,pass,True,True,The model answer ASHRAE matches the reference exactly.,claude-opus-4-8
+A11,pass,True,True,"The model correctly identifies ISO 23247 as the Digital Twin manufacturing framework, matching the reference with extra context.",claude-opus-4-8
+A12,pass,True,True,"The model answer states 2021, matching the reference year.",claude-opus-4-8
+A13,pass,True,True,"The model answer states 40 to 60 degrees Celsius, matching the reference exactly.",claude-opus-4-8
+A14,pass,True,True,"The model answer states 60 to 90 degrees Celsius, matching the reference exactly.",claude-opus-4-8
+A15,pass,True,True,"The model answer states 90 to 130 degrees Celsius, matching the reference exactly.",claude-opus-4-8
+A16,pass,True,True,"The model correctly identifies three temperature bands (T1, T2, T3) matching the reference, with extra context that is consistent.",claude-opus-4-8
+A17,pass,True,True,The model answer of 500 kW exactly matches the reference.,claude-opus-4-8
+A18,pass,True,True,The model answer 'liquid' matches the reference 'liquid cooling' in core meaning.,claude-opus-4-8
+A19,pass,True,True,The model answer matches the reference value of 30000 kW.,claude-opus-4-8
+A20,pass,True,True,The model answer 1.15 matches the reference value exactly.,claude-opus-4-8
+A21,pass,True,True,The model answer of 300.0 EUR per toe matches the reference value of 300 EUR/toe.,claude-opus-4-8
+A22,pass,True,True,The model answer of 25.8 EUR/MWh matches the reference value exactly.,claude-opus-4-8
+A23,pass,True,True,"The model answer lists exactly the three eligible technologies matching the reference: waste-heat-recovery, heat-pump, and absorption-chiller.",claude-opus-4-8
+A24,pass,True,True,"The model correctly identifies GSE - Gestore Servizi Energetici as the administering body, matching the reference.",claude-opus-4-8
+A25,pass,False,True,"The model correctly states 5 decrees matching the reference: DM 2021, DD May 2022, DD May 2023, DD Oct 2023, and DM MASE 2025.",claude-opus-4-8
+A26,pass,True,True,"The model answer matches the reference decree, Decreto Ministeriale 21 maggio 2021.",claude-opus-4-8
+A27,pass,True,True,"The model answer states the threshold as 1.0 MW, matching the reference exactly.",claude-opus-4-8
+A28,pass,True,True,"The model answer states 60.0 degrees Celsius, matching the reference of 60 degrees Celsius.",claude-opus-4-8
+A29,pass,True,True,"The model answer states 35.0 degrees Celsius, which matches the reference value of 35 degrees Celsius.",claude-opus-4-8
+A30,pass,True,True,The model answer '2030' matches the reference exactly.,claude-opus-4-8
+A31,pass,True,True,"The model correctly identifies the Danish Energy Agency (DK-DEA) as the enforcing agency, matching the reference.",claude-opus-4-8
+A32,pass,True,True,"The model answer states 65.0%, which matches the reference value of 65%.",claude-opus-4-8
+A33,pass,True,True,The model answer '3rd Generation DH (3GDH)' matches the reference '3GDH'.,claude-opus-4-8
+A34,pass,True,True,"The model answer states 80.0 degrees Celsius, which matches the reference of 80 degrees Celsius.",claude-opus-4-8
+B01,pass,False,True,"The model correctly identifies the status as REQUIRES_UPGRADE, matching the reference's core fact even though it omits the supporting temperature details.",claude-opus-4-8
+B02,pass,False,True,"The model correctly identifies both DC-M and the Paper Drying process, matching the core entities in the reference even without the extra numeric details.",claude-opus-4-8
+B03,pass,False,False,"The model answer omits the supply temperature of 110C, which is a core fact in the reference.",claude-opus-4-8
+B04,pass,False,False,"The model answer states 9 scenarios use liquid cooling with direct heat exchange, contradicting the reference which specifies only 3 (S1, S4, S7).",claude-opus-4-8
+B05,pass,True,True,The model answer matches the reference value of 29500 kW.,claude-opus-4-8
+B06,pass,False,True,"The model answer correctly states the 20°C gap, which matches the reference core fact.",claude-opus-4-8
+B07,pass,True,True,"The model correctly identifies the Pulp and Paper Industry, matching the reference's core fact.",claude-opus-4-8
+B08,pass,False,True,"The model answer correctly states 6 scenarios, matching the reference count.",claude-opus-4-8
+B09,pass,True,True,"The model answer correctly identifies all core entities: hyperscale DC-L, heat pump at 70°C/29500kW, T2 band, Paper Drying at 90°C, and Pulp and Paper Industry, matching the reference.",claude-opus-4-8
+B10,pass,True,True,"The model correctly identifies DC-M and DC-L as the data centers that must comply with EED Article 26 disclosure based on the 1 MW threshold, matching the reference's core facts.",claude-opus-4-8
+B11,pass,True,True,"The model correctly states DC-S has 500 kW IT capacity, below the 1 MW threshold, and is therefore not subject to EED Article 26 disclosure, matching the reference.",claude-opus-4-8
+B12,pass,True,True,"The model correctly identifies DC-M and DC-L as the data centers required to connect, matching the reference's core fact about the 1 MW threshold.",claude-opus-4-8
+B13,pass,True,True,"The model correctly confirms heat pump is an eligible technology under IT-TEE-CB, matching the reference's core fact with additional accurate context.",claude-opus-4-8
+B14,pass,True,True,"The model correctly affirms that waste-heat-recovery is directly eligible and listed among eligible technologies for Italian white certificates, matching the reference.",claude-opus-4-8
+B15,pass,False,True,The model answer matches the reference value of 25.8 EUR/MWh.,claude-opus-4-8
+B16,pass,True,True,"The model correctly identifies Del.Reg 2024/1364 Art.2 mandating TWH, ERF, and EREUSE reporting, matching all core facts in the reference with additional accurate context.",claude-opus-4-8
+B17,pass,True,True,"The model correctly identifies Varmeforsyningsloven (Heat Supply Act) as the governing policy framework, matching the reference's DK-DH-PLANNING-ACT via GOVERNED_BY, with extra correct context.",claude-opus-4-8
+B18,pass,True,True,"The model correctly identifies both obligations: the DK district heating connection mandate and the mandatory waste heat disclosure (EED Art.26), matching the reference's count of 2 and core facts.",claude-opus-4-8
+B19,pass,False,True,The model answer matches the reference supply temperature of 47.6C.,claude-opus-4-8
+B20,pass,False,True,"The model correctly states there are 3 heat source nodes, matching the reference count.",claude-opus-4-8
+B21,abstain,False,False,"The model abstained, which is incorrect since the reference specifies HS-M-HP is linked to the T2 band via IN_BAND.",claude-opus-4-8
+B22,pass,False,False,"The model claims Sterilization is reachable and treats Paper Drying as fully reachable, contradicting the reference where only Pasteurization is reachable and Paper Drying is borderline GAP, with no mention of Sterilization.",claude-opus-4-8
+B23,pass,False,True,"The model correctly states the 20°C delta-T matching the reference, though it omits the supply/required temperature details which are extra context not required for correctness.",claude-opus-4-8
+B24,pass,False,False,"The reference says it is partially feasible with a pre-heating role possible (since 47.6C is above the 35C return), whereas the model answers a flat 'No,' contradicting the core nuance.",claude-opus-4-8
+B25,pass,False,False,"The reference states the HP upgrade only approaches but does not fully reach T2 band compatibility (borderline case), whereas the model answer asserts it would achieve compatibility, contradicting the core fact.",claude-opus-4-8
+B26,abstain,False,False,"The model abstained, which counts as incorrect, while the reference specifies 9 relationships.",claude-opus-4-8
+B27,pass,True,True,"The model correctly identifies the Food, Drink and Milk sector with sterilization at 130°C as the highest temperature requirement, matching the reference's core fact.",claude-opus-4-8
+B28,pass,False,True,"The model correctly states 3 scenarios, matching the reference count.",claude-opus-4-8
+B29,pass,False,False,The model answer lists data center size categories instead of the profile type 'baseload - continuous availability throughout the year' as required by the reference.,claude-opus-4-8
+B30,abstain,False,False,"The model abstained instead of providing the reference value of approximately 693,504 EUR/yr.",claude-opus-4-8
+B31,pass,True,True,"The model correctly identifies Varmeforsyningsloven (Heat Supply Act), the 1 MW threshold, and the economically-feasible mandatory connection requirement matching the reference.",claude-opus-4-8
+B32,pass,True,True,"The model correctly states Denmark has eed_transposed = True, matching the reference.",claude-opus-4-8
+B33,pass,False,True,"The model correctly states Italy's DH penetration rate is 5%, matching the reference's core fact; the Denmark comparison is extra context not required for correctness.",claude-opus-4-8
+C01,pass,True,True,"The model correctly states all three scenarios have 29500 kW available heat capacity, matching the reference's core fact about heat capacity equality.",claude-opus-4-8
+C02,pass,True,True,"The model correctly identifies S3, S6, and S9 with T_supply=110C using CO2_HTHP upgrade, matching the reference's core facts.",claude-opus-4-8
+C03,pass,True,True,"The model correctly states DC-S at 590 kW, DC-L at 30000 kW, and a ~50x ratio, matching the reference's core facts.",claude-opus-4-8
+C04,abstain,False,False,"The model explicitly abstained rather than identifying DC-S (Edge, 500 kW) as exempt, which counts as incorrect.",claude-opus-4-8
+C05,pass,True,False,"The model only reports the T1 gap (12.4C) correctly but fails to provide the direct_HX thermal gaps for T2 (42.4C) and T3 (20C), instead claiming direct_HX is not used for those bands, contradicting the reference.",claude-opus-4-8
+C06,pass,False,True,"The model correctly identifies HP upgrade with 70C supply giving a 20C gap against Paper Drying's 90C requirement, matching the reference's core facts.",claude-opus-4-8
+C07,pass,True,True,"The model correctly identifies 6 Food scenarios (S1,S4,S7,S3,S6,S9) and 3 Paper scenarios (S2,S5,S8), matching the reference.",claude-opus-4-8
+C08,abstain,False,False,"The model explicitly abstained, which counts as incorrect.",claude-opus-4-8
+C09,pass,True,False,The mid-size (3840 vs 3776 kW) and hyperscale (30000 vs 29500 kW) values contradict the reference figures.,claude-opus-4-8
+C10,pass,True,True,"The model correctly states Denmark 65%, Italy 5%, and 13x higher penetration, matching the reference.",claude-opus-4-8
+C11,abstain,False,False,"The model explicitly abstained, which counts as incorrect since the reference identifies Denmark as having stronger mandatory obligations.",claude-opus-4-8
+C12,pass,True,False,The model captures the incentive-based (TEE/CB) vs obligation-based (Heat Supply Act) distinction but omits the NECP and the '5 ministerial/directorial decrees' core fact about Italy's framework.,claude-opus-4-8
+C13,pass,False,True,"The model correctly identifies Italy as offering better financial support with the explicit 25.8 EUR/MWh TEE/CB incentive for WHR, matching the reference, while noting Denmark's support is regulatory rather than a direct subsidy.",claude-opus-4-8
+C14,pass,True,True,The model correctly states 3GDH supply 80C requires HP for LC waste heat (~47C) while 4GDH supply 60C is directly compatible.,claude-opus-4-8
+C15,pass,False,False,"The model states 7 mandatory and 0 voluntary articles, contradicting the reference of 4 mandatory and 1 voluntary.",claude-opus-4-8
+C16,pass,True,False,"The model omits the EED Art.26 disclosure mandate that applies to both countries and does not mention Denmark's NECP target, missing core reference facts despite correctly identifying Denmark as higher burden.",claude-opus-4-8
+C17,pass,True,True,"The model correctly identifies Denmark and Italy as having completed EED transposition, matching the reference's core entities.",claude-opus-4-8
+C18,pass,True,True,"The model correctly identifies the 80°C HP upgrade for 3GDH and direct compatibility for 4GDH, matching the reference core facts.",claude-opus-4-8
+C19,pass,True,True,"The model correctly states all three supply temperatures (47.6C, 70.0C, 110.0C) matching the reference, with the deltas being optional extra context.",claude-opus-4-8
+C20,pass,True,True,"The model correctly identifies CO2_HTHP at 110°C as the highest supply temperature, matching the reference.",claude-opus-4-8
+C21,abstain,False,False,"The model explicitly abstained, which counts as incorrect.",claude-opus-4-8
+C22,abstain,False,False,"The model abstained, whereas the reference identifies CO2_HTHP as the closest technology (with a 20C gap), so the answer is incorrect.",claude-opus-4-8
+C23,pass,True,False,"The model states waste_heat_kw 3840 whereas the reference specifies 3776kW for all three scenarios, contradicting a core numeric fact.",claude-opus-4-8
+C24,abstain,False,False,"The model explicitly abstained instead of providing the required scenarios (S2,S3,S5,S6,S8,S9).",claude-opus-4-8
+C25,pass,True,False,"The model claims all three bands target 2 identical sectors (Food/Paper), contradicting the reference which specifies distinct sector counts and applications (T1 Food pasteurization, T2 Paper drying, T3 Food sterilization).",claude-opus-4-8
+C26,pass,False,False,The model gives wrong values (30000 kW at 130°C and 'Hyperscale' scale) versus the reference's DC-L + CO2_HTHP at 29500 kW and 110°C.,claude-opus-4-8
+C27,abstain,False,False,"The model explicitly abstains, which counts as incorrect.",claude-opus-4-8
+C28,pass,True,False,"The model gives 13 RegulatoryArticle nodes, contradicting the reference value of 6.",claude-opus-4-8
+C29,pass,True,True,"The model correctly states 3GDH at 500 MW and 4GDH at 300 MW, matching the reference values.",claude-opus-4-8
+C30,pass,False,False,The model identifies the correct categories (DC-M and DC-L above 1 MW) but fails to specify the actual eligible scenarios S4-S9 required by the reference.,claude-opus-4-8
+C31,abstain,False,False,"The model answer abstains, which is treated as incorrect, and fails to provide the reference's transaction cost reduction mechanisms for IT and DK.",claude-opus-4-8
+C32,pass,False,False,"The reference states both countries have equal coverage with 7 nodes each, but the model claims Italy has more (5 vs 1), contradicting the core fact.",claude-opus-4-8
+C33,pass,False,False,"The model conflates Italian and Danish frameworks incorrectly and adds a 20°C temperature gap requiring upgrade, contradicting the reference's clean scenarios (Italian TEE/CB with direct_HX no-HP, or Danish mandatory connection).",claude-opus-4-8

@@ -1,0 +1,2 @@
+n_queries,n_samples,temperature,em_strict_self_consistency,em_strict_multitemplate_cot_ref,em_strict_multitemplate_flat_ref,em_strict_singletemplate_nl_ref,ctx_contains_gt_overall,routing29_n,routing29_em_strict,abstain_rate,unanimous_rate,avg_parse_ok_per_query,all_failed_parse_n,top_n,gen_model,tokens,est_cost_usd,dry_run
+100,3,0.5,0.64,0.72,0.69,0.45,0.92,29,0.6552,0.11,0.34,1.0,0,5,claude-haiku-4-5-20251001,"{'haiku_in': 447657, 'haiku_out': 93575}",0.9155,False

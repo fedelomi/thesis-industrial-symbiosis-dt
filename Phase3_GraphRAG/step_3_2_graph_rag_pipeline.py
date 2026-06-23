@@ -279,7 +279,9 @@ def _v7_answer_prompt(context: str, question: str) -> str:
 
     Mirrors the canonical step_3_4 generator prompt so that the only experimental
     variable when comparing canonical vs v7 is the retrieval (the answer template
-    stays constant).
+    stays constant). This is the *flat* prompt that emits a plain string answer.
+    For the *structured* chain-of-thought variant (v7-cot), use
+    `_v7_answer_prompt_structured` below.
     """
     return (
         "You are answering a question about data centre waste heat recovery and "
@@ -294,8 +296,92 @@ def _v7_answer_prompt(context: str, question: str) -> str:
     )
 
 
+# --- v7 structured chain-of-thought variant (Lever 2: structured CoT) ---
+
+def _v7_answer_prompt_structured(context: str, question: str) -> str:
+    """Structured chain-of-thought variant of the v7 answer prompt.
+
+    Asks the model to emit a single JSON object with four fields:
+      - extracted_facts:    a list of literal facts from the context that bear
+                            on the question (verbatim, preserves anchor tokens).
+      - reasoning_chain:    a list of 1-5 short reasoning steps that compose
+                            the extracted facts into a conclusion.
+      - final_answer:       the final answer string (the only field scored by
+                            EM strict / EM semantic; preserves verbatim numbers,
+                            article numbers and identifiers from extracted_facts).
+      - confidence:         one of 'high', 'medium', 'low'.
+
+    Compared to the flat prompt of `_v7_answer_prompt`, this variant is
+    expected to lift the semantic EM on compound multi-hop queries by making
+    the synthesis chain explicit (the model decomposes the question into
+    atomic fact extraction plus controlled composition in a single forward
+    pass, mitigating the synthesis_fail floor of Section 6.2.2-ter without the
+    extra API calls of true decomposition or compose-then-verify).
+
+    The 'final_answer' field is the only one scored downstream so that EM
+    metrics remain comparable to the flat variant.
+    """
+    return (
+        "You are answering a question about data centre waste heat recovery "
+        "and European energy regulation. Use ONLY the facts in the context "
+        "block. Preserve verbatim numeric values, article numbers, "
+        "identifiers and unit labels.\n\n"
+        "Output ONE JSON object with these four fields and nothing else:\n"
+        "  - \"extracted_facts\": list of the verbatim facts from the context "
+        "that are relevant to the question.\n"
+        "  - \"reasoning_chain\": list of 1-5 short reasoning steps that "
+        "compose the extracted facts into the answer.\n"
+        "  - \"final_answer\": the final answer string. If the context does "
+        "not contain enough information, set this to exactly \"Not available "
+        "in the knowledge graph.\".\n"
+        "  - \"confidence\": one of \"high\", \"medium\", \"low\".\n\n"
+        f"Context:\n{context}\n\n"
+        f"Question: {question}\n\n"
+        "JSON:"
+    )
+
+
+def _parse_v7_structured_answer(raw: str) -> tuple[str, dict]:
+    """Extract `final_answer` and full structured payload from JSON output.
+
+    Falls back to the raw string if JSON parsing fails (degraded mode keeps
+    the pipeline robust on rare LLM output drift; the abstention sentinel
+    string remains the canonical "no answer" marker).
+
+    Returns:
+        (final_answer, structured_payload) where structured_payload is the
+        parsed dict (or {} on parse failure).
+    """
+    import json as _json
+    import re as _re
+    s = raw.strip()
+    # Strip a leading "JSON:" prompt echo if present
+    if s.lower().startswith("json:"):
+        s = s[5:].strip()
+    # Common LLM artefact: wrapping in markdown code fence
+    fence = _re.match(r"^```(?:json)?\s*(.+?)\s*```\s*$", s, _re.DOTALL)
+    if fence:
+        s = fence.group(1).strip()
+    try:
+        payload = _json.loads(s)
+    except Exception:  # noqa: BLE001 - tolerate parse failures
+        # Last attempt: find first {...} block in the string
+        block = _re.search(r"\{.*\}", s, _re.DOTALL)
+        if block:
+            try:
+                payload = _json.loads(block.group(0))
+            except Exception:  # noqa: BLE001
+                return raw.strip(), {}
+        else:
+            return raw.strip(), {}
+    final = str(payload.get("final_answer", "")).strip()
+    if not final:
+        return raw.strip(), payload
+    return final, payload
+
+
 def run_v7_queries(driver, questions: list[str], top_n: int = 5,
-                   row_cap: int = 40) -> list[dict]:
+                   row_cap: int = 40, use_cot: bool = False) -> list[dict]:
     """Run the v7 multi-template retrieval path on a list of questions.
 
     Per query the pipeline executes:
@@ -303,15 +389,23 @@ def run_v7_queries(driver, questions: list[str], top_n: int = 5,
       2. for each template id, execute its Cypher and collect rows
       3. union_template_rows + prune_rows (dedup, cap, lookup-pruning)
       4. densify_context_v2 -> declarative one-fact-per-line context string
-      5. Anthropic Haiku call with the canonical step_3_4 answer prompt
+      5. Anthropic Haiku call with either the canonical step_3_4 answer prompt
+         (flat string output, default) or the structured chain-of-thought
+         variant (use_cot=True; emits {extracted_facts, reasoning_chain,
+         final_answer, confidence} JSON, parsed downstream so that only
+         final_answer reaches the EM scoring)
       6. emit answer + retrieval diagnostics for downstream eval
 
     Cost: ~one Haiku call per question (~0.001 USD on the canonical 100-q
     benchmark, ~0.003 USD on the OOD 38-q benchmark with longer contexts).
+    The use_cot variant doubles the average output tokens (200-500 instead of
+    50-200) but stays well below 0.005 USD per query.
 
     Returns:
         List of dicts with keys: question, answer, pool, union_rows,
-        context_chars, elapsed_ms, error.
+        context_chars, elapsed_ms, error. When use_cot=True the dict also
+        carries 'cot_payload' (parsed JSON) and 'cot_confidence' for the
+        downstream diagnostics.
     """
     # Lazy imports: only needed in v7 mode, do not break template-only runs.
     from prompt5_retrieval import (
@@ -348,14 +442,26 @@ def run_v7_queries(driver, questions: list[str], top_n: int = 5,
                     q,
                 )
                 context = densify_context_v2(union, template_ids=pool)
+                if use_cot:
+                    prompt = _v7_answer_prompt_structured(context, q)
+                    max_tok = 1024  # extra room for the CoT JSON envelope
+                else:
+                    prompt = _v7_answer_prompt(context, q)
+                    max_tok = 512
                 response = client.messages.create(
                     model=LLM_MODEL,
-                    max_tokens=512,
+                    max_tokens=max_tok,
                     temperature=LLM_TEMPERATURE,
-                    messages=[{"role": "user",
-                               "content": _v7_answer_prompt(context, q)}],
+                    messages=[{"role": "user", "content": prompt}],
                 )
-                answer = response.content[0].text.strip()
+                raw = response.content[0].text.strip()
+                if use_cot:
+                    answer, payload = _parse_v7_structured_answer(raw)
+                    cot_confidence = str(payload.get("confidence", ""))
+                else:
+                    answer = raw
+                    payload = {}
+                    cot_confidence = ""
                 elapsed = (time.time() - t0) * 1000
                 results.append({
                     "question": q,
@@ -365,9 +471,15 @@ def run_v7_queries(driver, questions: list[str], top_n: int = 5,
                     "context_chars": len(context),
                     "elapsed_ms": elapsed,
                     "error": None,
+                    "cot_payload": payload if use_cot else None,
+                    "cot_confidence": cot_confidence,
                 })
                 print(f"\n  Q: {q}")
                 print(f"  A: {answer[:200]}")
+                if use_cot and payload:
+                    print(f"  CoT: confidence={cot_confidence}, "
+                          f"facts={len(payload.get('extracted_facts', []))}, "
+                          f"steps={len(payload.get('reasoning_chain', []))}")
                 print(f"  Pool: {pool} | union_rows: {len(union)} | "
                       f"context: {len(context)} chars | "
                       f"elapsed: {elapsed:.0f}ms")
@@ -381,6 +493,8 @@ def run_v7_queries(driver, questions: list[str], top_n: int = 5,
                     "context_chars": 0,
                     "elapsed_ms": elapsed,
                     "error": str(exc),
+                    "cot_payload": None,
+                    "cot_confidence": "",
                 })
                 print(f"\n  Q: {q}")
                 print(f"  ERROR: {exc}")
@@ -408,6 +522,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--v7-row-cap", type=int, default=40,
         help="v7 mode only: max rows after union before pruning (default 40)."
+    )
+    parser.add_argument(
+        "--v7-cot", action="store_true",
+        help=("v7 mode only: enable the structured chain-of-thought variant. "
+              "The LLM emits a JSON object with extracted_facts, "
+              "reasoning_chain, final_answer, confidence; only the "
+              "final_answer reaches EM scoring. Lever 2 of the FW11 roadmap.")
     )
     return parser.parse_args()
 
@@ -480,6 +601,7 @@ def main() -> None:
             v7_results = run_v7_queries(
                 driver, demo_questions,
                 top_n=args.v7_top_n, row_cap=args.v7_row_cap,
+                use_cot=args.v7_cot,
             )
             n_ok = sum(1 for r in v7_results if r["error"] is None)
             print(f"\n  v7 summary: {n_ok}/{len(v7_results)} questions answered.")

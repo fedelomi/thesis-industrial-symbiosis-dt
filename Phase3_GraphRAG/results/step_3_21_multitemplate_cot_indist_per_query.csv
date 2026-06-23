@@ -1,0 +1,586 @@
+question_id,category,status,final_answer,em_final,abstained,em_context_only_canonical,ctx_contains_gt_keywords,pool,union_rows,step_3_19_bucket,gen_model,cot_confidence,cot_n_facts,cot_n_steps,cot_parse_ok
+A01,factual-lookup,pass,1.0 MW,True,False,True,True,P1_eed_art26_threshold|ALL_REGULATORY_ARTICLES|GENERIC_DC|P4_incentives_it_whr|P3_regulatory_screening_dk,12,,claude-haiku-4-5-20251001,high,1,4,True
+A02,factual-lookup,pass,EED Article 26 compliance is mandatory for data centers with IT power >= 1.0 MW. These data centers must disclose waste heat capacity annually.,True,False,True,True,P1_eed_art26_threshold|ALL_REGULATORY_ARTICLES|P3_regulatory_screening_dk|ISO50001_PROCESS_COMPLIANCE|GENERIC_COUNTRY,20,,claude-haiku-4-5-20251001,high,1,4,True
+A03,factual-lookup,pass,EED Article 23 requires member states to conduct a mandatory assessment of district heating (DH) every 5 years.,True,False,True,True,ALL_REGULATORY_ARTICLES|GENERIC_COUNTRY|P1_eed_art26_threshold|P3_regulatory_screening_dk|DK_DH_COMPARE,13,,claude-haiku-4-5-20251001,high,1,3,True
+A04,factual-lookup,pass,2023,True,False,True,True,ALL_REGULATORY_ARTICLES|GENERIC_STANDARD|GENERIC_REGULATION|DK_NECP_TARGET|ISO50001_ARTICLES,22,,claude-haiku-4-5-20251001,high,1,2,True
+A05,factual-lookup,pass,"Delegated Regulation 2024/1364, Article 2 defines the following KPIs for data center waste heat: TWH (T_CDU_return), ERF, and EREUSE.",True,False,True,True,ALL_REGULATORY_ARTICLES|P1_eed_art26_threshold|GENERIC_DC|P4_incentives_it_whr|P2_thermal_compatibility_all,20,,claude-haiku-4-5-20251001,high,1,3,True
+A06,factual-lookup,pass,mandatory,True,False,True,True,ALL_REGULATORY_ARTICLES|P1_eed_art26_threshold|GENERIC_COUNTRY|P3_regulatory_screening_dk|DK_DH_COMPARE,13,,claude-haiku-4-5-20251001,high,1,3,True
+A07,factual-lookup,pass,"```json
+{
+  ""extracted_facts"": [
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-11, art_no 11, title Energy management systems and energy audits"",
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-12, art_no 12, title Energy management systems"",
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-23, art_no 23, title Comprehensive Assessment"",
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-24, art_no 24, title Heating and Cooling"",
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-26, art_no 26, title Data Centers"",
+    ""reg_id EED-2023-1791, name Energy Efficiency Directive 2023/1791, jurisdiction EU, year 2023, articles ['Data Centers', 'Heating and Cooling', 'Comprehensive Assessment', 'Energy management systems and energy aud",False,False,False,False,ALL_REGULATORY_ARTICLES|GENERIC_COUNTRY|GENERIC_REGULATION|TEMPERATURE_BAND_DEF|P1_eed_art26_threshold,20,,claude-haiku-4-5-20251001,,0,0,False
+A08,factual-lookup,pass,"```json
+{
+  ""extracted_facts"": [
+    ""regulation DEL-REG-2024-1364, reg_name Del.Reg 2024, article_id DEL-REG-ART-2, art_no 2, title Definitions and KPIs, obligation mandatory, summary Defines KPI TWH (T_CDU_return), ERF, EREUSE."",
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-26, art_no 26, title Data Centers, obligation mandatory, threshold_mw 1.0, summary DC with IT power >= 1MW must disclose waste heat capacity annually.""
+  ],
+  ""reasoning_chain"": [
+    ""EED-2023-1791 Article 26 establishes the mandatory obligation for data centers to disclose waste heat capacity annually."",
+    ""DEL-REG-2024-1364 Article 2 is titled 'Definitions and KPIs' and explicitly defines KPI TWH (T_CDU_return), ERF, and EREUSE."",
+    ""The KPI definitions in DEL-REG-2024-1364 Article 2 provide the methodology for thermal waste heat reporting referenced in EED Article",True,False,True,True,ALL_REGULATORY_ARTICLES|P1_eed_art26_threshold|GENERIC_DC|P2_thermal_compatibility_all|P4_incentives_it_whr,20,,claude-haiku-4-5-20251001,,0,0,False
+A09,factual-lookup,pass,data-center-energy-efficiency,True,False,True,True,GENERIC_STANDARD|ISO50001_PROCESS_COMPLIANCE|ISO50001_ARTICLES|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS,24,,claude-haiku-4-5-20251001,high,1,3,True
+A10,factual-lookup,pass,ASHRAE,True,False,True,True,GENERIC_STANDARD|ISO50001_PROCESS_COMPLIANCE|ISO50001_ARTICLES|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS,24,,claude-haiku-4-5-20251001,high,1,2,True
+A11,factual-lookup,pass,"ISO-23247 is the Digital Twin manufacturing framework issued by ISO in 2021, covering digital-twin-manufacturing.",True,False,True,True,GENERIC_STANDARD|ISO50001_ARTICLES|ISO50001_PROCESS_COMPLIANCE|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS,24,,claude-haiku-4-5-20251001,high,1,3,True
+A12,factual-lookup,pass,2021,True,False,True,True,GENERIC_STANDARD|GENERIC_REGULATION|DK_NECP_TARGET|ISO50001_ARTICLES|ISO50001_PROCESS_COMPLIANCE,25,,claude-haiku-4-5-20251001,high,1,2,True
+A13,factual-lookup,pass,The T1 low-grade heat band is defined by a temperature range of 40.0 to 60.0 degrees Celsius.,True,False,True,True,TEMPERATURE_BAND_DEF|P2_thermal_compatibility_all|P6_full_is_path|ALL_REGULATORY_ARTICLES|GENERIC_STANDARD,40,,claude-haiku-4-5-20251001,high,1,4,True
+A14,factual-lookup,pass,The T2 medium-grade heat band is defined by a temperature range of 60.0 to 90.0 degrees Celsius.,True,False,True,True,TEMPERATURE_BAND_DEF|P2_thermal_compatibility_all|P6_full_is_path|ALL_REGULATORY_ARTICLES|GENERIC_STANDARD,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,1,4,True
+A15,factual-lookup,pass,The T3 high-grade heat band is defined by a temperature range of 90.0 to 130.0 degrees Celsius.,True,False,True,True,TEMPERATURE_BAND_DEF|P2_thermal_compatibility_all|P6_full_is_path|ALL_REGULATORY_ARTICLES|GENERIC_STANDARD,40,,claude-haiku-4-5-20251001,high,1,4,True
+A16,factual-lookup,pass,"3 temperature bands are defined in the IS framework: T1 (Low Grade, 40.0–60.0 degrees Celsius), T2 (Medium Grade, 60.0–90.0 degrees Celsius), and T3 (High Grade, 90.0–130.0 degrees Celsius).",True,False,True,True,TEMPERATURE_BAND_DEF|P2_thermal_compatibility_all|ALL_REGULATORY_ARTICLES|P3_regulatory_screening_dk|GENERIC_STANDARD,22,,claude-haiku-4-5-20251001,high,3,3,True
+A17,factual-lookup,pass,The IT capacity of the Edge data center archetype is 500 kilowatts.,True,False,True,True,GENERIC_DC|P2_thermal_compatibility_all|P5_scenario_comparison_L|P6_full_is_path|P1_eed_art26_threshold,40,,claude-haiku-4-5-20251001,high,1,3,True
+A18,factual-lookup,pass,cooling liquid,True,False,True,True,GENERIC_DC|P2_thermal_compatibility_all|P6_full_is_path|P1_eed_art26_threshold|P5_scenario_comparison_L,40,,claude-haiku-4-5-20251001,high,3,4,True
+A19,factual-lookup,pass,The waste heat capacity of the hyperscale data center archetype (DC-L) is 30000 kW.,True,False,True,True,GENERIC_DC|P5_scenario_comparison_L|P1_eed_art26_threshold|ALL_REGULATORY_ARTICLES|P4_incentives_it_whr,14,synthesis_or_metric,claude-haiku-4-5-20251001,high,1,2,True
+A20,factual-lookup,pass,The nominal PUE of the mid-size data center (DC-M) is 1.15.,True,False,True,True,GENERIC_DC|P2_thermal_compatibility_all|P6_full_is_path|P1_eed_art26_threshold|P5_scenario_comparison_L,40,,claude-haiku-4-5-20251001,high,1,2,True
+A21,factual-lookup,pass,300.0 EUR per toe,True,False,True,True,P4_incentives_it_whr|GENERIC_ACTOR|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS|DK_4GDH_PARAMS,11,,claude-haiku-4-5-20251001,high,1,2,True
+A22,factual-lookup,pass,25.8 EUR per MWh,True,False,True,True,P4_incentives_it_whr|GENERIC_ACTOR|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS|DK_4GDH_PARAMS,11,,claude-haiku-4-5-20251001,high,1,3,True
+A23,factual-lookup,pass,"The eligible technologies for Italian TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) white certificates are: waste-heat-recovery, heat-pump, and absorption-chiller.",True,False,True,True,P4_incentives_it_whr|GENERIC_ACTOR|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS|DK_4GDH_PARAMS,11,,claude-haiku-4-5-20251001,high,1,3,True
+A24,factual-lookup,pass,"```json
+{
+  ""extracted_facts"": [
+    ""actor_id GSE, name Gestore Servizi Energetici S.p.A., role regulator, country IT"",
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_toe 300.0, eur_per_mwh 25.8, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller'], governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""GSE notes: Emette e verifica i Titoli di Efficienza Energetica""
+  ],
+  ""reasoning_chain"": [
+    ""GSE (Gestore Servizi Energetici S.p.A.) is identified as an Italian regulator (country IT)."",
+    ""GSE's role is explicitly stated as issuing and verifying Titoli di Efficienza Energetica (White Certificates/TEE/CB)."",
+    ""The incentive record confirms Titoli di Efficienza Energetica / Certificati Bianchi is the Italian white certificate system."",
+    ""Therefore, GSE administers this system.""",True,False,False,True,GENERIC_ACTOR|P4_incentives_it_whr|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS|DK_4GDH_PARAMS,11,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+A25,factual-lookup,pass,"```json
+{
+  ""extracted_facts"": [
+    ""IT-DM-2021-05-21, name Decreto Ministeriale 21 maggio 2021, jurisdiction IT, year 2021"",
+    ""IT-DD-2022-05-03, name Decreto Direttoriale 3 maggio 2022, jurisdiction IT, year 2022"",
+    ""IT-DD-2023-05-04, name Decreto Direttoriale 4 maggio 2023, jurisdiction IT, year 2023"",
+    ""IT-DD-2023-10-13, name Decreto Direttoriale 13 ottobre 2023, jurisdiction IT, year 2023"",
+    ""IT-DM-MASE-2025-07-21, name Decreto MASE 21 luglio 2025 Certificati Bianchi, jurisdiction IT, year 2025""
+  ],
+  ""reasoning_chain"": [
+    ""Identify all regulations with jurisdiction IT (Italy)"",
+    ""Filter for regulatory decrees (Decreto Ministeriale and Decreto Direttoriale)"",
+    ""Count the Italian regulatory decrees related to energy efficiency""
+  ],
+  ""final_answer"": ""5 Italian regulatory decrees on energy efficiency are in the knowledge graph",True,False,False,True,P4_incentives_it_whr|GENERIC_REGULATION|ALL_REGULATORY_ARTICLES|GENERIC_COUNTRY|GENERIC_STANDARD,20,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+A26,factual-lookup,pass,"```json
+{
+  ""extracted_facts"": [
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""reg_id IT-DM-2021-05-21, name Decreto Ministeriale 21 maggio 2021, jurisdiction IT, year 2021""
+  ],
+  ""reasoning_chain"": [
+    ""The context identifies the governing decrees for the Titoli di Efficienza Energetica / Certificati Bianchi (TEE/CB) system."",
+    ""One decree is explicitly labeled as 'DM 2021 (fondante)' where 'fondante' means 'founding' in Italian."",
+    ""This founding decree is identified as Decreto Ministeriale 21 maggio 2021 (IT-DM-2021-05-21).""
+  ],
+  ""final_answer"": ""Decreto Ministeriale 21 maggio 2021 (IT-DM-2021-05-21) is the founding act of the TEE/CB system, as indicated by the label 'DM 2021 (fondante)' in the governing decrees."",",True,False,False,True,P4_incentives_it_whr|GENERIC_ACTOR|GENERIC_REGULATION|P3_regulatory_screening_dk|ALL_REGULATORY_ARTICLES,17,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+A27,factual-lookup,pass,The mandatory DH connection threshold under Danish Varmeforsyningsloven is 1.0 MW. Heat sources greater than 1.0 MW in municipal DH planning areas must connect to the DH network if economically feasible.,True,False,True,True,P3_regulatory_screening_dk|P1_eed_art26_threshold|DK_DH_COMPARE|GENERIC_ACTOR|DK_4GDH_PARAMS,6,,claude-haiku-4-5-20251001,high,4,4,True
+A28,factual-lookup,pass,The supply temperature of the Danish 4th generation district heating network is 60.0 degrees Celsius.,True,False,True,True,DK_4GDH_PARAMS|P3_regulatory_screening_dk|DK_3GDH_PARAMS|DK_DH_COMPARE|GENERIC_COUNTRY,6,,claude-haiku-4-5-20251001,high,1,3,True
+A29,factual-lookup,pass,The return temperature of the Danish 4GDH network is 35.0 degrees Celsius.,True,False,True,True,DK_4GDH_PARAMS|P3_regulatory_screening_dk|DK_3GDH_PARAMS|DK_DH_COMPARE|GENERIC_ACTOR,5,,claude-haiku-4-5-20251001,high,1,2,True
+A30,factual-lookup,pass,2030,True,False,False,True,DK_NECP_TARGET|P3_regulatory_screening_dk|IT_DK_SUPPORT_COMPARE|P6_full_is_path|GENERIC_REGULATION,38,routing_under_retrieval,claude-haiku-4-5-20251001,high,1,3,True
+A31,factual-lookup,pass,The Danish Energy Agency (DK-DEA) enforces the Heat Supply Act (Varmeforsyningsloven) obligations.,True,False,False,True,GENERIC_ACTOR|P3_regulatory_screening_dk|DK_DH_COMPARE|DK_4GDH_PARAMS|DK_3GDH_PARAMS,5,routing_under_retrieval,claude-haiku-4-5-20251001,high,2,3,True
+A32,factual-lookup,pass,The DH penetration rate in Denmark is 65.0%.,True,False,False,True,GENERIC_COUNTRY|P3_regulatory_screening_dk|GENERIC_REGULATION|DK_NECP_TARGET|IT_DK_SUPPORT_COMPARE,14,routing_under_retrieval,claude-haiku-4-5-20251001,high,1,3,True
+A33,factual-lookup,pass,"The legacy Danish district heating network in the knowledge graph is 3rd Generation DH (3GDH), with supply temperature 80.0 degrees Celsius, return temperature 40.0 degrees Celsius, and capacity 500.0 MW.",True,False,False,True,P3_regulatory_screening_dk|DK_3GDH_PARAMS|DK_4GDH_PARAMS|DK_DH_COMPARE|GENERIC_REGULATION,10,routing_under_retrieval,claude-haiku-4-5-20251001,high,1,3,True
+A34,factual-lookup,pass,The supply temperature of the Danish 3GDH legacy network is 80.0 degrees Celsius.,True,False,True,True,DK_3GDH_PARAMS|P3_regulatory_screening_dk|DK_DH_COMPARE|DK_4GDH_PARAMS|P2_thermal_compatibility_all,12,,claude-haiku-4-5-20251001,high,2,3,True
+B01,multi-hop-is,pass,REQUIRES_UPGRADE,False,False,True,True,P2_thermal_compatibility_S1|P2_thermal_compatibility_all|P6_full_is_path|P4_incentives_it_whr|P5_scenario_comparison_L,40,,claude-haiku-4-5-20251001,high,2,3,True
+B02,multi-hop-is,pass,Scenario S5 involves datacenter DC-M and the process Paper Drying.,False,False,True,True,P2_thermal_compatibility_all|P6_full_is_path|P1_eed_art26_threshold|P2_thermal_compatibility_S1|P5_scenario_comparison_L,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,1,2,True
+B03,multi-hop-is,pass,CO2_HTHP,False,False,True,True,P5_scenario_comparison_L|P2_thermal_compatibility_all|P2_thermal_compatibility_S1|P6_full_is_path|ALL_REGULATORY_ARTICLES,40,,claude-haiku-4-5-20251001,high,2,3,True
+B04,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S1, datacenter DC-S, upgrade_tech direct_HX"",
+    ""scenario S2, datacenter DC-S, upgrade_tech direct_HX"",
+    ""scenario S3, datacenter DC-S, upgrade_tech direct_HX"",
+    ""scenario S4, datacenter DC-M, upgrade_tech direct_HX"",
+    ""scenario S5, datacenter DC-M, upgrade_tech direct_HX"",
+    ""scenario S6, datacenter DC-M, upgrade_tech direct_HX"",
+    ""scenario S7, datacenter DC-L, upgrade_tech direct_HX"",
+    ""scenario S8, datacenter DC-L, upgrade_tech direct_HX"",
+    ""scenario S9, datacenter DC-L, upgrade_tech direct_HX"",
+    ""id DC-S, cooling liquid"",
+    ""id DC-M, cooling liquid"",
+    ""id DC-L, cooling liquid""
+  ],
+  ""reasoning_chain"": [
+    ""All three datacenters (DC-S, DC-M, DC-L) use liquid cooling as specified in their definitions."",
+    ""Scenarios S1-S9 are distributed across these three datacenters with direct_HX upgrade",True,False,False,True,P2_thermal_compatibility_S1|GENERIC_DC|P5_scenario_comparison_L|ISO50001_ARTICLES|P6_full_is_path,39,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+B05,multi-hop-is,pass,29500.0 kW,False,False,True,True,P5_scenario_comparison_L|GENERIC_DC|TEMPERATURE_BAND_DEF|P2_thermal_compatibility_S1|P2_thermal_compatibility_all,19,,claude-haiku-4-5-20251001,high,3,3,True
+B06,multi-hop-is,pass,20.0 degrees Celsius,False,False,False,True,P2_thermal_compatibility_all|P2_thermal_compatibility_S1|P5_scenario_comparison_L|TEMPERATURE_BAND_DEF|DK_4GDH_PARAMS,17,borderline_derived,claude-haiku-4-5-20251001,high,2,3,True
+B07,multi-hop-is,pass,Pulp and Paper Industry,True,False,True,True,P2_thermal_compatibility_all|P6_full_is_path|SCENARIO_COUNT_BY_SECTOR|P2_thermal_compatibility_S1|GENERIC_STANDARD,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,1,3,True
+B08,multi-hop-is,pass,"6 scenarios target processes in the Food, Drink and Milk sector.",False,False,True,True,P6_full_is_path|SCENARIO_COUNT_BY_SECTOR|P2_thermal_compatibility_all|ISO50001_PROCESS_COMPLIANCE|DK_NECP_TARGET,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,1,3,True
+B09,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S8, datacenter DC-L, dc_scale Hyperscale, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP"",
+    ""scenario S8, temp_band T2, process Paper Drying, process_temp_c 90.0, upgrade_tech HP, available_kw 29500.0, supply_temp_c 70.0"",
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade HP, band T2, process Paper Drying, sector Pulp and Paper Industry, scenario S8"",
+    ""sector Pulp and Paper Industry, n_scenarios 3, scenarios ['S2', 'S5', 'S8']""
+  ],
+  ""reasoning_chain"": [
+    ""Scenario S8 originates from datacenter DC-L, which is a Hyperscale data centre"",
+    ""The waste heat recovery upgrade technology is HP (Heat Pump) operating in temperature band T2"",
+    ""The recovered heat has a supply temperature of 70.0°C with available capacity of 29500.0 kW"",
+    ""The target industrial process is",True,False,True,True,P5_scenario_comparison_L|P6_full_is_path|SCENARIO_COUNT_BY_SECTOR|P2_thermal_compatibility_all|P1_eed_art26_threshold,40,,claude-haiku-4-5-20251001,,0,0,False
+B10,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-26, art_no 26, title Data Centers, obligation mandatory, threshold_mw 1.0, summary DC with IT power >= 1MW must disclose waste heat capacity annually."",
+    ""country Denmark, framework Varmeforsyningsloven — Heat Supply Act, obligation DH Connection Mandate, threshold_mw 1.0, summary Heat sources >1MW in municipal DH planning areas must connect to DH network if economically feasible, compliant_dcs ['DC-M', 'DC-L'].""
+  ],
+  ""reasoning_chain"": [
+    ""EED Article 26 requires data centers with IT power >= 1.0 MW to disclose waste heat capacity annually."",
+    ""In Denmark's Heat Supply Act framework, data centers DC-M and DC-L are identified as compliant with the 1.0 MW threshold requirement."",
+    ""Therefore, DC-M and DC-L in Denmark must comply with EED Article 26 disclosure obligations.""
+  ],
+  ""final_answer"": ""Data centers DC-M and DC-L in Denmark must comply with EED Article 26 disclosure, as they meet",True,False,True,True,P1_eed_art26_threshold|ALL_REGULATORY_ARTICLES|P3_regulatory_screening_dk|ISO50001_PROCESS_COMPLIANCE|GENERIC_COUNTRY,20,synthesis_or_metric,claude-haiku-4-5-20251001,,0,0,False
+B11,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""article Data Centers, obligation mandatory, threshold_mw 1.0, unit MW, summary DC with IT power >= 1MW must disclose waste heat capacity annually."",
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-26, art_no 26, title Data Centers, obligation mandatory, threshold_mw 1.0, summary DC with IT power >= 1MW must disclose waste heat capacity annually."",
+    ""id DC-S, scale Edge, it_kw 500, cooling liquid, pue 1.1, waste_heat_kw 590.""
+  ],
+  ""reasoning_chain"": [
+    ""EED Article 26 applies to data centers with IT power >= 1.0 MW (1000 kW)."",
+    ""DC-S (Edge scale) has IT power of 500 kW."",
+    ""500 kW is less than the 1.0 MW (1000 kW) threshold."",
+    ""Therefore, DC-S does not meet the applicability threshold for EED Article 26 mandatory disclosure.""
+  ],
+  ""final_answer"": ""No. DC-S (Edge data center) does not fall under EED",True,False,True,True,P1_eed_art26_threshold|ALL_REGULATORY_ARTICLES|GENERIC_DC|P2_thermal_compatibility_all|P6_full_is_path,40,synthesis_or_metric,claude-haiku-4-5-20251001,,0,0,False
+B12,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""framework Varmeforsyningsloven — Heat Supply Act"",
+    ""obligation DH Connection Mandate"",
+    ""threshold_mw 1.0"",
+    ""Heat sources >1MW in municipal DH planning areas must connect to DH network if economically feasible"",
+    ""compliant_dcs ['DC-M', 'DC-L']"",
+    ""article Data Centers, obligation mandatory, threshold_mw 1.0"",
+    ""DC with IT power >= 1MW must disclose waste heat capacity annually""
+  ],
+  ""reasoning_chain"": [
+    ""The Varmeforsyningsloven (Heat Supply Act) establishes a DH Connection Mandate with a 1.0 MW threshold."",
+    ""Heat sources exceeding 1 MW in municipal DH planning areas must connect to the DH network if economically feasible."",
+    ""Data centers with IT power >= 1 MW fall under this mandatory obligation."",
+    ""The compliant data center types identified are DC-M (mid-size) and DC-L (hyperscale)."",
+    ""These data centers must connect to DH and disclose waste heat capacity annually.""
+  ],
+  ""final_answer"": ""Under Danish Varmeforsyningsloven,",True,False,True,True,P3_regulatory_screening_dk|P1_eed_art26_threshold|DK_DH_COMPARE|GENERIC_ACTOR|P2_thermal_compatibility_all,15,,claude-haiku-4-5-20251001,,0,0,False
+B13,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_toe 300.0, eur_per_mwh 25.8, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller'], governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""actor_id GSE, name Gestore Servizi Energetici S.p.A., role regulator, country IT, notes Emette e verifica i Titoli di Efficienza Energetica""
+  ],
+  ""reasoning_chain"": [
+    ""The Italian incentive scheme Titoli di Efficienza Energetica / Certificati Bianchi (TEE/CB) is governed by DM 2021 and DM MASE 2025"",
+    ""The eligible technologies for this incentive explicitly include 'heat-pump'"",
+    ""GSE (Gestore Servizi Energetici S.p.A.) is the Italian regulator responsible for issuing and verifying TEE/CB"",
+    ""Heat pump upgrades meet the eligibility criteria for claiming Italian",True,False,False,True,P2_thermal_compatibility_all|P4_incentives_it_whr|GENERIC_ACTOR|P5_scenario_comparison_L|GENERIC_DC,18,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+B14,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller']"",
+    ""actor_id GSE, name Gestore Servizi Energetici S.p.A., role regulator, country IT, notes Emette e verifica i Titoli di Efficienza Energetica""
+  ],
+  ""reasoning_chain"": [
+    ""The Titoli di Efficienza Energetica (Italian white certificates) is an incentive mechanism governed in Italy."",
+    ""The eligible_technologies list for this incentive explicitly includes 'waste-heat-recovery'."",
+    ""GSE (Gestore Servizi Energetici S.p.A.) is the Italian regulator responsible for issuing and verifying these certificates."",
+    ""Therefore, waste heat recovery is directly eligible for Italian white certificates.""
+  ],
+  ""final_answer"": ""Yes, waste heat recovery is directly eligible for Italian white certificates (Titoli di Efficienza Energetica / Certificati Bianchi). It is listed among the eligible_technologies, and GSE (Gestore Servizi Energetici S.p",True,False,True,True,P4_incentives_it_whr|GENERIC_DC|P1_eed_art26_threshold|GENERIC_ACTOR|ALL_REGULATORY_ARTICLES,13,,claude-haiku-4-5-20251001,,0,0,False
+B15,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_mwh 25.8"",
+    ""eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller']"",
+    ""governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""actor_id GSE, name Gestore Servizi Energetici S.p.A., role regulator, country IT""
+  ],
+  ""reasoning_chain"": [
+    ""The question asks about financial value in EUR/MWh for waste heat recovery in Italy"",
+    ""Italy's waste heat recovery incentive is Titoli di Efficienza Energetica / Certificati Bianchi (TEE/CB)"",
+    ""The TEE/CB incentive specifies a value of 25.8 EUR/MWh"",
+    ""Waste-heat-recovery is listed as an eligible technology under this incentive"",
+    ""This incentive applies regardless of datacenter scale (mid-size or otherwise)""
+  ],
+  ""final_answer"": ""25.8 EUR/MWh"",
+  ""confidence"":",True,False,True,True,P4_incentives_it_whr|GENERIC_DC|GENERIC_ACTOR|P2_thermal_compatibility_all|P1_eed_art26_threshold,16,,claude-haiku-4-5-20251001,,0,0,False
+B16,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""regulation DEL-REG-2024-1364, reg_name Del.Reg 2024, article_id DEL-REG-ART-2, art_no 2, title Definitions and KPIs, obligation mandatory, summary Defines KPI TWH (T_CDU_return), ERF, EREUSE."",
+    ""regulation EED-2023-1791, reg_name EED 2023, article_id EED-ART-26, art_no 26, title Data Centers, obligation mandatory, threshold_mw 1.0, summary DC with IT power >= 1MW must disclose waste heat capacity annually."",
+    ""id DC-L, scale Hyperscale, it_kw 25000, cooling liquid, pue 1.12, waste_heat_kw 30000.""
+  ],
+  ""reasoning_chain"": [
+    ""A hyperscale DC (DC-L) has IT power of 25000 kW, which exceeds the 1.0 MW threshold in EED-2023-1791 Article 26."",
+    ""EED-2023-1791 Article 26 mandates that DCs with IT power >= 1MW must disclose waste heat",True,False,True,True,ALL_REGULATORY_ARTICLES|P5_scenario_comparison_L|GENERIC_REGULATION|P2_thermal_compatibility_all|GENERIC_DC,28,,claude-haiku-4-5-20251001,,0,0,False
+B17,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""generation 4GDH, name Danish 4th Generation DH (Generic), supply_temp_c 60.0, return_temp_c 35.0, capacity_mw 300.0"",
+    ""country Denmark, framework Varmeforsyningsloven — Heat Supply Act, obligation DH Connection Mandate, threshold_mw 1.0"",
+    ""iso DK, name Denmark, dh_pct 65.0, eed_transposed True"",
+    ""reg_id EED-2023-1791, name Energy Efficiency Directive 2023/1791, jurisdiction EU, year 2023, articles ['Data Centers', 'Heating and Cooling', 'Comprehensive Assessment', 'Energy management systems and energy audits', 'Energy management systems']""
+  ],
+  ""reasoning_chain"": [
+    ""The Danish 4GDH network is identified as a Danish 4th Generation DH system located in Denmark."",
+    ""Denmark's primary heat supply policy framework is the Varmeforsyningsloven (Heat Supply Act), which establishes the DH Connection Mandate."",
+    ""Denmark has transposed the EU Energy Efficiency Directive 2023/1791 (EED-2023-1791",True,False,False,True,DK_4GDH_PARAMS|P3_regulatory_screening_dk|GENERIC_REGULATION|GENERIC_COUNTRY|DK_DH_COMPARE,13,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+B18,multi-hop-is,pass,"Two mandatory regulatory obligations apply to a 5 MW data center operating in Denmark: (1) the DH Connection Mandate under Varmeforsyningsloven requiring connection to DH network if economically feasible, and (2) the mandatory annual waste heat capacity disclosure obligation.",True,False,False,True,P3_regulatory_screening_dk|P2_thermal_compatibility_all|P6_full_is_path|DK_4GDH_PARAMS|P1_eed_art26_threshold,39,routing_under_retrieval,claude-haiku-4-5-20251001,high,2,4,True
+B19,multi-hop-is,pass,47.6 degrees Celsius,False,False,True,True,P2_thermal_compatibility_all|P6_full_is_path|DK_4GDH_PARAMS|P5_scenario_comparison_L|DK_DH_COMPARE,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,1,3,True
+B20,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade direct_HX, band T1, process Pasteurization, sector Food, Drink and Milk, scenario S7."",
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade direct_HX, band T1, process Paper Drying, sector Pulp and Paper Industry, scenario S8."",
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade direct_HX, band T1, process Sterilization, sector Food, Drink and Milk, scenario S9."",
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade HP, band T2, process Pasteurization, sector Food, Drink and Milk, scenario S7."",
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade HP, band T2, process Paper Drying, sector Pulp and Paper Industry, scenario S8."",
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade HP, band T2, process Sterilization, sector Food, Drink and Milk, scenario S9."",
+    ""datacenter DC-L, dc_scale Hyperscale, upgrade CO2_H",True,False,True,True,P5_scenario_comparison_L|P6_full_is_path|P1_eed_art26_threshold|P2_thermal_compatibility_all|GENERIC_DC,40,,claude-haiku-4-5-20251001,,0,0,False
+B21,multi-hop-is,abstain,Not available in the knowledge graph.,False,True,True,True,TEMPERATURE_BAND_DEF|P6_full_is_path|P2_thermal_compatibility_all|ISO50001_PROCESS_COMPLIANCE|P4_incentives_it_whr,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,0,0,True
+B22,multi-hop-is,pass,"For a mid-size data center (DC-M) with HP upgrade, the reachable manufacturing processes are: Pasteurization (scenario S4), Paper Drying (scenario S5), and Sterilization (scenario S6).",False,False,False,True,GENERIC_DC|ISO50001_PROCESS_COMPLIANCE|P2_thermal_compatibility_all|P5_scenario_comparison_L|P6_full_is_path,40,routing_under_retrieval,claude-haiku-4-5-20251001,high,3,4,True
+B23,multi-hop-is,pass,20.0 degrees Celsius,False,False,False,False,P2_thermal_compatibility_all|P6_full_is_path|GENERIC_ACTOR|P3_regulatory_screening_dk|DK_DH_COMPARE,40,borderline_derived,claude-haiku-4-5-20251001,high,1,4,True
+B24,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""generation 4GDH, name Danish 4th Generation DH (Generic), supply_temp_c 60.0"",
+    ""Enabling condition: DC LC T_supply ~47°C directly compatible without HP"",
+    ""scenario S1, datacenter DC-S, dc_scale Edge, process Pasteurization, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP""
+  ],
+  ""reasoning_chain"": [
+    ""DC-S is an Edge-scale datacenter with available waste heat supply temperature of 47.6°C (from S1)"",
+    ""Danish 4GDH requires a supply temperature of 60.0°C"",
+    ""The enabling condition states that DC LC with T_supply ~47°C is directly compatible without HP (heat pump)"",
+    ""However, DC-S supply of 47.6°C falls short of the required 60.0°C, creating a GAP"",
+    ""Therefore, direct connection without upgrade is not thermally feasible""
+  ],
+  ""final_answer"": ""No. DC-S has an available waste heat supply temperature of 47.6°C, but Danish 4GDH requires 60.0°C",True,False,False,True,DK_4GDH_PARAMS|P2_thermal_compatibility_all|P3_regulatory_screening_dk|DK_DH_COMPARE|P5_scenario_comparison_L,15,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+B25,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S5, datacenter DC-M, dc_scale Mid-size, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP."",
+    ""scenario S8, temp_band T2, process Paper Drying, process_temp_c 90.0, upgrade_tech HP, supply_temp_c 70.0."",
+    ""id DC-M, scale Mid-size, it_kw 3200, cooling liquid, pue 1.15, waste_heat_kw 3840.""
+  ],
+  ""reasoning_chain"": [
+    ""T2 band is associated with Paper Drying process at 90.0°C temperature requirement."",
+    ""DC-M with Paper Drying process (S5) uses upgrade_tech HP (heat pump)."",
+    ""The HP technology supplies 70.0°C waste heat to meet the 90.0°C required temperature for Paper Drying in T2 band."",
+    ""Therefore, HP (heat pump) is the upgrade technology that enables DC-M waste heat to reach T2 band compatibility.""
+  ],
+  ""final_answer"": ""HP (heat pump)"",",False,False,False,False,P2_thermal_compatibility_all|P5_scenario_comparison_L|P4_incentives_it_whr|GENERIC_DC|P1_eed_art26_threshold,17,,claude-haiku-4-5-20251001,,0,0,False
+B26,multi-hop-is,abstain,Not available in the knowledge graph.,False,True,True,True,P6_full_is_path|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS|DK_4GDH_PARAMS|DK_DH_COMPARE,35,synthesis_or_metric,claude-haiku-4-5-20251001,high,0,4,True
+B27,multi-hop-is,pass,"Food, Drink and Milk sector has the highest temperature requirement at 130.0°C (Sterilization process in scenario S9)",True,False,True,True,SCENARIO_COUNT_BY_SECTOR|P6_full_is_path|P5_scenario_comparison_L|P3_regulatory_screening_dk|P2_thermal_compatibility_all,40,,claude-haiku-4-5-20251001,high,3,4,True
+B28,multi-hop-is,pass,3,False,False,True,True,SCENARIO_COUNT_BY_SECTOR|P6_full_is_path|P2_thermal_compatibility_all|P5_scenario_comparison_L|ALL_REGULATORY_ARTICLES,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,1,3,True
+B29,multi-hop-is,pass,"The profile types of all heat sources derived from liquid-cooled data centers are: Edge (DC-S), Mid-size (DC-M), and Hyperscale (DC-L).",False,False,False,False,P3_regulatory_screening_dk|P1_eed_art26_threshold|GENERIC_DC|P4_incentives_it_whr|P6_full_is_path,33,projection_gap,claude-haiku-4-5-20251001,high,3,3,True
+B30,multi-hop-is,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S5, datacenter DC-M, dc_scale Mid-size, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP."",
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_mwh 25.8, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller']""
+  ],
+  ""reasoning_chain"": [
+    ""Scenario S5 matches the criteria: DC-M (Mid-size datacenter) with heat pump (HP) upgrade technology."",
+    ""The incentive scheme 'Titoli di Efficienza Energetica / Certificati Bianchi' is applicable to heat-pump technology at 25.8 EUR/MWh."",
+    ""The context provides the incentive rate (25.8 EUR/MWh) but does not specify the available power output (in kW or MW) for DC-M scenarios."",
+    ""Without the available power capacity for DC-M, the total energy output in MWh over 7000 operating hours cannot be calculated.""
+  ],",True,False,False,True,P2_thermal_compatibility_all|P4_incentives_it_whr|DK_4GDH_PARAMS|DK_3GDH_PARAMS|P5_scenario_comparison_L,15,borderline_derived,claude-haiku-4-5-20251001,,0,0,False
+B31,multi-hop-is,pass,"A Danish hyperscale DC would need to comply with Varmeforsyningsloven — Heat Supply Act, which establishes the DH Connection Mandate requiring heat sources >1.0 MW in municipal DH planning areas to connect to the DH network if economically feasible.",True,False,True,True,P3_regulatory_screening_dk|P5_scenario_comparison_L|ISO50001_PROCESS_COMPLIANCE|GENERIC_STANDARD|GENERIC_DC,19,,claude-haiku-4-5-20251001,high,3,4,True
+B32,multi-hop-is,pass,"Yes, according to the knowledge graph, Denmark has transposed the EED. The record for Denmark shows eed_transposed True.",True,False,False,True,GENERIC_COUNTRY|P3_regulatory_screening_dk|GENERIC_REGULATION|ALL_REGULATORY_ARTICLES|GENERIC_STANDARD,20,routing_under_retrieval,claude-haiku-4-5-20251001,high,2,2,True
+B33,multi-hop-is,pass,The DH penetration rate in Italy is 5.0%,False,False,False,False,GENERIC_COUNTRY|P3_regulatory_screening_dk|P4_incentives_it_whr|GENERIC_REGULATION|IT_DK_SUPPORT_COMPARE,14,borderline_derived,claude-haiku-4-5-20251001,high,1,3,True
+C01,comparative,pass,"The three hyperscale scenarios S7, S8, and S9 all have the same available heat capacity of 29500.0 kw. This aligns with the DC-L hyperscale datacenter specification of 30000.0 kw waste heat generation.",True,False,True,True,P5_scenario_comparison_L|GENERIC_DC|DK_DH_COMPARE|P2_thermal_compatibility_all|IT_DK_SUPPORT_COMPARE,19,,claude-haiku-4-5-20251001,high,4,3,True
+C02,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S3, supply_c 110.0, process Sterilization"",
+    ""scenario S6, supply_c 110.0, process Sterilization"",
+    ""scenario S9, supply_c 110.0, process Sterilization"",
+    ""scenario S2, supply_c 70.0, process Paper Drying"",
+    ""scenario S5, supply_c 70.0, process Paper Drying"",
+    ""scenario S8, supply_c 70.0, process Paper Drying"",
+    ""scenario S1, supply_c 47.6, process Pasteurization"",
+    ""scenario S4, supply_c 47.6, process Pasteurization"",
+    ""scenario S7, supply_c 47.6, process Pasteurization""
+  ],
+  ""reasoning_chain"": [
+    ""Extract supply temperature values from all scenarios"",
+    ""Identify the maximum supply temperature across all scenarios: 110.0"",
+    ""Multiple scenarios (S3, S6, S9) share this maximum supply temperature of 110.0"",
+    ""All three scenarios with 110.0 supply temperature are for the Sterilization process""
+  ],
+  ""final_answer"":",False,False,True,True,P2_thermal_compatibility_all|P5_scenario_comparison_L|DK_4GDH_PARAMS|DK_DH_COMPARE|DK_3GDH_PARAMS,14,,claude-haiku-4-5-20251001,,0,0,False
+C03,comparative,pass,"DC-S (Edge) has a recoverable waste heat capacity of 590 kW, while DC-L (Hyperscale) has a recoverable waste heat capacity of 30000 kW. The Hyperscale data center has significantly greater recoverable heat capacity, approximately 50.8 times that of the Edge data center.",True,False,False,True,GENERIC_DC|P5_scenario_comparison_L|P3_regulatory_screening_dk|P1_eed_art26_threshold|DK_DH_COMPARE,10,routing_under_retrieval,claude-haiku-4-5-20251001,high,2,4,True
+C04,comparative,abstain,Not available in the knowledge graph.,False,True,True,True,P1_eed_art26_threshold|ALL_REGULATORY_ARTICLES|P2_thermal_compatibility_all|P6_full_is_path|P5_scenario_comparison_L,40,,claude-haiku-4-5-20251001,high,2,5,True
+C05,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""band_id T1, label Low Grade, range_min_c 40.0, range_max_c 60.0"",
+    ""band_id T2, label Medium Grade, range_min_c 60.0, range_max_c 90.0"",
+    ""band_id T3, label High Grade, range_min_c 90.0, range_max_c 130.0"",
+    ""scenario S1, process Pasteurization, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP"",
+    ""scenario S4, process Pasteurization, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP"",
+    ""scenario S7, process Pasteurization, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP""
+  ],
+  ""reasoning_chain"": [
+    ""Direct heat exchange (direct_HX) is applied only to Pasteurization processes across all three datacenter scales (S1, S4, S7)."",
+    ""All direct_HX scenarios show supply_c 47.6",False,False,False,True,TEMPERATURE_BAND_DEF|P2_thermal_compatibility_S1|P2_thermal_compatibility_all|GENERIC_DC|DK_DH_COMPARE,18,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C06,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""band_id T2, label Medium Grade, range_min_c 60.0, range_max_c 90.0, temp_unit degrees Celsius."",
+    ""scenario S2, datacenter DC-S, dc_scale Edge, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP."",
+    ""scenario S5, datacenter DC-M, dc_scale Mid-size, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP."",
+    ""scenario S8, datacenter DC-L, dc_scale Hyperscale, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP."",
+    ""scenario S8, temp_band T2, process Paper Drying, process_temp_c 90.0, upgrade_tech HP, available_kw 29500.0, supply_temp_c 70.0.""
+  ],
+  ""reasoning_chain"": [
+    ""T2 band",False,False,False,True,P2_thermal_compatibility_all|P5_scenario_comparison_L|TEMPERATURE_BAND_DEF|P6_full_is_path|ISO50001_PROCESS_COMPLIANCE,40,borderline_derived,claude-haiku-4-5-20251001,,0,0,False
+C07,comparative,pass,"The Food, Drink and Milk sector targets 6 scenarios (S1, S4, S7, S3, S6, S9), while the Pulp and Paper Industry sector targets 3 scenarios (S2, S5, S8). The Food sector has twice as many scenarios as the Paper sector.",True,False,True,True,SCENARIO_COUNT_BY_SECTOR|P6_full_is_path|P2_thermal_compatibility_all|ISO50001_PROCESS_COMPLIANCE|DK_DH_COMPARE,40,synthesis_or_metric,claude-haiku-4-5-20251001,high,2,4,True
+C08,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S1, datacenter DC-S, dc_scale Edge, process Pasteurization, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP"",
+    ""scenario S2, datacenter DC-S, dc_scale Edge, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP"",
+    ""scenario S3, datacenter DC-S, dc_scale Edge, process Sterilization, upgrade_tech CO2_HTHP, supply_c 110.0, required_c 130.0, status GAP"",
+    ""scenario S4, datacenter DC-M, dc_scale Mid-size, process Pasteurization, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP"",
+    ""scenario S5, datacenter DC-M, dc_scale Mid-size, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP"",
+    ""scenario S6, datacenter DC-M, dc_scale Mid-size, process Sterilization, upgrade",True,False,True,True,P2_thermal_compatibility_all|P6_full_is_path|P5_scenario_comparison_L|P2_thermal_compatibility_S1|P1_eed_art26_threshold,40,,claude-haiku-4-5-20251001,,0,0,False
+C09,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""id DC-S, scale Edge, waste_heat_kw 590"",
+    ""id DC-M, scale Mid-size, waste_heat_kw 3840"",
+    ""id DC-L, scale Hyperscale, waste_heat_kw 30000"",
+    ""scenario S2, datacenter DC-S, dc_scale Edge, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0"",
+    ""scenario S5, datacenter DC-M, dc_scale Mid-size, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0"",
+    ""scenario S8, datacenter DC-L, dc_scale Hyperscale, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0""
+  ],
+  ""reasoning_chain"": [
+    ""Paper Drying process uses HP (Heat Pump) upgrade technology across all three datacenter scales"",
+    ""Edge scale (DC-S) has waste_heat_kw 590"",
+    ""Mid-size scale (DC-M) has waste_heat_kw 3840"",
+    """,True,False,True,True,GENERIC_DC|P5_scenario_comparison_L|P2_thermal_compatibility_all|GENERIC_STANDARD|ALL_REGULATORY_ARTICLES,24,synthesis_or_metric,claude-haiku-4-5-20251001,,0,0,False
+C10,comparative,pass,"Denmark has a district heating penetration rate of 65.0%, while Italy has a district heating penetration rate of 5.0%. Denmark's DH penetration is significantly higher than Italy's.",True,False,False,True,GENERIC_COUNTRY|P3_regulatory_screening_dk|P4_incentives_it_whr|GENERIC_REGULATION|IT_DK_SUPPORT_COMPARE,14,routing_under_retrieval,claude-haiku-4-5-20251001,high,2,3,True
+C11,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""reg_id EED-2023-1791, name Energy Efficiency Directive 2023/1791, jurisdiction EU, year 2023, articles ['Data Centers', 'Heating and Cooling', 'Comprehensive Assessment', 'Energy management systems and energy audits', 'Energy management systems']"",
+    ""article Data Centers, obligation mandatory, threshold_mw 1.0, unit MW, summary DC with IT power >= 1MW must disclose waste heat capacity annually"",
+    ""iso DK, name Denmark, eed_transposed True"",
+    ""iso IT, name Italy, eed_transposed True"",
+    ""iso EU, name European Union, eed_transposed True""
+  ],
+  ""reasoning_chain"": [
+    ""The Energy Efficiency Directive 2023/1791 (EED-2023-1791) applies at EU jurisdiction level and includes 'Data Centers' as an article with mandatory obligations"",
+    ""The mandatory obligation for data centers requires disclosure of waste heat capacity annually for facilities with IT power >= 1.0 MW"",
+    ""Both Denmark and Italy have transposed the EED (eed_transposed True)"",
+    ""The knowledge graph does not contain country-specific data center obligations that differentiate between Denmark and",False,False,False,True,GENERIC_COUNTRY|P3_regulatory_screening_dk|GENERIC_REGULATION|P1_eed_art26_threshold|IT_DK_SUPPORT_COMPARE,14,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C12,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""country IT, support_type financial incentive: TEE/CB, detail 25.8 EUR/MWh; eligible: waste-heat-recovery heat-pump absorption-chiller"",
+    ""country DK, support_type regulatory mandate: Varmeforsyningsloven — Heat Supply Act, detail Heat sources >1MW in municipal DH planning areas must connect to DH network if economically feasible"",
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_mwh 25.8, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller'], governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""iso IT, name Italy, dh_pct 5.0, eed_transposed True"",
+    ""iso DK, name Denmark, dh_pct 65.0, eed_transposed True""
+  ],
+  ""reasoning_chain"": [
+    ""Italy employs a financial incentive framework (TEE/CB) offering 25.8 EUR/MWh for eligible waste heat recovery technologies"",
+    ""Denmark employs",True,False,False,True,IT_DK_SUPPORT_COMPARE|P3_regulatory_screening_dk|P4_incentives_it_whr|GENERIC_REGULATION|GENERIC_COUNTRY,14,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C13,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""country IT, support_type financial incentive: TEE/CB, detail 25.8 EUR/MWh; eligible: waste-heat-recovery heat-pump absorption-chiller"",
+    ""country DK, support_type regulatory mandate: Varmeforsyningsloven — Heat Supply Act, detail Heat sources >1MW in municipal DH planning areas must connect to DH network if economically feasible"",
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_mwh 25.8, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller']""
+  ],
+  ""reasoning_chain"": [
+    ""Italy offers a financial incentive (TEE/CB) of 25.8 EUR/MWh for waste-heat-recovery, heat-pump, and absorption-chiller projects"",
+    ""Denmark offers a regulatory mandate (Heat Supply Act) requiring heat sources >1MW to connect to DH networks if economically feasible, but no explicit financial incentive amount is provided"",
+    ""Only Italy has a quantified financial support value in the knowledge graph for data centre waste heat recovery projects""
+  ],
+  ""final_answer"": """,True,False,False,True,IT_DK_SUPPORT_COMPARE|P3_regulatory_screening_dk|P4_incentives_it_whr|GENERIC_REGULATION|GENERIC_COUNTRY,14,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C14,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""4GDH supply_temp_c 60.0 degrees Celsius"",
+    ""3GDH supply_temp_c 80.0 degrees Celsius"",
+    ""4GDH notes: Enabling condition: DC LC T_supply ~47°C directly compatible without HP"",
+    ""3GDH notes: DC LC WHR requires HP upgrade to reach 80°C supply""
+  ],
+  ""reasoning_chain"": [
+    ""4GDH has a supply temperature of 60.0°C while 3GDH has a supply temperature of 80.0°C, making 3GDH 20°C hotter."",
+    ""4GDH is directly compatible with LC (Low-grade Cooling) data center waste heat at ~47°C without requiring a heat pump upgrade."",
+    ""3GDH requires a heat pump upgrade to reach its 80°C supply temperature from LC data center waste heat."",
+    ""Therefore, 4GDH is more compatible with LC data center waste heat recovery as it needs no additional technology, while 3GDH requires HP upgrade.""
+  ],
+  ""final_answer"": ""4GDH has a supply temperature of 60.0°C and is directly compatible with LC data center waste",True,False,True,True,DK_4GDH_PARAMS|DK_3GDH_PARAMS|DK_DH_COMPARE|P2_thermal_compatibility_all|P1_eed_art26_threshold,12,synthesis_or_metric,claude-haiku-4-5-20251001,,0,0,False
+C15,comparative,pass,7 regulatory articles define mandatory obligations. 0 articles define voluntary obligations in the knowledge graph.,False,False,True,True,ALL_REGULATORY_ARTICLES|GENERIC_REGULATION|GENERIC_COUNTRY|P1_eed_art26_threshold|P3_regulatory_screening_dk,18,synthesis_or_metric,claude-haiku-4-5-20251001,high,7,5,True
+C16,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""country IT, support_type financial incentive: TEE/CB, detail 25.8 EUR/MWh; eligible: waste-heat-recovery heat-pump absorption-chiller"",
+    ""country DK, support_type regulatory mandate: Varmeforsyningsloven — Heat Supply Act, detail Heat sources >1MW in municipal DH planning areas must connect to DH network if economically feasible"",
+    ""country Denmark, framework Varmeforsyningsloven — Heat Supply Act, obligation DH Connection Mandate, threshold_mw 1.0, summary Heat sources >1MW in municipal DH planning areas must connect to DH network if economically feasible"",
+    ""iso IT, name Italy, dh_pct 5.0, eed_transposed True"",
+    ""iso DK, name Denmark, dh_pct 65.0, eed_transposed True""
+  ],
+  ""reasoning_chain"": [
+    ""A 5 MW data center exceeds Denmark's 1.0 MW threshold under Varmeforsyningsloven — Heat Supply Act"",
+    ""In Denmark, this triggers a regulatory mandate requiring connection to DH network if economically feasible"",
+    ""Italy applies financial incentives (25.",True,False,False,True,IT_DK_SUPPORT_COMPARE|P3_regulatory_screening_dk|P4_incentives_it_whr|GENERIC_COUNTRY|P2_thermal_compatibility_all,16,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C17,comparative,pass,"Denmark, European Union, and Italy have all completed EED transposition (eed_transposed True).",True,False,False,True,GENERIC_COUNTRY|P6_full_is_path|GENERIC_REGULATION|P1_eed_art26_threshold|ALL_REGULATORY_ARTICLES,40,routing_under_retrieval,claude-haiku-4-5-20251001,high,3,4,True
+C18,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""generation 4GDH, supply_temp_c 60.0, return_temp_c 35.0"",
+    ""generation 3GDH, supply_temp_c 80.0, return_temp_c 40.0"",
+    ""generation 3GDH notes: DC LC WHR requires HP upgrade to reach 80°C supply"",
+    ""generation 4GDH notes: Enabling condition: DC LC T_supply ~47°C directly compatible without HP""
+  ],
+  ""reasoning_chain"": [
+    ""4GDH networks have a supply temperature of 60°C and are directly compatible without heat pump (HP) upgrade for datacentre low-grade waste heat recovery (DC LC WHR)."",
+    ""3GDH networks have a supply temperature of 80°C and require an HP upgrade to reach this 80°C supply temperature for datacentre low-grade waste heat recovery."",
+    ""The difference is that 3GDH requires an HP upgrade while 4GDH does not require this upgrade.""
+  ],
+  ""final_answer"": ""For a 3GDH network in Denmark, a heat pump (HP) upgrade is required to reach the 80°C supply temperature for datacentre low-grade",True,False,False,True,DK_4GDH_PARAMS|DK_3GDH_PARAMS|DK_DH_COMPARE|P3_regulatory_screening_dk|P2_thermal_compatibility_all,12,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C19,comparative,pass,"The three upgrade technologies ranked by supply temperature are: direct_HX at 47.6 degrees Celsius, HP at 70.0 degrees Celsius, and CO2_HTHP at 110.0 degrees Celsius.",True,False,True,True,P2_thermal_compatibility_S1|P5_scenario_comparison_L|DK_4GDH_PARAMS|P2_thermal_compatibility_all|DK_DH_COMPARE,15,synthesis_or_metric,claude-haiku-4-5-20251001,high,3,5,True
+C20,comparative,pass,CO2_HTHP achieves the highest supply temperature in the framework at 110.0 degrees Celsius.,True,False,False,True,P5_scenario_comparison_L|P2_thermal_compatibility_all|DK_4GDH_PARAMS|DK_DH_COMPARE|DK_3GDH_PARAMS,14,routing_under_retrieval,claude-haiku-4-5-20251001,high,3,4,True
+C21,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""generation 4GDH: supply_temp_c 60.0, return_temp_c 35.0"",
+    ""generation 3GDH: supply_temp_c 80.0, return_temp_c 40.0"",
+    ""scenario S7: upgrade_tech direct_HX, supply_temp_c 47.6, process_temp_c 60.0"",
+    ""scenario S8: upgrade_tech HP, supply_temp_c 70.0, process_temp_c 90.0"",
+    ""scenario S9: upgrade_tech CO2_HTHP, supply_temp_c 110.0, process_temp_c 130.0""
+  ],
+  ""reasoning_chain"": [
+    ""The context provides supply temperatures for three upgrade technologies: direct_HX (47.6°C), HP (70.0°C), and CO2_HTHP (110.0°C)."",
+    ""However, the context does not provide return temperatures for these individual upgrade technology scenarios."",
+    ""Return temperatures are only specified for the DH generation systems (4GDH and 3GDH), not for the upgrade technology scenarios."",
+    ""Without return temperatures for each upgrade technology, delta",True,False,False,True,DK_4GDH_PARAMS|P5_scenario_comparison_L|DK_3GDH_PARAMS|P2_thermal_compatibility_all|P4_incentives_it_whr,15,borderline_derived,claude-haiku-4-5-20251001,,0,0,False
+C22,comparative,abstain,Not available in the knowledge graph.,False,True,False,False,P2_thermal_compatibility_all|P5_scenario_comparison_L|P6_full_is_path|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS,40,borderline_derived,claude-haiku-4-5-20251001,high,0,3,True
+C23,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S4, datacenter DC-M, dc_scale Mid-size, process Pasteurization, sector Food, Drink and Milk, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP."",
+    ""scenario S5, datacenter DC-M, dc_scale Mid-size, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP."",
+    ""scenario S6, datacenter DC-M, dc_scale Mid-size, process Sterilization, sector Food, Drink and Milk, upgrade_tech CO2_HTHP, supply_c 110.0, required_c 130.0, status GAP."",
+    ""id DC-M, scale Mid-size, it_kw 3200, cooling liquid, pue 1.15, waste_heat_kw 3840."",
+    ""band_id T1, label Low Grade, range_min_c 40.0, range_max_c 60.0, temp_unit degrees Celsius."",
+    ""band_id T2, label Medium Grade, range_min_c",True,False,False,True,TEMPERATURE_BAND_DEF|GENERIC_DC|P2_thermal_compatibility_all|P5_scenario_comparison_L|DK_DH_COMPARE,20,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C24,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller'], governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""actor_id GSE, name Gestore Servizi Energetici S.p.A., role regulator, country IT, notes Emette e verifica i Titoli di Efficienza Energetica"",
+    ""iso IT, name Italy, eed_transposed True""
+  ],
+  ""reasoning_chain"": [
+    ""Absorption chiller is listed as an eligible technology for Titoli di Efficienza Energetica / Certificati Bianchi (TEE/CB)"",
+    ""GSE is the Italian regulator responsible for issuing and verifying TEE/CB"",
+    ""The context provides scenario data but does not specify which scenarios employ absorption chiller technology"",
+    ""The scenarios listed use upgrade_tech: direct_HX, HP, or CO2_HTHP, not absorption-chiller"",
+    ""Therefore, no scenarios in the provided context are explicitly identified as using absorption chiller",False,False,False,True,P2_thermal_compatibility_all|P4_incentives_it_whr|GENERIC_ACTOR|GENERIC_COUNTRY|P5_scenario_comparison_L,18,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C25,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""band_id T1, label Low Grade, range_min_c 40.0, range_max_c 60.0"",
+    ""band_id T2, label Medium Grade, range_min_c 60.0, range_max_c 90.0"",
+    ""band_id T3, label High Grade, range_min_c 90.0, range_max_c 130.0"",
+    ""sector Food, Drink and Milk, n_scenarios 6"",
+    ""sector Pulp and Paper Industry, n_scenarios 3"",
+    ""datacenter DC-L, upgrade direct_HX, band T1, process Pasteurization, sector Food, Drink and Milk"",
+    ""datacenter DC-L, upgrade direct_HX, band T1, process Paper Drying, sector Pulp and Paper Industry"",
+    ""datacenter DC-L, upgrade direct_HX, band T1, process Sterilization, sector Food, Drink and Milk"",
+    ""datacenter DC-L, upgrade HP, band T2, process Pasteurization, sector Food, Drink and Milk"",
+    ""datacenter DC-L, upgrade HP, band T2, process Paper Drying,",True,False,True,True,TEMPERATURE_BAND_DEF|SCENARIO_COUNT_BY_SECTOR|P6_full_is_path|DK_DH_COMPARE|GENERIC_DC,37,synthesis_or_metric,claude-haiku-4-5-20251001,,0,0,False
+C26,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""id DC-L, scale Hyperscale, it_kw 25000, cooling liquid, pue 1.12, waste_heat_kw 30000."",
+    ""id DC-M, scale Mid-size, it_kw 3200, cooling liquid, pue 1.15, waste_heat_kw 3840."",
+    ""id DC-S, scale Edge, it_kw 500, cooling liquid, pue 1.1, waste_heat_kw 590."",
+    ""scenario S9, temp_band T3, process Sterilization, process_temp_c 130.0, upgrade_tech CO2_HTHP, available_kw 29500.0, supply_temp_c 110.0."",
+    ""scenario S8, temp_band T2, process Paper Drying, process_temp_c 90.0, upgrade_tech HP, available_kw 29500.0, supply_temp_c 70.0."",
+    ""scenario S7, temp_band T1, process Pasteurization, process_temp_c 60.0, upgrade_tech direct_HX, available_kw 29500.0, supply_temp_c 47",True,False,False,True,P5_scenario_comparison_L|P2_thermal_compatibility_all|GENERIC_DC|P1_eed_art26_threshold|P6_full_is_path,40,,claude-haiku-4-5-20251001,,0,0,False
+C27,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""country IT, support_type financial incentive: TEE/CB, detail 25.8 EUR/MWh; eligible: waste-heat-recovery heat-pump absorption-chiller"",
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_toe 300.0, eur_per_mwh 25.8, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller'], governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""actor_id GSE, name Gestore Servizi Energetici S.p.A., role regulator, country IT, notes Emette e verifica i Titoli di Efficienza Energetica""
+  ],
+  ""reasoning_chain"": [
+    ""The context identifies TEE/CB (Titoli di Efficienza Energetica / Certificati Bianchi) as a financial incentive in Italy with a value of 25.8 EUR/MWh."",
+    ""Three eligible technologies are specified: waste-heat-recovery, heat-pump, and absorption-chiller."",",False,False,False,False,P4_incentives_it_whr|GENERIC_ACTOR|IT_DK_SUPPORT_COMPARE|DK_DH_COMPARE|GENERIC_COUNTRY,10,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C28,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""reg_id EED-2023-1791, name Energy Efficiency Directive 2023/1791"",
+    ""reg_id DEL-REG-2024-1364, name Delegated Regulation (EU) 2024/1364"",
+    ""reg_id IT-DM-2021-05-21, name Decreto Ministeriale 21 maggio 2021"",
+    ""reg_id IT-DD-2022-05-03, name Decreto Direttoriale 3 maggio 2022"",
+    ""reg_id IT-DD-2023-05-04, name Decreto Direttoriale 4 maggio 2023"",
+    ""reg_id IT-DD-2023-10-13, name Decreto Direttoriale 13 ottobre 2023"",
+    ""reg_id IT-DM-MASE-2025-07-21, name Decreto MASE 21 luglio 2025 Certificati Bianchi"",
+    ""regulation EED-2023-1791, article_id EED-ART-11, art_no 11"",
+    ""regulation EED-2023-1791, article_id EED-",True,False,True,True,GENERIC_REGULATION|GENERIC_COUNTRY|GENERIC_DC|ALL_REGULATORY_ARTICLES|DK_3GDH_PARAMS,20,synthesis_or_metric,claude-haiku-4-5-20251001,,0,0,False
+C29,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""generation 4GDH, name Danish 4th Generation DH (Generic), capacity_mw 300.0, capacity_unit MW"",
+    ""generation 3GDH, name Danish 3rd Generation DH (Generic), capacity_mw 500.0, capacity_unit MW""
+  ],
+  ""reasoning_chain"": [
+    ""Identify the capacity of Danish 4th Generation DH (4GDH): 300.0 MW"",
+    ""Identify the capacity of Danish 3rd Generation DH (3GDH): 500.0 MW"",
+    ""Compare the two capacities: 3GDH has 500.0 MW while 4GDH has 300.0 MW"",
+    ""Calculate the difference: 3GDH capacity exceeds 4GDH capacity by 200.0 MW""
+  ],
+  ""final_answer"": ""Danish 3rd Generation DH (3GDH) has a capacity of 500.0 MW, while Danish 4th Generation DH (4GDH) has a capacity of 300.0 MW. The 3GDH network has 200.0 MW greater capacity than the 4GDH network."",",True,False,True,True,DK_4GDH_PARAMS|DK_3GDH_PARAMS|DK_DH_COMPARE|P3_regulatory_screening_dk|GENERIC_REGULATION,10,synthesis_or_metric,claude-haiku-4-5-20251001,,0,0,False
+C30,comparative,pass,"DC-M and DC-L are the IS scenarios directly eligible for the Danish DH connection mandate (Varmeforsyningsloven) without additional regulatory steps, provided they are heat sources ≥1.0 MW located in municipal DH planning areas and the connection is economically feasible.",True,False,True,True,P3_regulatory_screening_dk|P4_incentives_it_whr|IT_DK_SUPPORT_COMPARE|ALL_REGULATORY_ARTICLES|GENERIC_REGULATION,17,,claude-haiku-4-5-20251001,high,1,4,True
+C31,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""country IT, support_type financial incentive: TEE/CB, detail 25.8 EUR/MWh; eligible: waste-heat-recovery heat-pump absorption-chiller"",
+    ""incentive Titoli di Efficienza Energetica / Certificati Bianchi, eur_per_mwh 25.8, eligible_technologies ['waste-heat-recovery', 'heat-pump', 'absorption-chiller'], governing_decrees ['DM 2021 (fondante)', 'DM MASE 2025']"",
+    ""country DK, support_type regulatory mandate: Varmeforsyningsloven — Heat Supply Act, detail Heat sources >1MW in municipal DH planning areas must connect to DH network if economically feasible"",
+    ""framework DK-NECP-2024, name Danish National Energy and Climate Plan 2024, target_year 2030, status final, notes Target 70% GHG reduction by 2030; DC waste heat in DH strategy; 4GDH transition""
+  ],
+  ""reasoning_chain"": [
+    ""Italy offers a financial incentive mechanism (TEE/CB) providing 25.8 EUR/MWh for waste-",False,False,False,False,IT_DK_SUPPORT_COMPARE|P4_incentives_it_whr|DK_NECP_TARGET|DK_DH_COMPARE|GENERIC_DC,9,borderline_derived,claude-haiku-4-5-20251001,,0,0,False
+C32,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""iso IT, name Italy"",
+    ""iso DK, name Denmark"",
+    ""reg_id EED-2023-1791, jurisdiction EU"",
+    ""reg_id DEL-REG-2024-1364, jurisdiction EU"",
+    ""reg_id IT-DM-2021-05-21, jurisdiction IT"",
+    ""reg_id IT-DD-2022-05-03, jurisdiction IT"",
+    ""reg_id IT-DD-2023-05-04, jurisdiction IT"",
+    ""reg_id IT-DD-2023-10-13, jurisdiction IT"",
+    ""reg_id IT-DM-MASE-2025-07-21, jurisdiction IT"",
+    ""country DK, support_type regulatory mandate: Varmeforsyningsloven — Heat Supply Act""
+  ],
+  ""reasoning_chain"": [
+    ""Count regulatory instruments for Italy: IT-DM-2021-05-21, IT-DD-2022-05-03, IT-DD-2023-05-04, IT-DD-2023-10-13, IT-DM-MASE-2025-07-21 = 5 instruments"",
+    ""Count regulatory instruments for Denmark: Var",False,False,False,True,GENERIC_COUNTRY|GENERIC_REGULATION|IT_DK_SUPPORT_COMPARE|ALL_REGULATORY_ARTICLES|P3_regulatory_screening_dk,19,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False
+C33,comparative,pass,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S7, datacenter DC-L, dc_scale Hyperscale, process Pasteurization, sector Food, Drink and Milk, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP"",
+    ""scenario S7, temp_band T1, process Pasteurization, process_temp_c 60.0, upgrade_tech direct_HX, available_kw 29500.0, supply_temp_c 47.6"",
+    ""scenario S8, datacenter DC-L, dc_scale Hyperscale, process Paper Drying, sector Pulp and Paper Industry, upgrade_tech HP, supply_c 70.0, required_c 90.0, status GAP"",
+    ""scenario S8, temp_band T2, process Paper Drying, process_temp_c 90.0, upgrade_tech HP, available_kw 29500.0, supply_temp_c 70.0"",
+    ""scenario S9, datacenter DC-L, dc_scale Hyperscale, process Sterilization, sector Food, Drink and Milk, upgrade_tech CO2_HTHP, supply_c 110.",False,False,False,True,P2_thermal_compatibility_all|P4_incentives_it_whr|P5_scenario_comparison_L|IT_DK_SUPPORT_COMPARE|P2_thermal_compatibility_S1,16,routing_under_retrieval,claude-haiku-4-5-20251001,,0,0,False

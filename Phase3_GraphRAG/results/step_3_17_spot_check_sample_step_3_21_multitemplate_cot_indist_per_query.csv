@@ -1,0 +1,62 @@
+question_id,status,em_final,third_judge_correct,third_judge_rationale,judge_model,final_answer,ground_truth,nl_question,human_verdict,human_notes
+A05,pass,True,True,"The model identifies all three required KPIs (TWH, ERF, EREUSE) matching the reference, with extra context being acceptable.",claude-opus-4-8,"Delegated Regulation 2024/1364, Article 2 defines the following KPIs for data center waste heat: TWH (T_CDU_return), ERF, and EREUSE.","TWH (Temperature of Waste Heat), ERF (Energy Reuse Factor) and EREUSE",What KPIs does Delegated Regulation 2024/1364 define for data center waste heat?,,
+B07,pass,True,True,"The model correctly identifies the Pulp and Paper Industry, matching the core fact in the reference.",claude-opus-4-8,Pulp and Paper Industry,Pulp and Paper Industry (Paper Drying process),What industrial sector does the target process in Scenario S2 belong to?,,
+A11,pass,True,True,"The model correctly identifies ISO 23247 as the Digital Twin manufacturing framework, matching the reference.",claude-opus-4-8,"ISO-23247 is the Digital Twin manufacturing framework issued by ISO in 2021, covering digital-twin-manufacturing.",Digital twin manufacturing framework,What does ISO 23247 cover?,,
+A01,pass,True,True,The model answer of 1.0 MW exactly matches the reference value.,claude-opus-4-8,1.0 MW,1.0 MW,What is the minimum IT power threshold for mandatory waste heat disclosure under EED Article 26?,,
+B18,pass,True,True,"The model identifies both core obligations: the DK DH connection mandate and the EED Art.26 waste heat disclosure, totaling two, matching the reference.",claude-opus-4-8,"Two mandatory regulatory obligations apply to a 5 MW data center operating in Denmark: (1) the DH Connection Mandate under Varmeforsyningsloven requiring connection to DH network if economically feasible, and (2) the mandatory annual waste heat capacity disclosure obligation.",2: EED Art.26 disclosure (EU) and DK DH connection mandate (national),How many mandatory regulatory obligations apply to a 5 MW data center operating in Denmark?,,
+C02,pass,False,True,"The model correctly identifies S3, S6, S9 as having the highest supply temperature of 110C, matching the reference.",claude-opus-4-8,"```json
+{
+  ""extracted_facts"": [
+    ""scenario S3, supply_c 110.0, process Sterilization"",
+    ""scenario S6, supply_c 110.0, process Sterilization"",
+    ""scenario S9, supply_c 110.0, process Sterilization"",
+    ""scenario S2, supply_c 70.0, process Paper Drying"",
+    ""scenario S5, supply_c 70.0, process Paper Drying"",
+    ""scenario S8, supply_c 70.0, process Paper Drying"",
+    ""scenario S1, supply_c 47.6, process Pasteurization"",
+    ""scenario S4, supply_c 47.6, process Pasteurization"",
+    ""scenario S7, supply_c 47.6, process Pasteurization""
+  ],
+  ""reasoning_chain"": [
+    ""Extract supply temperature values from all scenarios"",
+    ""Identify the maximum supply temperature across all scenarios: 110.0"",
+    ""Multiple scenarios (S3, S6, S9) share this maximum supply temperature of 110.0"",
+    ""All three scenarios with 110.0 supply temperature are for the Sterilization process""
+  ],
+  ""final_answer"":","S3, S6, S9 (CO2_HTHP upgrade, T_supply=110C) - all three DC scales with T3 band",Which scenario provides the highest supply temperature for industrial use?,,
+B24,pass,True,False,"The reference says it is partially feasible (pre-heating role possible since 47.6C is above the 35C return), while the model concludes a flat 'No', missing the core nuance of partial feasibility.",claude-opus-4-8,"```json
+{
+  ""extracted_facts"": [
+    ""generation 4GDH, name Danish 4th Generation DH (Generic), supply_temp_c 60.0"",
+    ""Enabling condition: DC LC T_supply ~47°C directly compatible without HP"",
+    ""scenario S1, datacenter DC-S, dc_scale Edge, process Pasteurization, upgrade_tech direct_HX, supply_c 47.6, required_c 60.0, status GAP""
+  ],
+  ""reasoning_chain"": [
+    ""DC-S is an Edge-scale datacenter with available waste heat supply temperature of 47.6°C (from S1)"",
+    ""Danish 4GDH requires a supply temperature of 60.0°C"",
+    ""The enabling condition states that DC LC with T_supply ~47°C is directly compatible without HP (heat pump)"",
+    ""However, DC-S supply of 47.6°C falls short of the required 60.0°C, creating a GAP"",
+    ""Therefore, direct connection without upgrade is not thermally feasible""
+  ],
+  ""final_answer"": ""No. DC-S has an available waste heat supply temperature of 47.6°C, but Danish 4GDH requires 60.0°C",Partially feasible: DC-S direct_HX supply 47.6C is below 4GDH supply 60C but above return 35C - pre-heating role possible,Is a direct connection between DC-S and Danish 4GDH thermally feasible without upgrade?,,
+B01,pass,False,True,"The model answer matches the core fact of the reference status (REQUIRES_UPGRADE), even though it omits the supporting numerical detail.",claude-opus-4-8,REQUIRES_UPGRADE,REQUIRES_UPGRADE: supply 47.6C < pasteurization requirement 60C,What is the thermal compatibility status of Scenario S1 using direct heat exchange?,,
+B23,pass,False,True,"The model correctly states the delta-T of 20 degrees Celsius, matching the reference gap.",claude-opus-4-8,20.0 degrees Celsius,20C gap (110C supply vs 130C required),What is the delta-T between HS-L-CO2_HTHP supply and sterilization process requirement?,,
+C09,pass,True,False,"The model's heat capacity values (590, 3840, 30000 kW) do not match the reference values for the HP upgrade (590, 3776, 29500 kW), with the mid and large scales contradicting the reference.",claude-opus-4-8,"```json
+{
+  ""extracted_facts"": [
+    ""id DC-S, scale Edge, waste_heat_kw 590"",
+    ""id DC-M, scale Mid-size, waste_heat_kw 3840"",
+    ""id DC-L, scale Hyperscale, waste_heat_kw 30000"",
+    ""scenario S2, datacenter DC-S, dc_scale Edge, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0"",
+    ""scenario S5, datacenter DC-M, dc_scale Mid-size, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0"",
+    ""scenario S8, datacenter DC-L, dc_scale Hyperscale, process Paper Drying, upgrade_tech HP, supply_c 70.0, required_c 90.0""
+  ],
+  ""reasoning_chain"": [
+    ""Paper Drying process uses HP (Heat Pump) upgrade technology across all three datacenter scales"",
+    ""Edge scale (DC-S) has waste_heat_kw 590"",
+    ""Mid-size scale (DC-M) has waste_heat_kw 3840"",
+    """,HS-S-HP: 590 kW; HS-M-HP: 3776 kW; HS-L-HP: 29500 kW - roughly proportional to IT capacity,How does the available heat capacity scale from Edge to Hyperscale with HP upgrade?,,
+B26,abstain,False,False,"The model abstained, which counts as incorrect against the reference answer of 9.",claude-opus-4-8,Not available in the knowledge graph.,9 (3 DC x 3 upgrade technologies),How many PRODUCES_HEAT relationships exist between DataCenter and HeatSource nodes?,,
+C22,abstain,False,False,"The model abstains, whereas the reference expects identifying CO2_HTHP as the closest option despite the 20C gap, which counts as an explicit abstention and is incorrect.",claude-opus-4-8,Not available in the knowledge graph.,CO2_HTHP (110C supply) is closest but still has 20C gap; no current technology in graph achieves direct compatibility,Which upgrade technology is most appropriate for a rubber vulcanization process requiring 130C?,,
+B21,abstain,False,False,"The model explicitly abstained, while the reference specifies the T2 (60-90C medium-grade band) link via IN_BAND.",claude-opus-4-8,Not available in the knowledge graph.,T2 (60-90C medium-grade band) via IN_BAND relationship,What temperature band is the heat source HS-M-HP linked to?,,
+C04,abstain,False,False,"The model abstained rather than identifying DC-S (Edge, 500 kW) as the exempt scale below the 1 MW threshold.",claude-opus-4-8,Not available in the knowledge graph.,"DC-S (Edge, 500 kW) - below 1 MW threshold; DC-M and DC-L must disclose",Which data center scale is exempt from EED Article 26 mandatory disclosure?,,
