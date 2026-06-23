@@ -8,19 +8,27 @@ Modalita disponibili:
   1. template  : Cypher templates pre-definiti per i 6 pattern query della tesi
   2. llm       : GraphCypherQAChain (LLM genera Cypher automaticamente)
   3. both      : esegue entrambe e confronta le risposte
+  4. v7        : multi-template retrieval (production path, FW9-ter)
+                 route_question_multi(n=5) -> union_template_rows -> prune_rows
+                 -> densify_context_v2 -> Haiku answer.
+                 Measured: +29 pp third-judge semantic on OOD held-out at
+                 constant generator (Section 6.2.2-ter of the thesis).
+                 Recommended mode for deployment.
 
 Uso:
     python step_3_2_graph_rag_pipeline.py
     python step_3_2_graph_rag_pipeline.py --mode template
     python step_3_2_graph_rag_pipeline.py --mode llm
     python step_3_2_graph_rag_pipeline.py --mode both
+    python step_3_2_graph_rag_pipeline.py --mode v7
 
 Requisiti:
-    pip install langchain langchain-community langchain-anthropic neo4j
+    pip install langchain langchain-community langchain-anthropic neo4j anthropic
     ANTHROPIC_API_KEY settata come variabile d'ambiente oppure nel file .env
 
 Riferimento wiki: [[phase-1-2-3-roadmap]] Passo 3.2,
                   [[graph-rag-entity-schema]] sezione "Multi-hop Query Patterns"
+                  [[lesson-3]] sezione 3.10-bis cross-link 6.4.1 + v7
 """
 
 from __future__ import annotations
@@ -264,13 +272,142 @@ def run_llm_queries(chain: GraphCypherQAChain, questions: list[str]) -> list[dic
     return results
 
 
+# --- v7 multi-template pipeline (FW9-ter production path) ---
+
+def _v7_answer_prompt(context: str, question: str) -> str:
+    """Strict-EM-preserving answer prompt used by the v7 pipeline.
+
+    Mirrors the canonical step_3_4 generator prompt so that the only experimental
+    variable when comparing canonical vs v7 is the retrieval (the answer template
+    stays constant).
+    """
+    return (
+        "You are answering a question about data centre waste heat recovery and "
+        "European energy regulation. Use ONLY the facts in the context block. "
+        "Preserve verbatim numeric values, article numbers, identifiers and unit "
+        "labels (do not paraphrase them). If the context does not contain enough "
+        "information to answer, reply with exactly 'Not available in the "
+        "knowledge graph.' and nothing else.\n\n"
+        f"Context:\n{context}\n\n"
+        f"Question: {question}\n\n"
+        "Answer:"
+    )
+
+
+def run_v7_queries(driver, questions: list[str], top_n: int = 5,
+                   row_cap: int = 40) -> list[dict]:
+    """Run the v7 multi-template retrieval path on a list of questions.
+
+    Per query the pipeline executes:
+      1. route_question_multi(question, n=top_n) -> list of template ids
+      2. for each template id, execute its Cypher and collect rows
+      3. union_template_rows + prune_rows (dedup, cap, lookup-pruning)
+      4. densify_context_v2 -> declarative one-fact-per-line context string
+      5. Anthropic Haiku call with the canonical step_3_4 answer prompt
+      6. emit answer + retrieval diagnostics for downstream eval
+
+    Cost: ~one Haiku call per question (~0.001 USD on the canonical 100-q
+    benchmark, ~0.003 USD on the OOD 38-q benchmark with longer contexts).
+
+    Returns:
+        List of dicts with keys: question, answer, pool, union_rows,
+        context_chars, elapsed_ms, error.
+    """
+    # Lazy imports: only needed in v7 mode, do not break template-only runs.
+    from prompt5_retrieval import (
+        densify_context_v2, prune_rows, route_question_multi,
+        union_template_rows,
+    )
+    from templates import CYPHER_TEMPLATES
+    try:
+        from anthropic import Anthropic
+    except ImportError:
+        print("anthropic SDK non disponibile. Run: pip install anthropic")
+        sys.exit(1)
+
+    client = Anthropic(api_key=ANTHROPIC_API_KEY)
+
+    results: list[dict] = []
+    with driver.session(database=NEO4J_DATABASE) as session:
+
+        def run_template(tid: str) -> list[dict]:
+            cypher = CYPHER_TEMPLATES.get(tid)
+            if not cypher:
+                return []
+            try:
+                return session.execute_read(lambda tx: tx.run(cypher).data())
+            except Exception:  # noqa: BLE001 - template error => empty rows
+                return []
+
+        for q in questions:
+            t0 = time.time()
+            try:
+                pool = route_question_multi(q, n=top_n, use_semantic=True)
+                union = prune_rows(
+                    union_template_rows(pool, run_template, row_cap=row_cap),
+                    q,
+                )
+                context = densify_context_v2(union, template_ids=pool)
+                response = client.messages.create(
+                    model=LLM_MODEL,
+                    max_tokens=512,
+                    temperature=LLM_TEMPERATURE,
+                    messages=[{"role": "user",
+                               "content": _v7_answer_prompt(context, q)}],
+                )
+                answer = response.content[0].text.strip()
+                elapsed = (time.time() - t0) * 1000
+                results.append({
+                    "question": q,
+                    "answer": answer,
+                    "pool": "|".join(pool),
+                    "union_rows": len(union),
+                    "context_chars": len(context),
+                    "elapsed_ms": elapsed,
+                    "error": None,
+                })
+                print(f"\n  Q: {q}")
+                print(f"  A: {answer[:200]}")
+                print(f"  Pool: {pool} | union_rows: {len(union)} | "
+                      f"context: {len(context)} chars | "
+                      f"elapsed: {elapsed:.0f}ms")
+            except Exception as exc:  # noqa: BLE001 - keep the run alive
+                elapsed = (time.time() - t0) * 1000
+                results.append({
+                    "question": q,
+                    "answer": "",
+                    "pool": "",
+                    "union_rows": 0,
+                    "context_chars": 0,
+                    "elapsed_ms": elapsed,
+                    "error": str(exc),
+                })
+                print(f"\n  Q: {q}")
+                print(f"  ERROR: {exc}")
+    return results
+
+
 # --- Entry point ---
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Phase 3 Graph RAG pipeline")
     parser.add_argument(
-        "--mode", choices=["template", "llm", "both"], default="template",
-        help="Execution mode (default: template)"
+        "--mode", choices=["template", "llm", "both", "v7"], default="template",
+        help=("Execution mode (default: template). "
+              "template: deterministic Cypher templates only; "
+              "llm: GraphCypherQAChain auto-Cypher; "
+              "both: template + llm side-by-side; "
+              "v7: multi-template retrieval + Haiku answer (production path, "
+              "+29 pp third-judge semantic on OOD held-out, FW9-ter, "
+              "thesis Section 6.2.2-ter).")
+    )
+    parser.add_argument(
+        "--v7-top-n", type=int, default=5,
+        help="v7 mode only: number of templates to union per query (default 5)."
+    )
+    parser.add_argument(
+        "--v7-row-cap", type=int, default=40,
+        help="v7 mode only: max rows after union before pruning (default 40)."
     )
     return parser.parse_args()
 
@@ -327,8 +464,30 @@ def main() -> None:
                     print(f"  LLM answer    : {lr['answer'][:150]}")
                     print(f"  LLM cypher    : {lr['cypher_generated'][:150]}")
 
+        if args.mode == "v7":
+            print("\n-- Running v7 multi-template pipeline -----------------------")
+            print(f"  top_n={args.v7_top_n}, row_cap={args.v7_row_cap}, "
+                  f"model={LLM_MODEL}")
+            print("  Reference: thesis Section 6.2.2-ter (FW9-ter probe), "
+                  "+29 pp third-judge semantic on OOD held-out at constant "
+                  "generator. Recommended production path.")
+
+            # Demo questions: same 7 nl_questions of the template set, so that
+            # the v7 output is directly comparable to template mode out of the box.
+            demo_questions = [
+                tpl["nl_question"] for tpl in QUERY_TEMPLATES.values()
+            ]
+            v7_results = run_v7_queries(
+                driver, demo_questions,
+                top_n=args.v7_top_n, row_cap=args.v7_row_cap,
+            )
+            n_ok = sum(1 for r in v7_results if r["error"] is None)
+            print(f"\n  v7 summary: {n_ok}/{len(v7_results)} questions answered.")
+
         print("\nDone.")
-        print("Next: step_3_3_benchmark_qa_design.py  (100-question dataset)")
+        print("Next: step_3_3_benchmark_qa_design.py  (100-question dataset) "
+              "or step_3_4_evaluation.py (canonical EM benchmark) or "
+              "step_3_20_multitemplate_indist.py (v7 in-distribution benchmark).")
 
     finally:
         driver.close()
