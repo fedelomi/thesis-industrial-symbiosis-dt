@@ -40,6 +40,7 @@ STEPS = [
     ("Step 4.7 state observation sensitivity",         "step_4_7_state_observation_sensitivity.py", False),
     ("Step 4.6 shielding LOO evaluation (heavy)",     "step_4_6_shielding_loo_evaluation.py", True),
     ("Step 4.8 delta_TC perturbation (scoped S5)",    "step_4_8_deltatc_perturbation.py",    False),
+    ("Step 4.12 BCa + Holm + Cohen regenerator",      "step_4_12_bca_holm_cohen.py",         False),
 ]
 
 

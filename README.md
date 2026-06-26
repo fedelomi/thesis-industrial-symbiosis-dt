@@ -72,7 +72,8 @@ The framework is evaluated across a **nine-scenario matrix** (3 DC scales x 3 ma
 | Layer 2 | Graph-RAG strict EM gap vs no-RAG | **+31.1 pp** (CI95 [+20.3, +33.7]) |
 | Layer 2 | Graph-RAG strict EM gap vs LLM-Cypher | **+10 pp** (CI95 [+3.8, +16.2]) |
 | Layer 2 | Routing stability under paraphrasing | **96%** at routing target 90% |
-| Layer 3 | PoA gap shielded vs unshielded (Mid_LC subgroup, n=30) | **+0.187** sig (CI95 [+0.04, +0.37]) |
+| Layer 3 | PoA gap shielded vs unshielded, aggregate 9 LC arm (n=90) | **+0.030** ns (CI95 BCa [-0.018, +0.078]) |
+| Layer 3 | PoA gap, Mid_LC subgroup (n=30, exploratory uncorrected) | +0.187 (CI95 [+0.04, +0.37]) — *exploratory, no multiplicity correction* |
 | Layer 3 | Convergence rate, shielded configuration | **100%** vs 32.8% baseline |
 | Layer 3 | Edge welfare under FW3 IR-floor (cloud validation) | **-7.6 to +202 kEUR/yr** |
 
@@ -212,7 +213,7 @@ Gap -> Research Question -> Objective -> Phase -> Metric
 | 1 | Privacy-preserving DT | W1_norm <= 0.05, NDE <= 0.20, multi-benchmark agreement 94.4% |
 | 2 | IS feasibility scoring | Top-3 invariance under +-20%, Sobol delta-dominant |
 | 3 | Regulatory Graph-RAG retrieval | EM strict +31.1 pp vs no-RAG, routing stability 96% |
-| 4 | Bilateral negotiation (RL + shielding) | PoA gap +0.187 sig, conv rate 100%, Shapley fairness 0.729 |
+| 4 | Bilateral negotiation (RL + shielding) | PoA gap +0.030 ns (aggregate); +0.187 Mid_LC subgroup (exploratory, uncorrected); Shapley gap -0.207 sig |
 
 ---
 
