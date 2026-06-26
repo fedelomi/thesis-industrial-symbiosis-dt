@@ -12,7 +12,10 @@ synthesis_fail set). This step measures it in-distribution at constant
 generator (Haiku), closing the chain: graph healthy -> routing was the
 bottleneck -> fix already built.
 
-Pre-registered predictions (2026-06-13, before the run):
+Ex-ante predictions (formulated before running the experiment; documented in
+the experiment design notes on 2026-06-13; committed alongside outcomes in the
+audit trail -- git commit timestamps reflect the documentation event, not the
+moment the predictions were formed):
   P1. On the 29 routing-classified queries, at least 40% flip to a context
       that contains the ground-truth facts (em of context vs GT).
   P2. Overall EM strict (NL answers) rises above the single-template NL

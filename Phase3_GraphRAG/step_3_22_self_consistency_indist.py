@@ -14,7 +14,10 @@ sampling (Wang et al. 2023) addresses this by drawing N independent samples
 at temperature > 0 and taking the majority vote on the final_answer field,
 trading API cost for variance reduction.
 
-Pre-registered predictions (2026-06-23, before the run):
+Ex-ante predictions (formulated before running the experiment; documented in
+the experiment design notes on 2026-06-23; committed alongside outcomes in the
+audit trail -- git commit timestamps reflect the documentation event, not the
+moment the predictions were formed):
   P1. Overall EM semantic rises from 0.73 (step_3_21) toward 0.75-0.80.
   P2. The lift is concentrated on Cat C (comparative): 0.48 -> 0.55-0.65.
   P3. The JSON parse failure rate of step_3_21 (0.41) drops to <0.20

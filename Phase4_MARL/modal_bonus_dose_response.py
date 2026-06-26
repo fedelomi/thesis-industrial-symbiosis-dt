@@ -12,7 +12,10 @@ welfare is measured at each dose. ``bonus_scale=1.0`` reproduces canonical D
 (validation anchor); ``bonus_scale=0.0`` is the previously missing
 "shield-only, no bonus" ablation arm.
 
-Pre-registered predictions (2026-06-13, before the run):
+Ex-ante predictions (formulated before running the experiment; documented in
+the experiment design notes on 2026-06-13; committed alongside outcomes in the
+audit trail — git commit timestamps reflect the documentation event, not the
+moment the predictions were formed):
     P1. ``welfare_dc`` on Edge decreases monotonically with ``bonus_scale``.
     P2. The zero crossing of ``welfare_dc`` lies between scale 0.5 and 1.0.
     P3. At scale 0.0 (shield-only) the Edge welfare is statistically close to
@@ -401,7 +404,7 @@ def main(
     """Dispatch the dose-response jobs to Modal and aggregate the results.
 
     Args:
-        scales: Comma-separated bonus scales (default: the pre-registered
+        scales: Comma-separated bonus scales (default: the ex-ante
             six-point grid 0,0.25,0.5,0.75,1,1.5).
         seeds: Seeds per (scale, scenario) cell.
         timesteps: PPO budget per run.

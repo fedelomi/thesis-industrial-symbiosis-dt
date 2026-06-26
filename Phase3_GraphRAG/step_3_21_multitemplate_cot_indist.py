@@ -15,7 +15,10 @@ composed answer). This step measures whether the structured-CoT lever
 provides a marginal lift over the flat prompt of step_3_20 at the same
 retrieval (multi-template top-5 union + prune + densify).
 
-Pre-registered predictions (2026-06-23, before the run):
+Ex-ante predictions (formulated before running the experiment; documented in
+the experiment design notes on 2026-06-23; committed alongside outcomes in the
+audit trail -- git commit timestamps reflect the documentation event, not the
+moment the predictions were formed):
   P1. Overall EM semantic rises from 0.65 (step_3_20) toward 0.70-0.75.
   P2. The lift is concentrated on multi-hop (Cat B) and comparative (Cat C)
       where single-pass synthesis is the bottleneck; factual (Cat A) stays
