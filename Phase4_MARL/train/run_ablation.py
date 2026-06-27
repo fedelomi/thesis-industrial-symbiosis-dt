@@ -149,23 +149,36 @@ def _make_env(scenario_id: str, config: str, seed: int) -> ISNegotiationEnv:
     )
 
 
+CANONICAL_HYPERPARAMS = {
+    "n_steps": 512,
+    "batch_size": 64,
+    "n_epochs": 5,
+    "learning_rate": 3e-4,
+    "ent_coef": 0.0,  # SB3 default; explicit for clarity
+    "policy": "MlpPolicy",
+    "vec_env": "DummyVecEnv(n=2)",
+}
+
+
 def _train_quick(
     scenario_id: str,
     config: str,
     seed: int,
     total_timesteps: int,
 ) -> PPO:
+    # B-1 (Opus audit): best-effort determinism for this seed.
+    _set_global_seed(seed)
     env_fns = [
         (lambda s=seed + i: Monitor(_make_env(scenario_id, config, s))) for i in range(2)
     ]
     vec_env = DummyVecEnv(env_fns)
     model = PPO(
-        policy="MlpPolicy",
+        policy=CANONICAL_HYPERPARAMS["policy"],
         env=vec_env,
-        n_steps=512,
-        batch_size=64,
-        n_epochs=5,
-        learning_rate=3e-4,
+        n_steps=CANONICAL_HYPERPARAMS["n_steps"],
+        batch_size=CANONICAL_HYPERPARAMS["batch_size"],
+        n_epochs=CANONICAL_HYPERPARAMS["n_epochs"],
+        learning_rate=CANONICAL_HYPERPARAMS["learning_rate"],
         seed=seed,
         verbose=0,
     )
@@ -277,6 +290,15 @@ def run_ablation(
         writer.writeheader()
         for r in records:
             writer.writerow(dataclasses.asdict(r))
+
+    # B-3 (Opus audit): write the provenance sidecar JSON next to the CSV.
+    _emit_provenance(
+        csv_path=out_path,
+        hyperparams=CANONICAL_HYPERPARAMS,
+        seeds=list(range(seeds)),
+        scenarios=scenario_ids,
+        total_timesteps=total_timesteps,
+    )
 
     _print_summary(records)
     return out_path

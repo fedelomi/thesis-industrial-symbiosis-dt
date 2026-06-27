@@ -74,7 +74,7 @@ The framework is evaluated across a **nine-scenario matrix** (3 DC scales x 3 ma
 | Layer 2 | Routing stability under paraphrasing | **96%** at routing target 90% |
 | Layer 3 | PoA gap shielded vs unshielded, aggregate 9 LC arm (n=90) | **+0.030** ns (CI95 BCa [-0.018, +0.078]) |
 | Layer 3 | PoA gap, Mid_LC subgroup (n=30, exploratory uncorrected) | +0.187 (CI95 [+0.04, +0.37]) — *exploratory, no multiplicity correction* |
-| Layer 3 | Convergence rate, shielded configuration | **100%** vs 32.8% baseline |
+| Layer 3 | Convergence rate, shielded configuration | **100%** (LC arm, n=90) — 32.8% baseline refers to the A0 (no-shield) configuration on the S_AIR_M out-of-distribution airside arm (n=10) where the unshielded PPO collapses under high reward variance; A0 already converges 100% on the LC arm |
 | Layer 3 | Edge welfare under FW3 IR-floor (cloud validation) | **-7.6 to +202 kEUR/yr** |
 
 Every numerical result in the thesis corresponds to a committed CSV under `results/` inside the relevant phase, so the manuscript and the codebase are traceable end to end.

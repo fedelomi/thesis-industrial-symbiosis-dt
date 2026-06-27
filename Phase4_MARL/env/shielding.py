@@ -58,10 +58,17 @@ class ShieldingLayer:
     ----------
     reward_params:
         Reward configuration (used for amortisation and operating hours).
-    no_op_action:
-        Action returned when a BLOCKED rule fires. Defaults to a status-quo
-        offer (Q=0, T=0, price=0, duration=1, upgrade=correct) which yields
-        zero welfare and is interpreted as "no agreement this round".
+
+    Notes
+    -----
+    Earlier drafts described a ``no_op_action`` parameter that returned a
+    status-quo offer when a BLOCKED rule fired. The implementation instead
+    **projects** the action onto the feasible-set boundary (see ``apply``):
+    R1 sets ``action[0] = q_available`` (Q clipped to capacity), R2 sets
+    ``action[1] = t_min`` (T clipped to lower bound). The projection is the
+    canonical pre-step shield documented in Section 4.4.2 of the manuscript;
+    the ``no_op_action`` docstring was stale and has been removed (Opus 4.8
+    audit, A3 finding).
     """
 
     def __init__(
