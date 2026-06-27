@@ -78,16 +78,18 @@ CYPHER_TEMPLATES: dict[str, str] = {
     # P3 — Screening normativo: obblighi DK per DC > 1 MW
     # ------------------------------------------------------------------
     "P3_regulatory_screening_dk": """
+        // Compute the >=1 MW DC list ONCE (no cartesian product across rows).
+        MATCH (dc:DataCenter) WHERE dc.it_capacity_kw >= 1000
+        WITH collect(dc.id) AS compliant_dcs
         MATCH (c:Country {iso: 'DK'})-[:HAS_FRAMEWORK]->(pf:PolicyFramework)
         MATCH (pf)-[:CONTAINS]->(a:RegulatoryArticle)
         WHERE a.obligation_type = 'mandatory'
-        MATCH (dc:DataCenter) WHERE dc.it_capacity_kw >= 1000
         RETURN c.name AS country,
                pf.name AS framework,
                a.title AS obligation,
                a.threshold_value AS threshold_mw,
                a.summary AS summary,
-               collect(dc.id) AS compliant_dcs
+               compliant_dcs
     """,
 
     # ------------------------------------------------------------------
@@ -126,8 +128,11 @@ CYPHER_TEMPLATES: dict[str, str] = {
     # P6 — Path IS completo: DC -> HeatSource -> Band -> Process -> Sector
     # ------------------------------------------------------------------
     "P6_full_is_path": """
-        MATCH path = (dc:DataCenter)-[:PRODUCES_HEAT]->(hs:HeatSource)-[:IN_BAND]->(tb:TemperatureBand)
-        MATCH (s:Scenario)-[:USES_DC]->(dc)
+        // Use the canonical Scenario-HAS_HEATSOURCE edge (every other template
+        // reaches HeatSource via Scenario). PRODUCES_HEAT was a legacy pattern
+        // that may not be ingested in current graphs.
+        MATCH (s:Scenario)-[:USES_DC]->(dc:DataCenter)
+        MATCH (s)-[:HAS_HEATSOURCE]->(hs:HeatSource)-[:IN_BAND]->(tb:TemperatureBand)
         MATCH (s)-[:TARGETS_PROCESS]->(mp:ManufacturingProcess)-[:PART_OF]->(sector:IndustrialSector)
         RETURN dc.id AS datacenter,
                dc.scale AS dc_scale,

@@ -1,0 +1,57 @@
+# Root requirements.txt - Tesi Master PoliTo 2026
+# Federico Lomi, A.A. 2025-2026.
+#
+# Consolidates dependencies across the four phases for a fresh clone + install:
+#   pip install -r requirements.txt
+#
+# Pinning strategy:
+#   ==  for libraries whose minor releases can change default values that
+#       affect canonical numbers (numpy, pandas, scipy, stable-baselines3,
+#       gymnasium, anthropic, neo4j).
+#   ~=  ("compatible release", PEP 440) for libraries where minor bumps are
+#       safe; equivalent to >=X.Y, <X+1.0.
+#
+# These versions match the README declared stack (Python 3.11, SB3 2.1, etc.)
+# and the venv that produced the canonical CSVs of Chapter 5. The per-phase
+# `Phase{N}/requirements.txt` files remain as the source of truth for which
+# Phase depends on which library; this root file is the bundle entry point
+# advertised in Section 4.5 of the manuscript and addresses Opus 4.8 audit
+# finding C-4 / B-2 (root requirements + version pinning).
+#
+# Python target: 3.11 (also tested on 3.12). Not tested on 3.10 or 3.13.
+
+# --- Phase 1 (Physical-DT, RC thermal model + bootstrap) ---
+numpy==1.26.4
+pandas==2.2.1
+scipy==1.11.4
+coolprop==6.6.0
+
+# --- Phase 2 (IS-Match Score + Saltelli-Sobol + PROMETHEE crosscheck) ---
+SALib~=1.5
+pyDecision~=4.6
+
+# --- Phase 3 (Graph-RAG: Neo4j + LangChain + Anthropic SDK) ---
+neo4j==5.16.0
+langchain~=0.2.5
+langchain-community~=0.2.5
+langchain-anthropic~=0.1.15
+anthropic==0.34.2
+ragas~=0.1.7
+datasets~=2.16
+scikit-learn~=1.3.2
+
+# --- Phase 4 (MARL: Gymnasium + Stable-Baselines3 + cvxpy) ---
+gymnasium==0.29.1
+stable-baselines3==2.1.0
+cvxpy~=1.4.3
+tensorboard~=2.16
+
+# --- Shared (config, testing, robustness layer) ---
+python-dotenv~=1.0.1
+pytest~=8.0
+
+# --- Optional: SentenceTransformer backend for semantic_router.py ---
+# Heavier dependency (~700 MB with torch); enable only if you set
+# SEMANTIC_ROUTER_BACKEND=st in the env. The default TF-IDF backend
+# (scikit-learn above) is sufficient for the canonical results.
+# sentence-transformers~=2.7

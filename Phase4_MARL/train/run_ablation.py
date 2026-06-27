@@ -21,9 +21,14 @@ from __future__ import annotations
 import argparse
 import csv
 import dataclasses
+import json
 import logging
+import os
+import random
+import subprocess
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -39,9 +44,77 @@ from env.is_negotiation_env import ISNegotiationEnv
 from env.shielding import ShieldingLayer
 from stable_baselines3 import PPO
 from stable_baselines3.common.monitor import Monitor
+from stable_baselines3.common.utils import set_random_seed
 from stable_baselines3.common.vec_env import DummyVecEnv
 
 logger = logging.getLogger("phase4.ablation")
+
+
+# --- B-1 (Opus audit): best-effort determinism setup ---
+def _set_global_seed(seed: int) -> None:
+    """Set process-global seeds for reproducibility.
+
+    Best-effort: seeds python, numpy, torch and the SB3 utility. Calls
+    `torch.use_deterministic_algorithms(True)` when CUDA permits. The PPO
+    training step under SubprocVecEnv on multi-CPU is **not** bit-exact
+    across machines even with this setup; see Section 4.5 of the manuscript
+    for the honest reproducibility claim.
+    """
+    random.seed(seed)
+    np.random.seed(seed)
+    os.environ.setdefault("PYTHONHASHSEED", str(seed))
+    try:
+        set_random_seed(seed)
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        import torch
+        torch.manual_seed(seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(seed)
+        try:
+            torch.use_deterministic_algorithms(True, warn_only=True)
+        except Exception:  # noqa: BLE001
+            pass
+    except ImportError:
+        pass
+
+
+# --- B-3 (Opus audit): CSV provenance sidecar ---
+def _git_sha(repo_root: Path) -> str:
+    """Return the short git SHA of the repo, or 'no-git' if unavailable."""
+    try:
+        out = subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=repo_root,
+            stderr=subprocess.DEVNULL,
+        )
+        return out.decode().strip()
+    except Exception:  # noqa: BLE001
+        return "no-git"
+
+
+def _emit_provenance(csv_path: Path, hyperparams: Dict, seeds: List[int],
+                     scenarios: List[str], total_timesteps: int) -> None:
+    """Write a sidecar `.provenance.json` alongside the canonical CSV.
+
+    Captures the metadata an external reviewer needs to identify the run:
+    timestamp (UTC), git SHA, PPO hyperparameters, seed list, scenario list,
+    total timesteps. Lives next to the CSV so a single `ls` shows both.
+    """
+    sidecar = csv_path.with_suffix(".provenance.json")
+    payload = {
+        "csv_artefact": csv_path.name,
+        "generated_utc": datetime.now(timezone.utc).isoformat(),
+        "git_sha": _git_sha(PHASE4_ROOT.parent.parent),
+        "trainer": "run_ablation.py::_train_quick",
+        "ppo_hyperparameters": hyperparams,
+        "seeds": seeds,
+        "scenarios": scenarios,
+        "total_timesteps_per_seed": total_timesteps,
+        "audit_finding": "B-3 (Opus 4.8 audit, 2026-06-25)",
+    }
+    sidecar.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 CONFIGS = ("A0", "D")
 DEFAULT_TIMESTEPS = 50_000  # shorter than the pilot training for the ablation

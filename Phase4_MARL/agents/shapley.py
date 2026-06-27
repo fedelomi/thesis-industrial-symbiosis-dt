@@ -52,16 +52,38 @@ def shapley_value_bilateral(
     return phi_dc, phi_mfg
 
 
-def shapley_fairness_ratio(phi_dc: float, phi_mfg: float) -> float:
+def shapley_fairness_ratio(phi_dc: float, phi_mfg: float,
+                           sign_aware: bool = False) -> float:
     """Fairness ratio ``min / max`` of the Shapley allocations.
 
-    Returns a value in ``[0, 1]`` (or 0 if both are zero). Higher means more
-    balanced. Phase 4 target (Cap. 5.3): ratio > 0.8.
+    Returns a value in ``[0, 1]``. Higher means more balanced.
+    Phase 4 target (Cap. 5.3): ratio > 0.8.
 
-    Negative allocations are treated by absolute value to keep the ratio
-    interpretable as "balance"; an allocation pair (-10, +10) is *not*
-    balanced from a participation-incentive standpoint.
+    Two definitions are supported:
+
+    * ``sign_aware=False`` (default, **canonical Chapter 5 behavior**): uses
+      ``min(|phi_dc|, |phi_mfg|) / max(|phi_dc|, |phi_mfg|)``. Frozen for
+      backward compatibility with the canonical PoA/Shapley CIs of Section 5.5.
+      Caveat: this definition reports ``(-10, +10)`` as fairness 1.0, which
+      is *not* balanced from a participation-incentive standpoint.
+
+    * ``sign_aware=True`` (recommended for defense and follow-up): if the two
+      allocations have opposite sign, the ratio collapses to 0 (one party
+      pays for the other to gain, opposite of participation balance). If both
+      are non-negative (or both non-positive), behaves as the canonical
+      definition on absolute values. Use this for the FW3 IR-floor analysis
+      and any sign-sensitive subgroup interpretation.
+
+    The Opus 4.8 independent audit (A4) flagged the abs-based default as an
+    edge-case distortion. The canonical -0.207 Shapley gap of Section 5.5 was
+    measured under ``sign_aware=False``; re-evaluation under ``sign_aware=True``
+    is a non-blocking confirmatory diagnostic and is recommended as part of
+    FW3 cloud validation.
     """
+    if sign_aware:
+        # Opposite signs => one party gains, the other loses => fairness 0.
+        if (phi_dc < 0.0 < phi_mfg) or (phi_mfg < 0.0 < phi_dc):
+            return 0.0
     a, b = abs(phi_dc), abs(phi_mfg)
     if a == 0.0 and b == 0.0:
         return 0.0
