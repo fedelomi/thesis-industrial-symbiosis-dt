@@ -5,11 +5,16 @@ __pycache__/
 *.pyd
 .Python
 
-# Virtual environments (root-anchored: only top-level dirs are virtualenvs;
-# nested ``env/`` directories such as ``Phase4/env/`` are real package code).
+# Virtual environments (root-anchored: only top-level ``env/`` dirs are
+# virtualenvs; nested ``env/`` directories such as ``Phase4_MARL/env/`` are
+# real package code). ``venv`` is never a legitimate package name, so the
+# nested pattern ``**/venv/`` is safe and covers Phase3_GraphRAG/venv/ etc.
+# (Opus 4.8 audit, B4 finding: fresh-clone hygiene.)
 /venv/
 /.venv/
 /_venv*/
+**/venv/
+**/.venv/
 /env/
 /ENV/
 

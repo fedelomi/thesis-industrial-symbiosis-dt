@@ -149,6 +149,14 @@ Scripts follow the convention `step_X_Y[_Z]_<descriptor>.py` where X encodes the
 
 ## Quick start
 
+**Prerequisites for full reproduction (Phases 1, 2, 4 only require Python):**
+
+- **Python 3.11** (also tested on 3.12; not tested on 3.10 or 3.13).
+- **Neo4j Desktop 5.x** with the local DBMS `Graph_RAG_FL` running at `bolt://127.0.0.1:7687` (required for Phase 3 only; Phases 1, 2 and 4 do not touch Neo4j). Re-ingest the corpus once via `python Phase3_GraphRAG/step_3_0_ingest_corpus_F.py`.
+- **`ANTHROPIC_API_KEY`** in `Phase3_GraphRAG/.env` (required only for the generative rendering step of Phase 3; the canonical EM benchmark in context-only mode runs without an API key, see Section 5.4).
+
+Phases 1, 2 and 4 are fully self-contained and reproduce from a clean Python venv without external services. Phase 3 requires the two external dependencies above; if either is missing, the ingest and benchmark scripts fail loud at startup rather than producing degraded numbers (audit B4 mitigation).
+
 ```bash
 git clone https://github.com/fedelomi/thesis-industrial-symbiosis-dt.git
 cd thesis-industrial-symbiosis-dt

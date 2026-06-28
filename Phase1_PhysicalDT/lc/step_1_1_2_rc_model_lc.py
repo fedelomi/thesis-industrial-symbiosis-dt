@@ -171,18 +171,34 @@ def compute_exergy_vectorized(
     # Safe temperature array
     T_safe = np.clip(theta_K_arr, 273.17, 368.15)
 
-    # Vectorised CoolProp calls (CoolProp supports 1D numpy arrays)
+    # Vectorised CoolProp calls (CoolProp supports 1D numpy arrays).
+    # Narrow except to the exception classes that CoolProp PropsSI actually
+    # raises (ValueError on invalid state, TypeError on bad input shape) plus
+    # numpy ArithmeticError on overflow. A bare ``except Exception`` would
+    # silently swallow an upstream API drift (e.g. PropsSI rename) and zero
+    # out a whole year of exergy; failing loud is preferable in that case.
+    # (Opus 4.8 audit, D2 finding.)
     try:
         P_arr = np.full(N, 101325.0)
         h_arr = PropsSI('H', 'T', T_safe, 'P', P_arr, 'Water')
         s_arr = PropsSI('S', 'T', T_safe, 'P', P_arr, 'Water')
-    except Exception as exc:
+    except (ValueError, TypeError, ArithmeticError) as exc:
         logger.warning(
             "Vectorised CoolProp call failed for N=%d samples in T_safe range [%.2f, %.2f] K "
             "(returning zero-exergy array). Error: %s",
             N, float(T_safe.min()), float(T_safe.max()), exc,
         )
         return out
+
+    # Defensive non-degeneracy assertion: a successful CoolProp call should
+    # produce non-zero enthalpy spread across the year-long input. If the
+    # returned array is uniformly zero, something silent went wrong upstream.
+    if np.all(h_arr == 0.0):
+        raise RuntimeError(
+            "compute_exergy_vectorized: CoolProp returned a uniformly-zero "
+            "enthalpy array. This is a silent-fail signature, refusing to "
+            "proceed. Inspect CoolProp version vs requirements.txt pin."
+        )
 
     dh = h_arr - h0
     ds = s_arr - s0
