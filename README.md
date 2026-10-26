@@ -1,9 +1,13 @@
 # Industrial Symbiosis via Digital Twins and Agentic AI
-### MSc Thesis — Data Centre Waste Heat Recovery for Manufacturing Processes
+### MSc Thesis: Data Centre Waste Heat Recovery for Manufacturing Processes
 
-> **Politecnico di Torino — Laurea Magistrale in Ingegneria della Produzione Industriale e dell'Innovazione Tecnologica**
+> **Politecnico di Torino, Laurea Magistrale in Ingegneria della Produzione Industriale e dell'Innovazione Tecnologica**
 > A.A. 2025-2026 · Author: Federico Lomi
 > Supervisors: Prof. Alessandro Simeone (Loughborough University), Prof. Li Yi, Prof. Gongzhuang Peng
+
+![Python](https://img.shields.io/badge/python-3.11-blue) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+
+**Want the short version?** The [interactive demo](https://github.com/fedelomi/datacenter-waste-heat-demo) shows the framework's results on one page, without installing Neo4j or retraining any agent.
 
 ---
 
@@ -69,12 +73,13 @@ The framework is evaluated across a **nine-scenario matrix** (3 DC scales x 3 ma
 | Layer 1 | Multi-benchmark agreement on residual scope-DT metrics | **94.4%** vs 80% threshold |
 | Layer 1 | Lag-1 autocorrelation preservation of synthetic export | **98%** across 3 DC scales |
 | Layer 1 | Wasserstein-1 marginal fidelity vs target 0.05 | passes by > 1 order of magnitude |
-| Layer 2 | Graph-RAG strict EM gap vs no-RAG | **+31.1 pp** (CI95 [+20.3, +33.7]) |
-| Layer 2 | Graph-RAG strict EM gap vs LLM-Cypher | **+10 pp** (CI95 [+3.8, +16.2]) |
+| Layer 2 | Graph-RAG exact match, strict keyword / semantic (cross-model judge) | **0.59** / **0.41** |
+| Layer 2 | Graph-RAG strict EM gap vs no-RAG | **+27 pp** (CI95 [+20.3, +33.7]); +23 pp semantic |
+| Layer 2 | Graph-RAG strict EM gap vs LLM-Cypher | **+10 pp** (CI95 [+3.8, +16.2]); +10 pp semantic |
 | Layer 2 | Routing stability under paraphrasing | **96%** at routing target 90% |
 | Layer 3 | PoA gap shielded vs unshielded, aggregate 9 LC arm (n=90) | **+0.030** ns (CI95 BCa [-0.018, +0.078]) |
-| Layer 3 | PoA gap, Mid_LC subgroup (n=30, exploratory uncorrected) | +0.187 (CI95 [+0.04, +0.37]) — *exploratory, no multiplicity correction* |
-| Layer 3 | Convergence rate, shielded configuration | **100%** (LC arm, n=90) — 32.8% baseline refers to the A0 (no-shield) configuration on the S_AIR_M out-of-distribution airside arm (n=10) where the unshielded PPO collapses under high reward variance; A0 already converges 100% on the LC arm |
+| Layer 3 | PoA gap, Mid_LC subgroup (n=30, exploratory uncorrected) | +0.187 (CI95 [+0.04, +0.37]), *exploratory, no multiplicity correction* |
+| Layer 3 | Convergence rate, shielded configuration | **100%** on the LC arm (n=90), same as the unshielded A0. On the out-of-distribution airside arm S_AIR_M (n=10) the shielded configuration drops to **41%** (0.407, CI95 [0.255, 0.558]) while A0 stays at 100% |
 | Layer 3 | Edge welfare under FW3 IR-floor (cloud validation) | **-7.6 to +202 kEUR/yr** |
 
 Every numerical result in the thesis corresponds to a committed CSV under `results/` inside the relevant phase, so the manuscript and the codebase are traceable end to end.

@@ -93,3 +93,9 @@ Phase3_GraphRAG/results/_*
 
 # Phase 3 cache directory
 Phase3_GraphRAG/cache/
+
+# Internal working notes and agent configuration (kept locally, not published)
+.claude/
+CLAUDE.md
+review_report.md
+commit_audit_*.sh
